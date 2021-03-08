@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/xmp-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/xmp-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/xmp-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/xmp-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vps,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="什么是 ChinaNet,CN2,GT,GIA?前言本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，ChinaNet，CN2，CN2 GT，CN2 GIA 等线路。  **转载自老鬼的博客** 原文链接: &amp;lt;https://www.oldkin">
+<meta name="keywords" content="vps">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是 ChinaNet,CN2,GT,GIA">
+<meta property="og:url" content="https://xmp2008.github.io/xmp-blog/2020/04/16/什么是-ChinaNet-CN2-GT-GIA/index.html">
+<meta property="og:site_name" content="xmp2008的博客">
+<meta property="og:description" content="什么是 ChinaNet,CN2,GT,GIA?前言本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，ChinaNet，CN2，CN2 GT，CN2 GIA 等线路。  **转载自老鬼的博客** 原文链接: &amp;lt;https://www.oldkin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.14.34.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/pidetail12.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.27.30.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.24.17.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.32.55.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.20.23.png?w=680">
+<meta property="og:updated_time" content="2021-03-08T01:45:53.403Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是 ChinaNet,CN2,GT,GIA">
+<meta name="twitter:description" content="什么是 ChinaNet,CN2,GT,GIA?前言本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，ChinaNet，CN2，CN2 GT，CN2 GIA 等线路。  **转载自老鬼的博客** 原文链接: &amp;lt;https://www.oldkin">
+<meta name="twitter:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.14.34.png?w=680">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/xmp-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2020/04/16/什么是-ChinaNet-CN2-GT-GIA/">
+
+
+
+
+
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+  <title>什么是 ChinaNet,CN2,GT,GIA | xmp2008的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/xmp-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xmp2008的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三十而立，自强不息</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/xmp-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/xmp-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/xmp-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/xmp-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/xmp-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/xmp-blog/2020/04/16/什么是-ChinaNet-CN2-GT-GIA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xmp2008">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/xmp-blog/images/photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xmp2008的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">什么是 ChinaNet,CN2,GT,GIA</h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-16T18:07:19+08:00">
+                2020-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xmp-blog/categories/vps/" itemprop="url" rel="index">
+                    <span itemprop="name">vps</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是-ChinaNet-CN2-GT-GIA"><a href="#什么是-ChinaNet-CN2-GT-GIA" class="headerlink" title="什么是 ChinaNet,CN2,GT,GIA?"></a>什么是 ChinaNet,CN2,GT,GIA?</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，<a href="https://www.oldking.net/tag/chinanet/" target="_blank" rel="noopener">ChinaNet</a>，<a href="https://www.oldking.net/tag/cn2/" target="_blank" rel="noopener">CN2</a>，<a href="https://www.oldking.net/tag/cn2-gt/" target="_blank" rel="noopener">CN2 GT</a>，<a href="https://www.oldking.net/tag/cn2-gia/" target="_blank" rel="noopener">CN2 GIA</a> 等线路。</p>
+<blockquote>
+<pre><code>**转载自老鬼的博客** 原文链接: &lt;https://www.oldking.net/751.html#%E5%88%86%E7%B1%BB&gt;
+</code></pre></blockquote>
+<h2 id="1、基本"><a href="#1、基本" class="headerlink" title="1、基本"></a>1、基本</h2><p>中国电信(China Telecom)，是中国最大的互联服务提供商，截止2018年1月，中国电信的总出口带宽数为 3.6 Tbps，为互联网用户提供高速稳定的全中国资源访问服务。目前，中国电信骨干网的三大国际出口分别是，北京，上海，广州，全国的出口网络最后都会汇集到这三个出口点。</p>
+<h2 id="2、分类"><a href="#2、分类" class="headerlink" title="2、分类"></a>2、分类</h2><h3 id="ChinaNet"><a href="#ChinaNet" class="headerlink" title="ChinaNet"></a>ChinaNet</h3><p>全球最大的中文资源互联网络 ChinaNet，也叫 163 骨干网，AS4134，要纠正的一点是，很多人缪传一个”CN1”的叫法，这是毫无根据的，Chinatelecom Next Carrier Network，简称 CNCN，再简化为 CN2，CN1 这种叫法可能是看着 CN2 类比出来的，但是官方没有过这种叫法。但如果看到这种说法，你可能知道说的是 ChinaNet 也叫 163 网络。ChinaNet 为超过 8000 万宽带用户服务，同时向全球用户提供超过70%的中文网站的中文互联网资讯。绝大部分的出口带宽都是这种网络，ChinaNet 主要定位于承载普通质量的互联网业务，因为他基建早，带宽大，且足够便宜。<br>我们来用 Traceroute 路由表来看一下走 163 网络的出口路由情况。</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.14.34.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">ChinaNet</p>
+<p>可以看到无论是从出发地点到省级接口，省级接口到上海海外出口，然后到美国，走的都是 AS4134，ChinaNet 网络。</p>
+<h3 id="Chinatelecom-Next-Carrier-Network-CN2"><a href="#Chinatelecom-Next-Carrier-Network-CN2" class="headerlink" title="Chinatelecom Next Carrier Network(CN2)"></a>Chinatelecom Next Carrier Network(CN2)</h3><p>CN2，即是 ChinaNet 之后由中国电信发展的下一代承载网，AS4809，主要是为了提供更高质量要求的中国电信骨干承载网络而建立的工程。运营全球互联网转接服务，能够实现欧洲、北美和亚洲之间高速、大容量、安全、稳定转接服务。CN2 相比较 163 网络，带宽小得多，小是相对的因为相对受众少，但稳定高速，定位于承载企业级别的 VPN 业务，常用于政府，企业，金融类、游戏类等对延时敏感的业务。它提供更高质量的网络服务，接入 CN2 网络价格普遍要比 ChinaNet 贵上许多。</p>
+<p>下图为 2016 年由中国电信国际有限公司官网提供的全球 CN2 接入点</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/pidetail12.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_Nodes</p>
+<p>下图为截止 2018 年 8 月中国电信国际有限公司官网提供的全球 GIS 接入点</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.27.30.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">GIS_Nodes</p>
+<p>可以看到中国大陆有四个出口点，北上广三个，另外还有一个乌鲁木齐，比较少见的哈塞克斯坦 CN2 网络，走的就是乌鲁木齐出口，即使这个也会先走北上广三个点，再跳到乌鲁木齐出口。<br>CN2 上又有很多的产品，主要包括 CN2 GT，CN2 GIA 两类。这里是否叫 CN2 GT 和 CN2 GIA 待考证，因为之前还流行叫半程 CN2，和全程 CN2 的叫法，可以肯定的是有两种运行在 CN2 的服务，一种价格便宜省级骨干走163，出口才走 CN2，一种价格昂贵全程走 CN2，目前主机圈主流叫法 CN2 GT 和 CN2 GIA。另外还有单程双程是另外一种分类，后面讲。</p>
+<h4 id="CN2-GT"><a href="#CN2-GT" class="headerlink" title="CN2 GT"></a>CN2 GT</h4><p>GT 英文是 Global Transit，为全球客户提供访问全球互联网资源的转接服务。提供给全球的通讯运营商，截止目前，中国电信已经与国际Tier1/2 运营商以及主流OTT建立超过5000G的互联带宽，本身接入网络是 ChinaNet(AS4134)，但是直连中国电信 CN2(AS4809) 的一个服务。CN2 GT 中国国际出口拥有自己的单独线路，但是在国内的链路还是使用的 163 骨干网络。</p>
+<h4 id="CN2-GIA"><a href="#CN2-GIA" class="headerlink" title="CN2 GIA"></a>CN2 GIA</h4><p>GIA 英文是 Global Internet Access，为企业客户提供优质的中国方向互联网专线接入服务，注意 GIA 专指与中国的专线服务。主要是提供给企业的优质网络，本身接入网络 CN2(AS4809)，出口全程 CN2(AS4809) 路由，国际网路高速稳定链接中国内地网络。这种带宽的质量应当是电信网络最好的，但是缺点也比较明显，整个 GIA 的出口带宽较小，在较大流量攻击的时候更容易导致整个 GIA 下的网络波动。GIA 的主要优势是回国有单独的线路，高优先级，高质量，但接入价格较贵。</p>
+<h4 id="单程（单向）-CN2"><a href="#单程（单向）-CN2" class="headerlink" title="单程（单向） CN2"></a>单程（单向） CN2</h4><p>我们知道，路由是双向的，去和回，单程 CN2 就是指，只有一边的走 CN2，另一边走的其他的网络。可能有两种情况</p>
+<ul>
+<li>去程 CN2，回程 ChinaNet。这种情况常见，主要是很多主机商拿来打 CN2 广告的噱头，CN2 去程能够很容易被评测出来。但其实，去程 CN2 并没有什么太大作用只是减小去了去的时延，因为我们知道在普通用户的网络访问情况中，回来的流量要比去的要大得多，单程 CN2 要便宜一些，因为流量使用的少，比纯 ChinaNet 算下来还是要贵一点，有点鸡肋的感觉，弃之可惜，食之无味。</li>
+<li>去程 ChinaNet，回程 CN2。这也是一种组合的单程 CN2，这种情况，主要是为了兼顾抗 DDoS，速度和价格三方面，纯 CN2 网络相对脆弱，遭遇量大的 DDoS 后，很快就会把链路占满，造成出口拥塞（CN2 链路遭遇大量 DDoS 攻击时也会自动切到 163 网络）。163 网络带宽容量大，从中国内地出去的出去的攻击能够被很好的承载，而回程又走 CN2 线路，加快速度。普遍上，单程回 CN2，比单程去 CN2 花费高，因为回程的量在互联网服务中占多数。这种情况下，是综合抗DDoS（如果有），速度，价格的折中的最优解，适合容易遭受攻击，且需要速度的需求，当然最好的当然还是双程的。</li>
+</ul>
+<h4 id="双程（双向）-CN2"><a href="#双程（双向）-CN2" class="headerlink" title="双程（双向） CN2"></a>双程（双向） CN2</h4><p>去程回程都走 CN2 网络。其中包含 CN2 GT 和 CN2 GIA。</p>
+<p>单程同理，包含 CN2 GT 和 CN2 GIA 两种。</p>
+<h4 id="CN2-延迟排序"><a href="#CN2-延迟排序" class="headerlink" title="CN2 延迟排序"></a>CN2 延迟排序</h4><p>根据中国电信国际有限公司官网数据提供的 2018 年 5，6，7 月三个月的 CN2 质量平均情况（未知端点城市，看着像上海，也可能是几个城市平均下来的数据），理论上可看作为最佳情况下，常见 CN2 节点城市与中国连接延迟排序（ms）</p>
+<table>
+<thead>
+<tr>
+<th>香港</th>
+<th>首尔</th>
+<th>东京</th>
+<th>新加坡</th>
+<th>莫斯科</th>
+<th>圣何塞</th>
+<th>洛杉矶</th>
+<th>法兰克福</th>
+<th>西雅图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>28.27</td>
+<td>60.37</td>
+<td>67.32</td>
+<td>67.65</td>
+<td>134.78</td>
+<td>166.44</td>
+<td>175.62</td>
+<td>180.65</td>
+<td>185.47</td>
+</tr>
+</tbody>
+</table>
+<h4 id="怎么判断-CN2-GT-和-CN2-GIA"><a href="#怎么判断-CN2-GT-和-CN2-GIA" class="headerlink" title="怎么判断 CN2 GT 和 CN2 GIA"></a>怎么判断 CN2 GT 和 CN2 GIA</h4><p>无论接入的是 GT CN2 还是 GIA CN2，都保证国家与国家之间的传输在 CN2 骨干网内进行，路由中有 ip 开头为 59.43.*，AS4809，首先即判断有一段为 CN2 网络。CN2 上承载了两个较为常见的套餐，那怎么判断是哪一种呢，我们来分析几种特殊情况。</p>
+<ul>
+<li>CN2 GT 的省级出口为 202.97 节点（163骨干网节点），在跨境时才进入 CN2 骨干网，国际跨境节点为 59.43 开头。即使处在 CN2 节点城市，如上海，也会先走 202.97 节点。以此类推其他城市，不再列出。可见目前所有的 CN2 GT 路由都会有 202.97 开头的 ip</li>
+</ul>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.24.17.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_GT_Shanghai</p>
+<ul>
+<li>CN2 GIA 在部署开通有 CN2 节点的省份城市接入该省的省级 CN2 节点，在暂未部署 CN2 节点的省份城市则就近接入北上广节点。(此点不够严谨，特例情况除外，详情看评论区，感谢</li>
+</ul>
+<p>  Test IP</p>
+<p>   指出)</p>
+<ul>
+<li>本省有 CN2，但非节点城市，如江苏镇江，经南京 202.97 节点进入江苏南京 CN2 节点，最后进入广州 CN2 出口节点。</li>
+<li>本省无 CN2，如重庆，经过重庆 163 节点，进入广州 202.97 节点，然后接入广州 CN2 节点</li>
+</ul>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.32.55.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_GIA_Zhenjiang</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.20.23.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_GIA_Chongqing</p>
+<ul>
+<li>所以这两种情况虽然是 CN2 GIA 但也会先走 202.97，而如果是在上海和其他 CN2 节点城市，这种情况下的 GIA 才不会有 202.97 出现。所以有的说法里面讲有 202.97 就是 CN2 GT 的这个观点，是错误的。</li>
+<li>截止目前，我所知的国内走 CN2 节点城市有，成都，南京，西安，武汉，乌鲁木齐，广州，上海，北京。</li>
+<li>了解了以上知识点之后，最简单判断 GT 还是 GIA 的方法，直接用上海电信 traceroute，有 59.43 先是 CN2，再无 202.97 即为 GIA。</li>
+<li>（2019年补充，由上可知，GIA 会经过省级 CN2 节点，根据查询到的资料，59.43.80.* 这些 IP 都是省级CN2的处理节点，也就是说，如果你的路由表里面出现了这个 IP 那么就是GIA，这是一种方便的判断 CN2 GIA 的方法）</li>
+</ul>
+<h2 id="3、其他"><a href="#3、其他" class="headerlink" title="3、其他"></a>3、其他</h2><h3 id="补充一"><a href="#补充一" class="headerlink" title="补充一"></a>补充一</h3><p>这里要分清的一点是，ChinaNet 和 CN2 是骨干网的分类，而以下四个则是，中国电信提供的国际互联网服务 Global Internet Services（GIS）下的四个产品，具体不细说了，有兴趣自查。所以说 CN2 GT 和 CN2 GIA 可以理解为运行在 CN2 承载网上的 GT 或 GIA 服务。</p>
+<p>以下四段摘自中国电信国际有限公司官网，GIS 产品介绍。</p>
+<h4 id="Global-Transit（GT）"><a href="#Global-Transit（GT）" class="headerlink" title="Global Transit（GT）"></a>Global Transit（GT）</h4><p>为全球客户提供访问全球互联网资源的转接服务。</p>
+<h4 id="Global-Internet-Access-GIA"><a href="#Global-Internet-Access-GIA" class="headerlink" title="Global Internet Access(GIA)"></a>Global Internet Access(GIA)</h4><p>为企业客户提供优质的中国方向互联网专线接入服务。</p>
+<h4 id="ChinaNet-Paid-Peer"><a href="#ChinaNet-Paid-Peer" class="headerlink" title="ChinaNet Paid-Peer"></a>ChinaNet Paid-Peer</h4><p>为全世界运营商和OTT用户提供中国电信中文互联网资源的最短路由接入服务。</p>
+<h4 id="China-Access"><a href="#China-Access" class="headerlink" title="China Access"></a>China Access</h4><p>为全球客户提供一站式的中文互联网资源接入服务。</p>
+<h3 id="补充二"><a href="#补充二" class="headerlink" title="补充二"></a>补充二</h3><p>无论什么网络，路由都不是固定，路由是时刻动态的，随时会变，这个变，由你自身（比如本地精品网络CN2用户），或者你连接的网络（比如提供CN2的服务器）与通信提供商签约的合同而定，也由网络容量，稳定情况而定。</p>
+<h2 id="4、最后"><a href="#4、最后" class="headerlink" title="4、最后"></a>4、最后</h2><p>中国电信的出口网络，依然是占中国出口网络带宽的几乎一半之多，但是使用人数也是最多的，从使用情况经验上来看，呈现高峰明显拥堵，低峰充足。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+         
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束<i class="fa fa-paw"></i>感谢您的阅读 ------</div>
+    
+
+      </div>
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    xmp2008
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://xmp2008.github.io/xmp-blog/2020/04/16/什么是-ChinaNet-CN2-GT-GIA/" title="什么是 ChinaNet,CN2,GT,GIA">https://xmp2008.github.io/xmp-blog/2020/04/16/什么是-ChinaNet-CN2-GT-GIA/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/xmp-blog/tags/vps/" rel="tag"><i class="fa fa-tag"></i> vps</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/xmp-blog/2019/03/15/springboot结合redis实现登录验证码校验/" rel="next" title="springboot结合redis实现登录验证码校验">
+                <i class="fa fa-chevron-left"></i> springboot结合redis实现登录验证码校验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/xmp-blog/2021/03/05/7大设计原则和23种设计模式/" rel="prev" title="7大设计原则和23种设计模式">
+                7大设计原则和23种设计模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/xmp-blog/images/photo.jpg" alt="xmp2008">
+            
+              <p class="site-author-name" itemprop="name">xmp2008</p>
+              <p class="site-description motion-element" itemprop="description">后端程序猿一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/xmp-blog/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/xmp-blog/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/xmp-blog/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xmp2008" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xmpwoaichiyu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是-ChinaNet-CN2-GT-GIA"><span class="nav-number">1.</span> <span class="nav-text">什么是 ChinaNet,CN2,GT,GIA?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1、基本"><span class="nav-number">1.2.</span> <span class="nav-text">1、基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、分类"><span class="nav-number">1.3.</span> <span class="nav-text">2、分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ChinaNet"><span class="nav-number">1.3.1.</span> <span class="nav-text">ChinaNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chinatelecom-Next-Carrier-Network-CN2"><span class="nav-number">1.3.2.</span> <span class="nav-text">Chinatelecom Next Carrier Network(CN2)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CN2-GT"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">CN2 GT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CN2-GIA"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">CN2 GIA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单程（单向）-CN2"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">单程（单向） CN2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双程（双向）-CN2"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">双程（双向） CN2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CN2-延迟排序"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">CN2 延迟排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么判断-CN2-GT-和-CN2-GIA"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">怎么判断 CN2 GT 和 CN2 GIA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、其他"><span class="nav-number">1.4.</span> <span class="nav-text">3、其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充一"><span class="nav-number">1.4.1.</span> <span class="nav-text">补充一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Global-Transit（GT）"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Global Transit（GT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Global-Internet-Access-GIA"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">Global Internet Access(GIA)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ChinaNet-Paid-Peer"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">ChinaNet Paid-Peer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#China-Access"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">China Access</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充二"><span class="nav-number">1.4.2.</span> <span class="nav-text">补充二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、最后"><span class="nav-number">1.5.</span> <span class="nav-text">4、最后</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xmp2008</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">57.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/xmp-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/xmp-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/xmp-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/xmp-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/xmp-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7943ed9dadc5444a3dfd',
+          clientSecret: 'd85f7a7ebe6dd3da1c67ceb85f77f96a36dbc302',
+          repo: 'gitalk',
+          owner: 'xmp2008',
+          admin: ['xmp2008'],
+          id: md5(location.pathname),   // ISSUE：location.href 限制50个字符 (应该是Issue 内容存数据库的标识， 具体在页面上无感)
+          labels: ['Gitalk'],
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/xmp-blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

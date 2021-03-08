@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/xmp-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/xmp-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/xmp-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/xmp-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Springboot,Jwt,登录,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="springboot实战整合1.自定义配置文件1.新建配置类Audience1234567891011121314151617181920212223package cn.xmp.generator.demo.user.config;import lombok.Data;import org.springframework.boot.context.properties.Configuration">
+<meta name="keywords" content="Springboot,Jwt,登录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot自定义配置、basic认证、jwt认证的简单应用">
+<meta property="og:url" content="https://xmp2008.github.io/xmp-blog/2019/03/15/springboot自定义配置、basic认证、jwt认证的简单应用/index.html">
+<meta property="og:site_name" content="xmp2008的博客">
+<meta property="og:description" content="springboot实战整合1.自定义配置文件1.新建配置类Audience1234567891011121314151617181920212223package cn.xmp.generator.demo.user.config;import lombok.Data;import org.springframework.boot.context.properties.Configuration">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/02/25/5c73887a1a9a2.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/25/5c7388a3f0d8f.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/25/5c738954ab47f.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/25/5c738977774f1.png">
+<meta property="og:updated_time" content="2021-03-08T01:45:53.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot自定义配置、basic认证、jwt认证的简单应用">
+<meta name="twitter:description" content="springboot实战整合1.自定义配置文件1.新建配置类Audience1234567891011121314151617181920212223package cn.xmp.generator.demo.user.config;import lombok.Data;import org.springframework.boot.context.properties.Configuration">
+<meta name="twitter:image" content="https://i.loli.net/2019/02/25/5c73887a1a9a2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/xmp-blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2019/03/15/springboot自定义配置、basic认证、jwt认证的简单应用/">
+
+
+
+
+
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+  <title>springboot自定义配置、basic认证、jwt认证的简单应用 | xmp2008的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/xmp-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xmp2008的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三十而立，自强不息</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/xmp-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/xmp-blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/xmp-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/xmp-blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/xmp-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/xmp-blog/2019/03/15/springboot自定义配置、basic认证、jwt认证的简单应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xmp2008">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/xmp-blog/images/photo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xmp2008的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">springboot自定义配置、basic认证、jwt认证的简单应用</h1>
+        
+
+        <div class="post-meta">
+        
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T10:33:25+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xmp-blog/categories/Springboot/" itemprop="url" rel="index">
+                    <span itemprop="name">Springboot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="springboot实战整合"><a href="#springboot实战整合" class="headerlink" title="springboot实战整合"></a>springboot实战整合</h1><h2 id="1-自定义配置文件"><a href="#1-自定义配置文件" class="headerlink" title="1.自定义配置文件"></a>1.自定义配置文件</h2><h3 id="1-新建配置类Audience"><a href="#1-新建配置类Audience" class="headerlink" title="1.新建配置类Audience"></a>1.新建配置类Audience</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/15</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"audience"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Audience</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> String clientId;</span><br><span class="line"><span class="keyword">private</span> String base64Secret;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> expiresSecond;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-yaml文件添加配置信息"><a href="#2-yaml文件添加配置信息" class="headerlink" title="2.yaml文件添加配置信息"></a>2.yaml文件添加配置信息</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">audience:</span></span><br><span class="line"><span class="attr">clientId:</span> <span class="number">098</span><span class="string">f6bcd4621d373cade4e832627b4f6</span></span><br><span class="line"><span class="attr">base64Secret:</span> <span class="string">MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">restapiuser</span></span><br><span class="line"><span class="attr">expiresSecond:</span> <span class="number">172800</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-Controller注入配置"><a href="#3-Controller注入配置" class="headerlink" title="3.Controller注入配置"></a>3.Controller注入配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.enums.ReturnCodeEnum;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.model.response.BaseResponse;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.utils.BackResponseUtil;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* 前端控制器</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019-01-28</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/app/appUser"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppUserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Audience audience;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/getaudience"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getAudience</span><span class="params">()</span> </span>&#123;</span><br><span class="line">BaseResponse response = <span class="keyword">new</span> BaseResponse();</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1000.getCode());</span><br><span class="line">response.setDataInfo(audience);</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-PostMan测试"><a href="#4-PostMan测试" class="headerlink" title="4.PostMan测试"></a>4.PostMan测试</h3><p><code>http://localhost:8081/app/appUser/getaudience</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"returnCode"</span>: <span class="number">1000</span>,</span><br><span class="line"><span class="attr">"message"</span>: <span class="string">"成功"</span>,</span><br><span class="line"><span class="attr">"dataInfo"</span>: &#123;</span><br><span class="line"><span class="attr">"clientId"</span>: <span class="string">"098f6bcd4621d373cade4e832627b4f6"</span>,</span><br><span class="line"><span class="attr">"base64Secret"</span>: <span class="string">"MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY="</span>,</span><br><span class="line"><span class="attr">"name"</span>: <span class="string">"restapiuser"</span>,</span><br><span class="line"><span class="attr">"expiresSecond"</span>: <span class="number">172800</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-自定义map-数组-list对象类配置"><a href="#2-自定义map-数组-list对象类配置" class="headerlink" title="2.自定义map,数组,list对象类配置"></a>2.自定义map,数组,list对象类配置</h2><h3 id="1-新建配置类ConfigProperties"><a href="#1-新建配置类ConfigProperties" class="headerlink" title="1.新建配置类ConfigProperties"></a>1.新建配置类ConfigProperties</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/1/9</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"xx.test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigProperties</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String str;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String[] testArray;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> List&lt;Map&lt;String, String&gt;&gt; listMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> List listStr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Map&lt;String, String&gt; map;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-添加yaml配置"><a href="#2-添加yaml配置" class="headerlink" title="2.添加yaml配置"></a>2.添加yaml配置</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xx:</span></span><br><span class="line"><span class="attr">test:</span></span><br><span class="line"><span class="attr">str:</span> <span class="string">strTest</span></span><br><span class="line"><span class="attr">testArray:</span> <span class="number">1</span><span class="string">,2,3,a</span> <span class="comment">#这种对象形式的，只能单独写一个对象去接收，所以无法使用@value注解获取</span></span><br><span class="line"><span class="attr">listMap:</span></span><br><span class="line"><span class="attr">- host:</span> <span class="string">weihu01</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">active:</span> <span class="number">9</span></span><br><span class="line"><span class="attr">- host:</span> <span class="string">weihu02</span></span><br><span class="line"><span class="attr">port:</span> <span class="number">11</span></span><br><span class="line"><span class="attr">active:</span> <span class="number">8</span></span><br><span class="line"><span class="attr">listStr:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">name</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">value</span></span><br><span class="line"><span class="attr">map:</span></span><br><span class="line"><span class="attr">a:</span> <span class="string">a</span></span><br><span class="line"><span class="attr">b:</span> <span class="string">b</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-Controller注入配置-1"><a href="#3-Controller注入配置-1" class="headerlink" title="3. Controller注入配置"></a>3. Controller注入配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.enums.ReturnCodeEnum;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.model.response.BaseResponse;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.utils.BackResponseUtil;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* 前端控制器</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019-01-28</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/app/appUser"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppUserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> ConfigProperties config;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/getConfig"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">BaseResponse response = <span class="keyword">new</span> BaseResponse();</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1000.getCode());</span><br><span class="line">response.setDataInfo(config);</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-测试接口"><a href="#4-测试接口" class="headerlink" title="4.测试接口"></a>4.测试接口</h3><p><code>http://localhost:8081/app/appUser/getConfig</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"returnCode"</span>: <span class="number">1000</span>,</span><br><span class="line"><span class="attr">"message"</span>: <span class="string">"成功"</span>,</span><br><span class="line"><span class="attr">"dataInfo"</span>: &#123;</span><br><span class="line"><span class="attr">"str"</span>: <span class="string">"strTest"</span>,</span><br><span class="line"><span class="attr">"testArray"</span>: [</span><br><span class="line"><span class="string">"1"</span>,</span><br><span class="line"><span class="string">"2"</span>,</span><br><span class="line"><span class="string">"3"</span>,</span><br><span class="line"><span class="string">"a"</span></span><br><span class="line">],</span><br><span class="line"><span class="attr">"listMap"</span>: [</span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">"host"</span>: <span class="string">"weihu01"</span>,</span><br><span class="line"><span class="attr">"port"</span>: <span class="string">"10"</span>,</span><br><span class="line"><span class="attr">"active"</span>: <span class="string">"9"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line"><span class="attr">"host"</span>: <span class="string">"weihu02"</span>,</span><br><span class="line"><span class="attr">"port"</span>: <span class="string">"11"</span>,</span><br><span class="line"><span class="attr">"active"</span>: <span class="string">"8"</span></span><br><span class="line">&#125;</span><br><span class="line">],</span><br><span class="line"><span class="attr">"listStr"</span>: [</span><br><span class="line"><span class="string">"name"</span>,</span><br><span class="line"><span class="string">"value"</span></span><br><span class="line">],</span><br><span class="line"><span class="attr">"map"</span>: &#123;</span><br><span class="line"><span class="attr">"a"</span>: <span class="string">"a"</span>,</span><br><span class="line"><span class="attr">"b"</span>: <span class="string">"b"</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-Filter实现简单的Http-Basic认证"><a href="#3-Filter实现简单的Http-Basic认证" class="headerlink" title="3.Filter实现简单的Http Basic认证"></a>3.Filter实现简单的Http Basic认证</h2><h3 id="1-定义过滤器"><a href="#1-定义过滤器" class="headerlink" title="1.定义过滤器"></a>1.定义过滤器</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.filter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.enums.ReturnCodeEnum;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.model.response.BaseResponse;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.utils.BackResponseUtil;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> sun.misc.BASE64Decoder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/15</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"restriction"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HTTPBasicAuthorizeAttribute</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String Name = <span class="string">"test"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String Password = <span class="string">"test"</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span></span></span><br><span class="line"><span class="function"><span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">BaseResponse resultStatusCode = checkHTTPBasicAuthorize(request);</span><br><span class="line"><span class="keyword">if</span> (resultStatusCode.getReturnCode() != ReturnCodeEnum.CODE_1000.getCode()) &#123;</span><br><span class="line">HttpServletResponse httpResponse = (HttpServletResponse) response;</span><br><span class="line">httpResponse.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">httpResponse.setContentType(<span class="string">"application/json; charset=utf-8"</span>);</span><br><span class="line">httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span><br><span class="line"></span><br><span class="line">ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line">httpResponse.getWriter().write(mapper.writeValueAsString(resultStatusCode));</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">chain.doFilter(request, response);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig arg0)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> BaseResponse <span class="title">checkHTTPBasicAuthorize</span><span class="params">(ServletRequest request)</span> </span>&#123;</span><br><span class="line">BaseResponse response = <span class="keyword">new</span> BaseResponse();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">HttpServletRequest httpRequest = (HttpServletRequest) request;</span><br><span class="line">String auth = httpRequest.getHeader(<span class="string">"Authorization"</span>);</span><br><span class="line"><span class="keyword">if</span> ((auth != <span class="keyword">null</span>) &amp;&amp; (auth.length() &gt; <span class="number">6</span>)) &#123;</span><br><span class="line">String HeadStr = auth.substring(<span class="number">0</span>, <span class="number">5</span>).toLowerCase();</span><br><span class="line"><span class="keyword">if</span> (HeadStr.compareTo(<span class="string">"basic"</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">auth = auth.substring(<span class="number">6</span>, auth.length());</span><br><span class="line">String decodedAuth = getFromBASE64(auth);</span><br><span class="line"><span class="keyword">if</span> (decodedAuth != <span class="keyword">null</span>) &#123;</span><br><span class="line">String[] UserArray = decodedAuth.split(<span class="string">":"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (UserArray != <span class="keyword">null</span> &amp;&amp; UserArray.length == <span class="number">2</span>) &#123;</span><br><span class="line"><span class="keyword">if</span> (UserArray[<span class="number">0</span>].compareTo(Name) == <span class="number">0</span></span><br><span class="line">&amp;&amp; UserArray[<span class="number">1</span>].compareTo(Password) == <span class="number">0</span>) &#123;</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1000.getCode());</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1001.getCode());</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1001.getCode());</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getFromBASE64</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (s == <span class="keyword">null</span>)</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">BASE64Decoder decoder = <span class="keyword">new</span> BASE64Decoder();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="keyword">byte</span>[] b = decoder.decodeBuffer(s);</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> String(b);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>新增HTTPBasicAuthorizeAttribute.java</p>
+<p>如果请求的Header中存在Authorization: Basic 头信息，且用户名密码正确，则继续原来的请求，否则返回没有权限的错误信息</p>
+<h3 id="2-注册过滤器"><a href="#2-注册过滤器" class="headerlink" title="2.注册过滤器"></a>2.注册过滤器</h3><p>在SpringRestApplication类中注册过滤器，给/app/appUser/*都加上http basic认证过滤器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.filter.HTTPBasicAuthorizeAttribute;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.filter.HTTPBearerAuthorizeAttribute;</span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.EnableConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"cn.xmp.generator.demo.user.mapper*"</span>)</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(Audience.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SaApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">SpringApplication.run(SaApplication.class, args);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">FilterRegistrationBean registrationBean = <span class="keyword">new</span> FilterRegistrationBean();</span><br><span class="line">HTTPBasicAuthorizeAttribute httpBasicFilter = <span class="keyword">new</span> HTTPBasicAuthorizeAttribute();</span><br><span class="line">registrationBean.setFilter(httpBasicFilter);</span><br><span class="line">List urlPatterns = <span class="keyword">new</span> ArrayList();</span><br><span class="line">urlPatterns.add(<span class="string">"/app/appUser/*"</span>);</span><br><span class="line">registrationBean.setUrlPatterns(urlPatterns);</span><br><span class="line"><span class="keyword">return</span> registrationBean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-接口测试"><a href="#3-接口测试" class="headerlink" title="3.接口测试"></a>3.接口测试</h3><p>代码中固定用户名密码都为test(可以在yml配置)，所以对接口进行请求时，需要添加以下认证头信息</p>
+<p>Authorization: Basic dGVzdDp0ZXN0</p>
+<p>dGVzdDp0ZXN0 为 test:test 经过base64编码后的结果</p>
+<p><code>http://localhost:8081/app/appUser/getConfig</code></p>
+<p>未添加认证信息或者认证信息错误，返回没有权限的错误信息</p>
+<p><a href="https://i.loli.net/2019/02/25/5c73887a1a9a2.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/02/25/5c73887a1a9a2.png" alt></a></p>
+<p>正确添加认证信息</p>
+<p><a href="https://i.loli.net/2019/02/25/5c7388a3f0d8f.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/02/25/5c7388a3f0d8f.png" alt></a></p>
+<h2 id="4-Filter实现使用JWT进行接口认证"><a href="#4-Filter实现使用JWT进行接口认证" class="headerlink" title="4.Filter实现使用JWT进行接口认证"></a>4.Filter实现使用JWT进行接口认证</h2><h3 id="1-添加依赖库jjwt"><a href="#1-添加依赖库jjwt" class="headerlink" title="1.添加依赖库jjwt"></a>1.添加依赖库jjwt</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-添加登录request请求类"><a href="#2-添加登录request请求类" class="headerlink" title="2.添加登录request请求类"></a>2.添加登录request请求类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/14</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginPara</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> String userName;</span><br><span class="line"><span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-添加生产jwt的token和解析token的工具类"><a href="#3-添加生产jwt的token和解析token的工具类" class="headerlink" title="3.添加生产jwt的token和解析token的工具类"></a>3.添加生产jwt的token和解析token的工具类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.jwt.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Claims;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.JwtBuilder;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.Jwts;</span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.SignatureAlgorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"><span class="keyword">import</span> javax.xml.bind.DatatypeConverter;</span><br><span class="line"><span class="keyword">import</span> java.security.Key;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/14</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JwtHelper</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Claims <span class="title">parseJWT</span><span class="params">(String jsonWebToken, String base64Security)</span> </span>&#123;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">Claims claims = Jwts.parser()</span><br><span class="line">.setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))</span><br><span class="line">.parseClaimsJws(jsonWebToken).getBody();</span><br><span class="line"><span class="keyword">return</span> claims;</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">createJWT</span><span class="params">(String name, String userId,</span></span></span><br><span class="line"><span class="function"><span class="params">String audience, String issuer, <span class="keyword">long</span> TTLMillis, String base64Security)</span> </span>&#123;</span><br><span class="line">SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> nowMillis = System.currentTimeMillis();</span><br><span class="line">Date now = <span class="keyword">new</span> Date(nowMillis);</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成签名密钥</span></span><br><span class="line"><span class="keyword">byte</span>[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(base64Security);</span><br><span class="line">Key signingKey = <span class="keyword">new</span> SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加构成JWT的参数</span></span><br><span class="line">JwtBuilder builder = Jwts.builder().setHeaderParam(<span class="string">"typ"</span>, <span class="string">"JWT"</span>)</span><br><span class="line">.claim(<span class="string">"unique_name"</span>, name)</span><br><span class="line">.claim(<span class="string">"userid"</span>, userId)</span><br><span class="line">.setIssuer(issuer)</span><br><span class="line">.setAudience(audience)</span><br><span class="line">.signWith(signatureAlgorithm, signingKey);</span><br><span class="line"><span class="comment">//添加Token过期时间</span></span><br><span class="line"><span class="keyword">if</span> (TTLMillis &gt;= <span class="number">0</span>) &#123;</span><br><span class="line"><span class="keyword">long</span> expMillis = nowMillis + TTLMillis;</span><br><span class="line">Date exp = <span class="keyword">new</span> Date(expMillis);</span><br><span class="line">builder.setExpiration(exp).setNotBefore(now);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//生成JWT</span></span><br><span class="line"><span class="keyword">return</span> builder.compact();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-获取jwt-token返回的封装类"><a href="#4-获取jwt-token返回的封装类" class="headerlink" title="4.获取jwt-token返回的封装类"></a>4.获取jwt-token返回的封装类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.jwt.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/14</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccessToken</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> String access_token;</span><br><span class="line"><span class="keyword">private</span> String token_type;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">long</span> expires_in;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-添加获取token的controller"><a href="#5-添加获取token的controller" class="headerlink" title="5.添加获取token的controller"></a>5.添加获取token的controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.web;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/14</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.entity.AppUser;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.enums.ReturnCodeEnum;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.jwt.model.AccessToken;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.jwt.model.LoginPara;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.jwt.utils.JwtHelper;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.model.response.BaseResponse;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.service.IAppUserService;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.utils.BackResponseUtil;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.utils.MyUtils;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Scope;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsonWebToken</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> IAppUserService appUserService;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Audience audienceEntity;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/oauth/token"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getAccessToken</span><span class="params">(@RequestBody LoginPara loginPara)</span> </span>&#123;</span><br><span class="line">BaseResponse response = <span class="keyword">new</span> BaseResponse();</span><br><span class="line">log.info(<span class="string">"获取token入参&#123;&#125;"</span>, loginPara);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line"><span class="comment">//验证用户名密码</span></span><br><span class="line">AppUser user = <span class="keyword">new</span> AppUser();</span><br><span class="line">user.setName(loginPara.getUserName());</span><br><span class="line">user.setPassword(loginPara.getPassword());</span><br><span class="line">log.info(<span class="string">"用户登录入参:&#123;&#125;"</span>, user.toString());</span><br><span class="line">BaseResponse userResponse = appUserService.login(user);</span><br><span class="line">log.info(<span class="string">"用户登录返回:&#123;&#125;"</span>, userResponse);</span><br><span class="line">user = (AppUser) userResponse.getDataInfo();</span><br><span class="line"><span class="keyword">if</span> (user == <span class="keyword">null</span>) &#123;</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1002.getCode());</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//拼装accessToken</span></span><br><span class="line">String accessToken = JwtHelper.createJWT(loginPara.getUserName(), String.valueOf(user.getId()),</span><br><span class="line">audienceEntity.getClientId(), audienceEntity.getName(),</span><br><span class="line">audienceEntity.getExpiresSecond() * <span class="number">1000</span>, audienceEntity.getBase64Secret());</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回accessToken</span></span><br><span class="line">AccessToken accessTokenEntity = <span class="keyword">new</span> AccessToken();</span><br><span class="line">accessTokenEntity.setAccess_token(accessToken);</span><br><span class="line">accessTokenEntity.setExpires_in(audienceEntity.getExpiresSecond());</span><br><span class="line">accessTokenEntity.setToken_type(<span class="string">"bearer"</span>);</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1000.getCode());</span><br><span class="line">response.setDataInfo(accessTokenEntity);</span><br><span class="line">log.info(<span class="string">"获取token返回&#123;&#125;"</span>, response);</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">log.info(<span class="string">"获取token异常:&#123;&#125;"</span>, ex);</span><br><span class="line">response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1004.getCode());</span><br><span class="line">response.setMessage(ex.getMessage());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="6-添加校验token的filter"><a href="#6-添加校验token的filter" class="headerlink" title="6.添加校验token的filter"></a>6.添加校验token的filter</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.filter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.enums.ReturnCodeEnum;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.jwt.utils.JwtHelper;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.model.response.BaseResponse;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.utils.BackResponseUtil;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.support.SpringBeanAutowiringSupport;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment">* <span class="doctag">@since</span> 2019/2/15</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HTTPBearerAuthorizeAttribute</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Audience audienceEntity;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(FilterConfig filterConfig)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(<span class="keyword">this</span>,</span><br><span class="line">filterConfig.getServletContext());</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span></span></span><br><span class="line"><span class="function"><span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">BaseResponse baseResponse = <span class="keyword">new</span> BaseResponse();</span><br><span class="line">HttpServletRequest httpRequest = (HttpServletRequest) request;</span><br><span class="line">String auth = httpRequest.getHeader(<span class="string">"AccessToken"</span>);</span><br><span class="line"><span class="keyword">if</span> ((auth != <span class="keyword">null</span>) &amp;&amp; (auth.length() &gt; <span class="number">7</span>)) &#123;</span><br><span class="line">String HeadStr = auth.substring(<span class="number">0</span>, <span class="number">6</span>).toLowerCase();</span><br><span class="line"><span class="keyword">if</span> (HeadStr.compareTo(<span class="string">"bearer"</span>) == <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">auth = auth.substring(<span class="number">7</span>, auth.length());</span><br><span class="line"><span class="keyword">if</span> (JwtHelper.parseJWT(auth, audienceEntity.getBase64Secret()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">chain.doFilter(request, response);</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">HttpServletResponse httpResponse = (HttpServletResponse) response;</span><br><span class="line">httpResponse.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">httpResponse.setContentType(<span class="string">"application/json; charset=utf-8"</span>);</span><br><span class="line">httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);</span><br><span class="line"></span><br><span class="line">ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line">baseResponse = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1010.getCode());</span><br><span class="line">httpResponse.getWriter().write(mapper.writeValueAsString(baseResponse));</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-启动入口注册filter"><a href="#7-启动入口注册filter" class="headerlink" title="7.启动入口注册filter"></a>7.启动入口注册filter</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.filter.HTTPBasicAuthorizeAttribute;</span><br><span class="line"><span class="keyword">import</span> cn.xmp.generator.demo.user.filter.HTTPBearerAuthorizeAttribute;</span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.EnableConfigurationProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.web.servlet.FilterRegistrationBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"cn.xmp.generator.demo.user.mapper*"</span>)</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(Audience.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SaApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">SpringApplication.run(SaApplication.class, args);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">filterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">FilterRegistrationBean registrationBean = <span class="keyword">new</span> FilterRegistrationBean();</span><br><span class="line">HTTPBasicAuthorizeAttribute httpBasicFilter = <span class="keyword">new</span> HTTPBasicAuthorizeAttribute();</span><br><span class="line">registrationBean.setFilter(httpBasicFilter);</span><br><span class="line">List urlPatterns = <span class="keyword">new</span> ArrayList();</span><br><span class="line">urlPatterns.add(<span class="string">"/app/appUser/*"</span>);</span><br><span class="line">registrationBean.setUrlPatterns(urlPatterns);</span><br><span class="line"><span class="keyword">return</span> registrationBean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">jwtFilterRegistrationBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">FilterRegistrationBean registrationBean = <span class="keyword">new</span> FilterRegistrationBean();</span><br><span class="line">HTTPBearerAuthorizeAttribute httpBearerFilter = <span class="keyword">new</span> HTTPBearerAuthorizeAttribute();</span><br><span class="line">registrationBean.setFilter(httpBearerFilter);</span><br><span class="line">List urlPatterns = <span class="keyword">new</span> ArrayList();</span><br><span class="line">urlPatterns.add(<span class="string">"/app/appUser/*"</span>);</span><br><span class="line">registrationBean.setUrlPatterns(urlPatterns);</span><br><span class="line"><span class="keyword">return</span> registrationBean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="8-测试"><a href="#8-测试" class="headerlink" title="8.测试"></a>8.测试</h3><h4 id="1-获取token"><a href="#1-获取token" class="headerlink" title="1.获取token"></a>1.获取token</h4><p><a href="https://i.loli.net/2019/02/25/5c738954ab47f.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/02/25/5c738954ab47f.png" alt></a></p>
+<h4 id="2-验证token"><a href="#2-验证token" class="headerlink" title="2.验证token"></a>2.验证token</h4><p><a href="https://i.loli.net/2019/02/25/5c738977774f1.png" target="_blank" rel="noopener"><img src="https://i.loli.net/2019/02/25/5c738977774f1.png" alt></a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+         
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束<i class="fa fa-paw"></i>感谢您的阅读 ------</div>
+    
+
+      </div>
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    xmp2008
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://xmp2008.github.io/xmp-blog/2019/03/15/springboot自定义配置、basic认证、jwt认证的简单应用/" title="springboot自定义配置、basic认证、jwt认证的简单应用">https://xmp2008.github.io/xmp-blog/2019/03/15/springboot自定义配置、basic认证、jwt认证的简单应用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/xmp-blog/tags/Springboot/" rel="tag"><i class="fa fa-tag"></i> Springboot</a>
+          
+            <a href="/xmp-blog/tags/Jwt/" rel="tag"><i class="fa fa-tag"></i> Jwt</a>
+          
+            <a href="/xmp-blog/tags/登录/" rel="tag"><i class="fa fa-tag"></i> 登录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/xmp-blog/2019/03/15/hexo-设置阅读全文/" rel="prev" title="hexo 设置阅读全文">
+                hexo 设置阅读全文 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/xmp-blog/images/photo.jpg" alt="xmp2008">
+            
+              <p class="site-author-name" itemprop="name">xmp2008</p>
+              <p class="site-description motion-element" itemprop="description">后端程序猿一枚</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/xmp-blog/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/xmp-blog/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/xmp-blog/tags/index.html">
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xmp2008" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xmpwoaichiyu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#springboot实战整合"><span class="nav-number">1.</span> <span class="nav-text">springboot实战整合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-自定义配置文件"><span class="nav-number">1.1.</span> <span class="nav-text">1.自定义配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新建配置类Audience"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.新建配置类Audience</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-yaml文件添加配置信息"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.yaml文件添加配置信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Controller注入配置"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.Controller注入配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PostMan测试"><span class="nav-number">1.1.4.</span> <span class="nav-text">4.PostMan测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-自定义map-数组-list对象类配置"><span class="nav-number">1.2.</span> <span class="nav-text">2.自定义map,数组,list对象类配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新建配置类ConfigProperties"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.新建配置类ConfigProperties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-添加yaml配置"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.添加yaml配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Controller注入配置-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. Controller注入配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-测试接口"><span class="nav-number">1.2.4.</span> <span class="nav-text">4.测试接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Filter实现简单的Http-Basic认证"><span class="nav-number">1.3.</span> <span class="nav-text">3.Filter实现简单的Http Basic认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-定义过滤器"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.定义过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-注册过滤器"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.注册过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-接口测试"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.接口测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Filter实现使用JWT进行接口认证"><span class="nav-number">1.4.</span> <span class="nav-text">4.Filter实现使用JWT进行接口认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加依赖库jjwt"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.添加依赖库jjwt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-添加登录request请求类"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.添加登录request请求类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-添加生产jwt的token和解析token的工具类"><span class="nav-number">1.4.3.</span> <span class="nav-text">3.添加生产jwt的token和解析token的工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-获取jwt-token返回的封装类"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.获取jwt-token返回的封装类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-添加获取token的controller"><span class="nav-number">1.4.5.</span> <span class="nav-text">5.添加获取token的controller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-添加校验token的filter"><span class="nav-number">1.4.6.</span> <span class="nav-text">6.添加校验token的filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-启动入口注册filter"><span class="nav-number">1.4.7.</span> <span class="nav-text">7.启动入口注册filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-测试"><span class="nav-number">1.4.8.</span> <span class="nav-text">8.测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获取token"><span class="nav-number">1.4.8.1.</span> <span class="nav-text">1.获取token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-验证token"><span class="nav-number">1.4.8.2.</span> <span class="nav-text">2.验证token</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xmp2008</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">57.5k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/xmp-blog/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/xmp-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/xmp-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/xmp-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/xmp-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/xmp-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '7943ed9dadc5444a3dfd',
+          clientSecret: 'd85f7a7ebe6dd3da1c67ceb85f77f96a36dbc302',
+          repo: 'gitalk',
+          owner: 'xmp2008',
+          admin: ['xmp2008'],
+          id: md5(location.pathname),   // ISSUE：location.href 限制50个字符 (应该是Issue 内容存数据库的标识， 具体在页面上无感)
+          labels: ['Gitalk'],
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+        gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/xmp-blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
