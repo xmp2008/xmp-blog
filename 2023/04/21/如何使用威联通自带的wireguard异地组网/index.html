@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-32x32.png">
   <link rel="mask-icon" href="/xmp-blog/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/xmp-blog/css/main.css">
@@ -27,15 +27,15 @@
 <meta property="og:site_name" content="xmp2008的博客">
 <meta property="og:description" content="如何使用威联通自带的wireguard异地组网前言: ​       我的主路由使用的是性能较弱的红米AC2100,用的老毛子系统，为了保证主路由的稳定性，采用了旁路由，扩展功能由威联通虚拟机里面的openwrt实现，本来想通过虚拟机里的openwrt安装wg实现异地组网。但是最近发现威联通官方的QVPN既然也已经支持了wireguard，使用起来更加的简洁和方便，于是使用威联通自带的wiregu">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/image-20230421163805978.png">
-<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/image-20230421170253694.png">
-<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/image-20230421170842297.png">
+<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421163805978.png">
+<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421170253694.png">
+<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421170842297.png">
 <meta property="article:published_time" content="2023-04-21T08:21:45.000Z">
-<meta property="article:modified_time" content="2023-05-25T02:31:35.484Z">
+<meta property="article:modified_time" content="2023-05-25T06:48:30.090Z">
 <meta property="article:author" content="xmp2008">
 <meta property="article:tag" content="后端,spring,springBoot,springCloud,Docker,开发者,程序猿,微服务,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xmp2008.github.io/xmp-blog/image-20230421163805978.png">
+<meta name="twitter:image" content="https://xmp2008.github.io/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421163805978.png">
 
 <link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/">
 
@@ -138,6 +138,16 @@
     <a href="/xmp-blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/xmp-blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/xmp-blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/xmp-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
@@ -174,7 +184,7 @@
     <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/xmp-blog/images/avatar.gif">
+      <meta itemprop="image" content="/xmp-blog/images/photo.jpg">
       <meta itemprop="name" content="xmp2008">
       <meta itemprop="description" content="后端程序猿一枚,记录日常。">
     </span>
@@ -201,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-25 10:31:35" itemprop="dateModified" datetime="2023-05-25T10:31:35+08:00">2023-05-25</time>
+                <time title="修改时间：2023-05-25 14:48:30" itemprop="dateModified" datetime="2023-05-25T14:48:30+08:00">2023-05-25</time>
               </span>
 
           <br>
@@ -234,16 +244,19 @@
 <span id="more"></span>
 
 <p>威联通的QVPN可以直接配置wireguard服务端，如下图:</p>
-<p><img src="/xmp-blog/image-20230421163805978.png" alt="image-20230421163805978"></p>
+<img src="/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421163805978.png" class="" title="image-20230421163805978">
+
 <p>威联通的wireguard接口配置的路径在&#x2F;mnt&#x2F;HDA_ROOT&#x2F;.config&#x2F;qvpn&#x2F;wireguard</p>
 <p>默认使用的wg0.conf接口配置，这里有一个比较坑的位置，如果通过命令行修改了wg0.conf配置，再在页面启动wireguard服务端，那么页面的配置会直接覆盖wg0.conf配置，使用wg-quick up wg0启动不会覆盖。</p>
 <p>wireguard服务端的默认监听端口为51280，安全起见，建议修改为另一个高位端口。</p>
 <p>由于威联通是在主路由的NAT下，所以需要注意的是必需在主路由上做端口转发。同时主路由防火墙需要放行对应的端口，老毛子参数设置页可以设置在防火墙启动后执行脚本。</p>
-<p><img src="/xmp-blog/image-20230421170253694.png" alt="image-20230421170253694"></p>
+<img src="/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421170253694.png" class="" title="image-20230421170253694">
+
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### qnap wireguard </span></span><br><span class="line">iptables -A INPUT -p tcp --dport wireguard监听端口 -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p tcp --dport wireguard监听端口 -j ACCEPT</span><br><span class="line">iptables -A FORWARD -p tcp --dport wireguard监听端口 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p udp --dport wireguard监听端口 -j ACCEPT</span><br><span class="line">iptables -A OUTPUT -p udp --dport wireguard监听端口 -j ACCEPT</span><br><span class="line">iptables -A FORWARD -p udp --dport wireguard监听端口 -j ACCEPT</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>威联通的防火墙也需要放行wireguard内网IP</p>
-<p><img src="/xmp-blog/image-20230421170842297.png" alt="image-20230421170842297"></p>
+<img src="/xmp-blog/2023/04/21/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A8%81%E8%81%94%E9%80%9A%E8%87%AA%E5%B8%A6%E7%9A%84wireguard%E5%BC%82%E5%9C%B0%E7%BB%84%E7%BD%91/image-20230421170842297.png" class="" title="image-20230421170842297">
+
 <p>如果想实现直接使用内网IP异地访问服务，在客户端的AllowedIPs配置对应的IP范围即可，例如:wireguard服务端配置的网络范围为10.0.5.0&#x2F;24，内网IP为192.168.1.0&#x2F;24那么在客户端的AllowedIPs配置AllowedIPs &#x3D; 10.0.5.0&#x2F;24, 192.168.1.0&#x2F;24 那么就可以直接使用192.168.1.X访问对应的服务了，AllowedIPs配置以,分割，可以配置多个，例如：AllowedIPs &#x3D; 10.0.5.0&#x2F;24, 192.168.1.2&#x2F;32，192.168.1.3&#x2F;32 允许10.0.5.0&#x2F;24范围和192.168.1.2、192.168.1.3单独访问。</p>
 
     </div>
@@ -332,6 +345,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xmp2008"
+      src="/xmp-blog/images/photo.jpg">
   <p class="site-author-name" itemprop="name">xmp2008</p>
   <div class="site-description" itemprop="description">后端程序猿一枚,记录日常。</div>
 </div>
@@ -346,16 +361,26 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/xmp-blog/categories/">
+          
         <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/xmp-blog/tags/">
+          
         <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xmp2008" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xmp2008" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xmpwoaichiyu@gmail.com" title="E-Mail → mailto:xmpwoaichiyu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 

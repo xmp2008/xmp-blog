@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-32x32.png">
   <link rel="mask-icon" href="/xmp-blog/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/xmp-blog/css/main.css">
@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="xmp2008的博客">
 <meta property="og:description" content="如何给docker容器指定固定ipdocker网络模式有bridge,host,none三种，默认使用bridge桥接模式，但是此模式默认只能使用DHCP自动分配IP，而且不能使用服务名字作为host直接访问，这会导致每次重启容器，IP都会变动，不易维护。要想使用固定IP，只能使用自建的docker网络。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/Snipaste_2023-03-09_10-39-49.png">
+<meta property="og:image" content="https://xmp2008.github.io/xmp-blog/2023/03/09/%E5%A6%82%E4%BD%95%E7%BB%99docker%E5%AE%B9%E5%99%A8%E6%8C%87%E5%AE%9A%E5%9B%BA%E5%AE%9Aip/Snipaste_2023-03-09_10-39-49.png">
 <meta property="article:published_time" content="2023-03-09T02:42:12.000Z">
-<meta property="article:modified_time" content="2023-05-25T02:32:18.842Z">
+<meta property="article:modified_time" content="2023-05-25T06:47:38.874Z">
 <meta property="article:author" content="xmp2008">
 <meta property="article:tag" content="docker,容器,ip">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xmp2008.github.io/xmp-blog/Snipaste_2023-03-09_10-39-49.png">
+<meta name="twitter:image" content="https://xmp2008.github.io/xmp-blog/2023/03/09/%E5%A6%82%E4%BD%95%E7%BB%99docker%E5%AE%B9%E5%99%A8%E6%8C%87%E5%AE%9A%E5%9B%BA%E5%AE%9Aip/Snipaste_2023-03-09_10-39-49.png">
 
 <link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2023/03/09/%E5%A6%82%E4%BD%95%E7%BB%99docker%E5%AE%B9%E5%99%A8%E6%8C%87%E5%AE%9A%E5%9B%BA%E5%AE%9Aip/">
 
@@ -136,6 +136,16 @@
     <a href="/xmp-blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/xmp-blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/xmp-blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/xmp-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
@@ -172,7 +182,7 @@
     <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/2023/03/09/%E5%A6%82%E4%BD%95%E7%BB%99docker%E5%AE%B9%E5%99%A8%E6%8C%87%E5%AE%9A%E5%9B%BA%E5%AE%9Aip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/xmp-blog/images/avatar.gif">
+      <meta itemprop="image" content="/xmp-blog/images/photo.jpg">
       <meta itemprop="name" content="xmp2008">
       <meta itemprop="description" content="后端程序猿一枚,记录日常。">
     </span>
@@ -199,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-05-25 10:32:18" itemprop="dateModified" datetime="2023-05-25T10:32:18+08:00">2023-05-25</time>
+                <time title="修改时间：2023-05-25 14:47:38" itemprop="dateModified" datetime="2023-05-25T14:47:38+08:00">2023-05-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,8 +262,7 @@
 <p>这样即可在freshrss配置中指定mysql的host为mysql8，容器内达到网络互通</p>
 </li>
 </ol>
-<p><img src="/xmp-blog/Snipaste_2023-03-09_10-39-49.png" alt="Snipaste_2023-03-09_10-39-49"></p>
-
+<img src="/xmp-blog/2023/03/09/%E5%A6%82%E4%BD%95%E7%BB%99docker%E5%AE%B9%E5%99%A8%E6%8C%87%E5%AE%9A%E5%9B%BA%E5%AE%9Aip/Snipaste_2023-03-09_10-39-49.png" class="" title="Snipaste_2023-03-09_10-39-49">
     </div>
 
     
@@ -346,6 +355,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xmp2008"
+      src="/xmp-blog/images/photo.jpg">
   <p class="site-author-name" itemprop="name">xmp2008</p>
   <div class="site-description" itemprop="description">后端程序猿一枚,记录日常。</div>
 </div>
@@ -360,16 +371,26 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/xmp-blog/categories/">
+          
         <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/xmp-blog/tags/">
+          
         <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xmp2008" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xmp2008" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xmpwoaichiyu@gmail.com" title="E-Mail → mailto:xmpwoaichiyu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
