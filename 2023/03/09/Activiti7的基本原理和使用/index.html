@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/xmp-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/xmp-blog/css/main.css">
+
+
+<link rel="stylesheet" href="/xmp-blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xmp2008.github.io","root":"/xmp-blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Activiti7的基本原理和使用1 什么是工作流？#1.1 工作流介绍# 工作流（Workflow），就是通过计算机对业务流程自动化执行管理。它主要解决的是“使在多个参与者之间按照某种预定义的规则自动进行传递文档、信息或任务的过程，从而实现某个预期的业务目标，或者促使此目标的实现”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activiti7的基本原理和使用">
+<meta property="og:url" content="https://xmp2008.github.io/xmp-blog/2023/03/09/Activiti7%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="xmp2008的博客">
+<meta property="og:description" content="Activiti7的基本原理和使用1 什么是工作流？#1.1 工作流介绍# 工作流（Workflow），就是通过计算机对业务流程自动化执行管理。它主要解决的是“使在多个参与者之间按照某种预定义的规则自动进行传递文档、信息或任务的过程，从而实现某个预期的业务目标，或者促使此目标的实现”。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095106879-1620779290.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107110-1141687013.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107260-1091167916.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107421-849218252.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107591-981833034.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107850-139508263.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108013-1796322103.jpg">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108195-2049264938.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108402-1472621426.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108610-1140194181.jpg">
+<meta property="article:published_time" content="2023-03-09T03:04:51.000Z">
+<meta property="article:modified_time" content="2023-05-24T02:35:07.535Z">
+<meta property="article:author" content="xmp2008">
+<meta property="article:tag" content="工作流,java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095106879-1620779290.png">
+
+<link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2023/03/09/Activiti7%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {
+	  background: #1E92FB; /*进度条颜色*/
+	  height: 3px;
+  }
+  .pace .pace-progress-inner {
+	   box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+  }
+  .pace .pace-activity {
+	  border-top-color: #1E92FB;    /*上边框颜色*/
+	  border-left-color: #1E92FB;    /*左边框颜色*/
+  }
+</style>
+
+  <title>Activiti7的基本原理和使用 | xmp2008的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/xmp-blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">xmp2008的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">三十而立，自强不息</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/xmp-blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/xmp-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/2023/03/09/Activiti7%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/xmp-blog/images/avatar.gif">
+      <meta itemprop="name" content="xmp2008">
+      <meta itemprop="description" content="后端程序猿一枚,记录日常。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xmp2008的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Activiti7的基本原理和使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-09 11:04:51" itemprop="dateCreated datePublished" datetime="2023-03-09T11:04:51+08:00">2023-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 10:35:07" itemprop="dateModified" datetime="2023-05-24T10:35:07+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xmp-blog/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" itemprop="url" rel="index"><span itemprop="name">工作流</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Activiti7的基本原理和使用"><a href="#Activiti7的基本原理和使用" class="headerlink" title="Activiti7的基本原理和使用"></a><strong>Activiti7的基本原理和使用</strong></h1><h1 id="1-什么是工作流？"><a href="#1-什么是工作流？" class="headerlink" title="1 什么是工作流？#"></a>1 什么是工作流？<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B7%A5%E4%BD%9C%E6%B5%81%EF%BC%9F">#</a></h1><h2 id="1-1-工作流介绍"><a href="#1-1-工作流介绍" class="headerlink" title="1.1 工作流介绍#"></a>1.1 工作流介绍<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#11-%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%BB%8B%E7%BB%8D">#</a></h2><ul>
+<li>工作流（Workflow），就是通过计算机对业务流程自动化执行管理。它主要解决的是“使在多个参与者之间按照某种预定义的规则自动进行传递文档、信息或任务的过程，从而实现某个预期的业务目标，或者促使此目标的实现”。<span id="more"></span></li>
+</ul>
+<h2 id="1-2-工作流系统"><a href="#1-2-工作流系统" class="headerlink" title="1.2 工作流系统#"></a>1.2 工作流系统<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#12-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%B3%BB%E7%BB%9F">#</a></h2><h3 id="1-2-1-概述"><a href="#1-2-1-概述" class="headerlink" title="1.2.1 概述#"></a>1.2.1 概述<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#121-%E6%A6%82%E8%BF%B0">#</a></h3><ul>
+<li>一个软件系统中具有工作流的功能，我们把它称为工作流系统。</li>
+<li>一个系统中工作流的功能是什么？就是对系统的业务流程进行自动化管理，所以工作流是建立在业务流程的基础上，所以一个软件的系统核心根本上还是系统的业务流程，工作流只是协助进行业务流程管理。</li>
+<li>即使没有工作流业务系统也可以开发运行，只不过有了工作流可以更好的管理业务流程，提高系统的可扩展性。</li>
+</ul>
+<h3 id="1-2-2-使用行业"><a href="#1-2-2-使用行业" class="headerlink" title="1.2.2 使用行业#"></a>1.2.2 使用行业<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#122-%E4%BD%BF%E7%94%A8%E8%A1%8C%E4%B8%9A">#</a></h3><ul>
+<li>消费品行业，制造业，电信服务业，银证险等金融服务业，物流服务业，物业服务业，物业管理，大中型进出口贸易公司，政府事业机构，研究院所及教育服务业等，特别是大的跨国企业和集团公司。</li>
+</ul>
+<h3 id="1-2-3-具体应用"><a href="#1-2-3-具体应用" class="headerlink" title="1.2.3 具体应用#"></a>1.2.3 具体应用<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#123-%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8">#</a></h3><ul>
+<li>关键业务流程：订单、报价处理、合同审核、客户电话处理、供应链管理等。</li>
+<li>行政管理类：出差申请、加班申请、请假申请、用车申请、各种办公用品申请、购买申请、日报周报等凡是原来手工流转处理的行政表单。</li>
+<li>人事管理类：员工培训安排、绩效考评、职位变动处理、员工档案信息管理等。</li>
+<li>财务相关类：付款请求、应收款处理、日常报销处、出差报销、预算和计划申请等。</li>
+<li>客户服务类：客户信息管理、客户投诉、请求处理、售后财务管理等。</li>
+<li>特殊服务类：ISO系统对应流程、质量管理对应流程、产品数据信息管理、贸易公司报关处理、物流公司货物跟踪处理等各种通过表单逐步手动流转完成的任务均可应用工作流软件自动规范实施。</li>
+</ul>
+<h2 id="1-3-工作流实现方式"><a href="#1-3-工作流实现方式" class="headerlink" title="1.3 工作流实现方式#"></a>1.3 工作流实现方式<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#13-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F">#</a></h2><ul>
+<li>在没有专门的工作流引擎之前，我们之前为了实现流程控制，通常的做法就是采用状态字段的值来跟踪流程的变化情况。这样不同角色的用户，通过状态字段的取值来决定记录是否显示。</li>
+<li>针对有权限可以查看的记录，当前用户根据自己的角色来决定审批是否是合格的操作。如果合格将状态字段设置一个值，来代表合格；当然如果不合格也需要设置一个值来代表不合格的情况。</li>
+<li>这是一种最为原始的方式。通过状态字段虽然做到了流程控制，但是当我们的流程发生变更的时候，这种方式所编写的代码也要进行调整。</li>
+<li>那么有没有专业的方式来实现工作流的管理呢？并且可以做到业务流程变化之后，我们的程序可以不用改变，如果可以实现这样的效果，那么我们的业务系统的适应能力就得到了极大提升。答案就是采用工作流引擎。</li>
+</ul>
+<h2 id="1-4-工作流实现原理分析"><a href="#1-4-工作流实现原理分析" class="headerlink" title="1.4 工作流实现原理分析#"></a>1.4 工作流实现原理分析<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#14-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90">#</a></h2><ul>
+<li>如何做到我们在业务流程发生变更后，我们的业务系统代码可以不发生改变？原理如下：</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095106879-1620779290.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095106879-1620779290.png" alt="工作流实现原理图"></a></p>
+<ul>
+<li>将业务流程的每个节点读取到数据库中，这样每个节点（包括开始节点和结束节点）就是数据库中的一条记录，当发生业务流程的时候，不断的从业务流程图中读取下一个节点，其实就相当于操作节点对应的数据库记录，这样就实现流程管理和状态字段无关。</li>
+</ul>
+<h1 id="2-什么是Activiti7？"><a href="#2-什么是Activiti7？" class="headerlink" title="2 什么是Activiti7？#"></a>2 什么是Activiti7？<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#2-%E4%BB%80%E4%B9%88%E6%98%AFactiviti7%EF%BC%9F">#</a></h1><h2 id="2-1-Activiti7介绍"><a href="#2-1-Activiti7介绍" class="headerlink" title="2.1 Activiti7介绍#"></a>2.1 Activiti7介绍<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#21-activiti7%E4%BB%8B%E7%BB%8D">#</a></h2><h3 id="2-1-1-概述"><a href="#2-1-1-概述" class="headerlink" title="2.1.1 概述#"></a>2.1.1 概述<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#211-%E6%A6%82%E8%BF%B0">#</a></h3><ul>
+<li>Alfresco 软件在 2010 年 5 月 17 日宣布 Activiti 业务流程管理（BPM）开源项目的正式启动， 其<br>首席架构师由业务流程管理 BPM 的专家 Tom Baeyens 担任， Tom Baeyens 就是原来 jbpm 的架构师，<br>而 jbpm 是一个非常有名的工作流引擎，当然 activiti 也是一个工作流引擎。</li>
+<li>Activiti 是一个工作流引擎， activiti 可以将业务系统中复杂的业务流程抽取出来，使用专门的<br>建模语言（BPMN2.0）进行定义，业务系统按照预先定义的流程进行执行，实现了业务系统的业务<br>流程由 activiti 进行管理，减少业务系统由于流程变更进行系统升级改造的工作量，从而提高系统的<br>健壮性，同时也减少了系统开发维护成本。</li>
+<li><a target="_blank" rel="noopener" href="https://www.activiti.org/">官方网站</a></li>
+</ul>
+<h3 id="2-1-2-Activiti7内部核心机制"><a href="#2-1-2-Activiti7内部核心机制" class="headerlink" title="2.1.2 Activiti7内部核心机制#"></a>2.1.2 Activiti7内部核心机制<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#212-activiti7%E5%86%85%E9%83%A8%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6">#</a></h3><ul>
+<li>1️⃣业务流程图要规范化，需要遵守一套标准。</li>
+<li>2️⃣业务流程图本质上就是一个XML文件，而XML可以存放所要的数据。</li>
+<li>3️⃣读取业务流程图的过程就是解析XML文件的过程。</li>
+<li>4️⃣读取一个业务流程图的结点就相当于解析一个XML的结点，进一步将数据插入到MySQL表中，形成一条记录。</li>
+<li>5️⃣将一个业务流程图的所有节点都读取并存入到MySQL表中。</li>
+<li>6️⃣后面只要读取MySQL表中的记录就相当于读取业务流程图的一个节点。</li>
+<li>7️⃣业务流程的推进，后面就转换为读取表中的数据，并且处理数据，结束的时候这一行数据就可以删除了。</li>
+</ul>
+<h3 id="2-1-3-BPM"><a href="#2-1-3-BPM" class="headerlink" title="2.1.3 BPM#"></a>2.1.3 BPM<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#213-bpm">#</a></h3><ul>
+<li><p>BPM（Business Process Management），即业务流程管理，是一种以规范化的构造端到端的卓越业务流程为中心，以持续的提高组织业务绩效为目的的系统化方法，常见商业管理教育如EMBA、MBA等均将BPM包含在内。</p>
+</li>
+<li><p>企业流程管理主要是对企业内部改革，改变企业只能管理机构重叠、中间层次多、流程不闭环等，做到机构不重叠、业务不复杂，达到缩短流程周期、节约运作资本、提高企业效益的作用。</p>
+</li>
+<li><p>比较下面的两个人事加薪流程，那个效率更高？</p>
+<ul>
+<li>流程一：</li>
+</ul>
+<p>人事加薪流程制定加薪计划部门经理审批总经理审批财务经理审批</p>
+<ul>
+<li>流程二：</li>
+</ul>
+<p>1万元以内1万元以上人事加薪流程制定加薪计划部门经理审批1万元财务经理审批总经理审批</p>
+<ul>
+<li>上面的两个流程的区别在于第二个流程在执行时，如果本次加薪金额在一万元内不再由总经理审批将比第一个流程缩短流程周期，从而提高效率。</li>
+</ul>
+</li>
+<li><p>比较下面的两个看病的流程，那个效率更高？</p>
+<ul>
+<li>流程一：</li>
+</ul>
+<p>病人看病流程病人去医院看病挂号看病交费取药</p>
+<ul>
+<li>流程二：</li>
+</ul>
+<p>病人看病流程病人去医院看病挂号看病交费取药</p>
+<ul>
+<li>上面的两个流程的区别在于第二个流程将交费和取药放在一起进行，这样导致的结果是此窗口的工作人员必须具有财务、药学专业知识，岗位强度加大，人员培训难度加大从而导致人员不易扩展，工作效率低下。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-4-BPM软件"><a href="#2-1-4-BPM软件" class="headerlink" title="2.1.4 BPM软件#"></a>2.1.4 BPM软件<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#214-bpm%E8%BD%AF%E4%BB%B6">#</a></h3><ul>
+<li>BPM软件就是根据企业中业务环境的变化，推进人和人之间、人和系统之间以及系统和系统之间的整合及调整的经营方法和解决方案的IT工具。通常以Internet方式实现信息传、数据同步、业务监控和企业业务流程的持续升级优化，从而实现跨应用、跨部门、夸合作伙伴和客户的企业运作。通过BPM软件对企业内部及外部的业务流程的整个生命周期进行建模、自动化、管理监控和优化，使企业成本降低，利润得以大幅度提升。</li>
+<li>BPM软件在企业中应用领域广泛，凡是有业务流程的地方都可以用BPM软件进行管理，比如企业人事办公管理、采购流程管理、公文审批流程管理、财务管理等。</li>
+</ul>
+<h3 id="2-1-5-BPMN"><a href="#2-1-5-BPMN" class="headerlink" title="2.1.5 BPMN#"></a>2.1.5 BPMN<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#215-bpmn">#</a></h3><ul>
+<li><p>BPMN（Business Process Model And Notation），业务流程模型和符号，是由BPMI（Business Process Management Initiative）开发的一套的业务流程建模符号，使用BPMN提供的符号可以创建业务流程。2004年5月发布了BPMN1.0规范。BPMI于2005年9月并入OMG（The Object Management Group，对象管理组织）组织。OMG于2011年1月发布BPMN2.0的最终版本。</p>
+</li>
+<li><p>BPMN是目前被各BPM厂商广泛接受的BPM标准。Activit就是使用BPMN2.0进行流程建模、流程执行管理，它包括很多的建模符号。</p>
+<ul>
+<li><p>比如：</p>
+<ul>
+<li>Event用一个圆圈表示，它是流程中运行过程中发生的事情。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107110-1141687013.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107110-1141687013.png" alt="Event"></a></p>
+<ul>
+<li>活动用圆形矩形表示，一个流程由一个活动或多个活动组成。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107260-1091167916.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107260-1091167916.png" alt="BPMN图标"></a></p>
+</li>
+</ul>
+</li>
+<li><p>一个BPMN的例子：</p>
+<ul>
+<li>首先当事人发起一个请假单；</li>
+<li>其次他所在部门的经理对请假单进行审核；</li>
+<li>然后人事经理进行复核并进行备案；</li>
+<li>最后请假流程结束。</li>
+</ul>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107421-849218252.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107421-849218252.png" alt="BPMN例子"></a></p>
+<ul>
+<li>BPMN其实是用XML表示业务流程的，上面的.bpmn文件使用文本编辑器打开：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bpmn2:definitions</span> <span class="attr">xmlns:bpmn2</span>=<span class="string">&quot;http://www.omg.org/spec/BPMN/20100524/MODEL&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="attr">xmlns:bpmndi</span>=<span class="string">&quot;http://www.omg.org/spec/BPMN/20100524/DI&quot;</span> <span class="attr">xmlns:dc</span>=<span class="string">&quot;http://www.omg.org/spec/DD/20100524/DC&quot;</span> <span class="attr">xmlns:di</span>=<span class="string">&quot;http://www.omg.org/spec/DD/20100524/DI&quot;</span> <span class="attr">id</span>=<span class="string">&quot;sample-diagram&quot;</span> <span class="attr">targetNamespace</span>=<span class="string">&quot;http://bpmn.io/schema/bpmn&quot;</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bpmn2:process</span> <span class="attr">id</span>=<span class="string">&quot;process1596086637078&quot;</span> <span class="attr">name</span>=<span class="string">&quot;流程1596086637078&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:startEvent</span> <span class="attr">id</span>=<span class="string">&quot;StartEvent_01ydzqe&quot;</span> <span class="attr">name</span>=<span class="string">&quot;开始&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:outgoing</span>&gt;</span>SequenceFlow_13g4uaz<span class="tag">&lt;/<span class="name">bpmn2:outgoing</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmn2:startEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:userTask</span> <span class="attr">id</span>=<span class="string">&quot;UserTask_1lf9x0v&quot;</span> <span class="attr">name</span>=<span class="string">&quot;填写请假单&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:incoming</span>&gt;</span>SequenceFlow_13g4uaz<span class="tag">&lt;/<span class="name">bpmn2:incoming</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:outgoing</span>&gt;</span>SequenceFlow_0yljdna<span class="tag">&lt;/<span class="name">bpmn2:outgoing</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmn2:userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_13g4uaz&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;StartEvent_01ydzqe&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;UserTask_1lf9x0v&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:userTask</span> <span class="attr">id</span>=<span class="string">&quot;UserTask_0xa95fp&quot;</span> <span class="attr">name</span>=<span class="string">&quot;部门经理审批&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:incoming</span>&gt;</span>SequenceFlow_0yljdna<span class="tag">&lt;/<span class="name">bpmn2:incoming</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:outgoing</span>&gt;</span>SequenceFlow_0wc7wvy<span class="tag">&lt;/<span class="name">bpmn2:outgoing</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmn2:userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_0yljdna&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;UserTask_1lf9x0v&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;UserTask_0xa95fp&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:userTask</span> <span class="attr">id</span>=<span class="string">&quot;UserTask_1p57lka&quot;</span> <span class="attr">name</span>=<span class="string">&quot;人事复核&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:incoming</span>&gt;</span>SequenceFlow_0wc7wvy<span class="tag">&lt;/<span class="name">bpmn2:incoming</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:outgoing</span>&gt;</span>SequenceFlow_0o4nsg1<span class="tag">&lt;/<span class="name">bpmn2:outgoing</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmn2:userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_0wc7wvy&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;UserTask_0xa95fp&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;UserTask_1p57lka&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:endEvent</span> <span class="attr">id</span>=<span class="string">&quot;EndEvent_05yb7io&quot;</span> <span class="attr">name</span>=<span class="string">&quot;结束&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmn2:incoming</span>&gt;</span>SequenceFlow_0o4nsg1<span class="tag">&lt;/<span class="name">bpmn2:incoming</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmn2:endEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmn2:sequenceFlow</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_0o4nsg1&quot;</span> <span class="attr">sourceRef</span>=<span class="string">&quot;UserTask_1p57lka&quot;</span> <span class="attr">targetRef</span>=<span class="string">&quot;EndEvent_05yb7io&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bpmn2:process</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bpmndi:BPMNDiagram</span> <span class="attr">id</span>=<span class="string">&quot;BPMNDiagram_1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmndi:BPMNPlane</span> <span class="attr">id</span>=<span class="string">&quot;BPMNPlane_1&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;process1596086637078&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">id</span>=<span class="string">&quot;StartEvent_01ydzqe_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;StartEvent_01ydzqe&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;382&quot;</span> <span class="attr">y</span>=<span class="string">&quot;82&quot;</span> <span class="attr">width</span>=<span class="string">&quot;36&quot;</span> <span class="attr">height</span>=<span class="string">&quot;36&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;389&quot;</span> <span class="attr">y</span>=<span class="string">&quot;58&quot;</span> <span class="attr">width</span>=<span class="string">&quot;22&quot;</span> <span class="attr">height</span>=<span class="string">&quot;14&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">id</span>=<span class="string">&quot;UserTask_1lf9x0v_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;UserTask_1lf9x0v&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;490&quot;</span> <span class="attr">y</span>=<span class="string">&quot;60&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;80&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_13g4uaz_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;SequenceFlow_13g4uaz&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;418&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;490&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">id</span>=<span class="string">&quot;UserTask_0xa95fp_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;UserTask_0xa95fp&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;700&quot;</span> <span class="attr">y</span>=<span class="string">&quot;60&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;80&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_0yljdna_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;SequenceFlow_0yljdna&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;590&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;700&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">id</span>=<span class="string">&quot;UserTask_1p57lka_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;UserTask_1p57lka&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;910&quot;</span> <span class="attr">y</span>=<span class="string">&quot;60&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;80&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_0wc7wvy_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;SequenceFlow_0wc7wvy&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;800&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;910&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">id</span>=<span class="string">&quot;EndEvent_05yb7io_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;EndEvent_05yb7io&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;1152&quot;</span> <span class="attr">y</span>=<span class="string">&quot;82&quot;</span> <span class="attr">width</span>=<span class="string">&quot;36&quot;</span> <span class="attr">height</span>=<span class="string">&quot;36&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">x</span>=<span class="string">&quot;1159&quot;</span> <span class="attr">y</span>=<span class="string">&quot;125&quot;</span> <span class="attr">width</span>=<span class="string">&quot;22&quot;</span> <span class="attr">height</span>=<span class="string">&quot;14&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">id</span>=<span class="string">&quot;SequenceFlow_0o4nsg1_di&quot;</span> <span class="attr">bpmnElement</span>=<span class="string">&quot;SequenceFlow_0o4nsg1&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;1010&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">&quot;1152&quot;</span> <span class="attr">y</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmndi:BPMNPlane</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bpmndi:BPMNDiagram</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bpmn2:definitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-Activiti如何使用"><a href="#2-2-Activiti如何使用" class="headerlink" title="2.2 Activiti如何使用#"></a>2.2 Activiti如何使用<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#22-activiti%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8">#</a></h2><h3 id="2-2-1-整合Activiti"><a href="#2-2-1-整合Activiti" class="headerlink" title="2.2.1 整合Activiti#"></a>2.2.1 整合Activiti<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#221-%E6%95%B4%E5%90%88activiti">#</a></h3><ul>
+<li>Activiti是一个工作流引擎，业务系统使用Activiti来对系统的业务流程进行自动化管理，为了方便业务系统访问（操作）Activiti的接口或功能，通常将Activiti和业务系统的环境集成在一起。</li>
+</ul>
+<h3 id="2-2-2-实现业务流程建模，使用BPMN实现业务流程图"><a href="#2-2-2-实现业务流程建模，使用BPMN实现业务流程图" class="headerlink" title="2.2.2 实现业务流程建模，使用BPMN实现业务流程图#"></a>2.2.2 实现业务流程建模，使用BPMN实现业务流程图<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#222-%E5%AE%9E%E7%8E%B0%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%BB%BA%E6%A8%A1%EF%BC%8C%E4%BD%BF%E7%94%A8bpmn%E5%AE%9E%E7%8E%B0%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%9B%BE">#</a></h3><ul>
+<li>使用Activiti流程建模工具(Activity-designer)定义业务流程(.bpmn文件)。</li>
+<li>.bpmn文件就是业务流程定义文件，通过xml定义业务流程。</li>
+<li>如果使用其他公司开发的工作引擎一般都提供了可视化的建模工具（Process Designer）用于生成流程定义文件，建模工具操作直观，一般都支持图形化拖拽方式、多窗口的用户界面、丰富的过程图形元素、过程元素拷贝、粘贴、删除等功能。</li>
+</ul>
+<h3 id="2-2-3-部署业务流程到Activiti"><a href="#2-2-3-部署业务流程到Activiti" class="headerlink" title="2.2.3 部署业务流程到Activiti#"></a>2.2.3 部署业务流程到Activiti<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#223-%E9%83%A8%E7%BD%B2%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%88%B0activiti">#</a></h3><ul>
+<li>向Activiti部署业务流程定义(.bpmn文件)。</li>
+<li>使用Activiti提供的API向Activiti中部署.bpmn文件（一般情况下还需要一起部署业务流程的图片.png）。</li>
+</ul>
+<h3 id="2-2-4-启动流程实例-ProcessInstance"><a href="#2-2-4-启动流程实例-ProcessInstance" class="headerlink" title="2.2.4 启动流程实例(ProcessInstance)#"></a>2.2.4 启动流程实例(ProcessInstance)<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#224-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8Bprocessinstance">#</a></h3><ul>
+<li>启动一个流程实例表示开始一次业务流程的运行，比如员工请假流程部署完成，如果张三要请假就可以启动一个流程实例，如果李四要请假也需要启动一个流程实例，两个流程的执行互不影响，就好比定义一个Java类，实例化两个Java对象一样，部署的流程就好比Java类，启动一个流程实例就好比new一个Java对象。</li>
+</ul>
+<h3 id="2-2-5-查询待办任务-Task"><a href="#2-2-5-查询待办任务-Task" class="headerlink" title="2.2.5 查询待办任务(Task)#"></a>2.2.5 查询待办任务(Task)<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#225-%E6%9F%A5%E8%AF%A2%E5%BE%85%E5%8A%9E%E4%BB%BB%E5%8A%A1task">#</a></h3><ul>
+<li>因为现在系统的业务流程已经交给Activiti管理，通过Activiti就可以查询当前流程执行到哪里了，当前用户需要办理什么任务了，这些Activiti帮我们管理了，而不像传统方式中需要我们在SQL语句中的WHERE条件中指定当前查询的状态值是多少。。</li>
+</ul>
+<h3 id="2-2-6-处理待办任务"><a href="#2-2-6-处理待办任务" class="headerlink" title="2.2.6 处理待办任务#"></a>2.2.6 处理待办任务<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#226-%E5%A4%84%E7%90%86%E5%BE%85%E5%8A%9E%E4%BB%BB%E5%8A%A1">#</a></h3><ul>
+<li>用户查询待办任务后，就可以办理某个任务，如果这任务办理完成还需要其他用户办理，比如采购单创建后由部门经理审核，这个过程也是由Activiti帮我们完成了，不需要我们在代码中硬编码指定下一个任务办理人了。</li>
+</ul>
+<h3 id="2-2-7-结束流程"><a href="#2-2-7-结束流程" class="headerlink" title="2.2.7 结束流程#"></a>2.2.7 结束流程<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#227-%E7%BB%93%E6%9D%9F%E6%B5%81%E7%A8%8B">#</a></h3><ul>
+<li>当任务办理完成没有下一个任务&#x2F;结点了，这个流程实例就完成了。</li>
+</ul>
+<h1 id="3-环境准备"><a href="#3-环境准备" class="headerlink" title="3 环境准备#"></a>3 环境准备<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#3-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">#</a></h1><h2 id="3-1-开发环境"><a href="#3-1-开发环境" class="headerlink" title="3.1 开发环境#"></a>3.1 开发环境<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#31-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">#</a></h2><h3 id="3-1-1-Java环境"><a href="#3-1-1-Java环境" class="headerlink" title="3.1.1 Java环境#"></a>3.1.1 Java环境<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#311-java%E7%8E%AF%E5%A2%83">#</a></h3><ul>
+<li>JDK14。</li>
+</ul>
+<h3 id="3-1-2-数据库"><a href="#3-1-2-数据库" class="headerlink" title="3.1.2 数据库#"></a>3.1.2 数据库<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#312-%E6%95%B0%E6%8D%AE%E5%BA%93">#</a></h3><ul>
+<li>MySQL5.7。</li>
+</ul>
+<h3 id="3-1-3-Web容器"><a href="#3-1-3-Web容器" class="headerlink" title="3.1.3 Web容器#"></a>3.1.3 Web容器<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#313-web%E5%AE%B9%E5%99%A8">#</a></h3><ul>
+<li>Tomcat8.5。</li>
+</ul>
+<h3 id="3-1-4-开发工具"><a href="#3-1-4-开发工具" class="headerlink" title="3.1.4 开发工具#"></a>3.1.4 开发工具<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#314-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7">#</a></h3><ul>
+<li>MySQL客户端连接工具：Navicat for MySQL。</li>
+<li>文件编辑器NotePad++或其他。</li>
+<li>Java开发工具：IDEA(Eclipse)。</li>
+</ul>
+<h2 id="3-2-Activiti环境"><a href="#3-2-Activiti环境" class="headerlink" title="3.2 Activiti环境#"></a>3.2 Activiti环境<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#32-activiti%E7%8E%AF%E5%A2%83">#</a></h2><ul>
+<li>Activiti7默认支持Spring5。</li>
+</ul>
+<h3 id="3-2-1-IDEA中安装ActivitiDesigner（Activiti流程设计器）"><a href="#3-2-1-IDEA中安装ActivitiDesigner（Activiti流程设计器）" class="headerlink" title="3.2.1 IDEA中安装ActivitiDesigner（Activiti流程设计器）#"></a>3.2.1 IDEA中安装ActivitiDesigner（Activiti流程设计器）<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#321-idea%E4%B8%AD%E5%AE%89%E8%A3%85activitidesigner%EF%BC%88activiti%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1%E5%99%A8%EF%BC%89">#</a></h3><p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107591-981833034.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107591-981833034.png" alt="IDEA安装Activiti流程设计器"></a></p>
+<h3 id="3-2-2-在IDEA中解决actiBPM中文乱码问题"><a href="#3-2-2-在IDEA中解决actiBPM中文乱码问题" class="headerlink" title="3.2.2 在IDEA中解决actiBPM中文乱码问题#"></a>3.2.2 在IDEA中解决actiBPM中文乱码问题<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#322-%E5%9C%A8idea%E4%B8%AD%E8%A7%A3%E5%86%B3actibpm%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98">#</a></h3><ul>
+<li>在IDEA中将File–&gt;Settings–&gt;Editor–&gt;File Encodings修改为UTF-8</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107850-139508263.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095107850-139508263.png" alt="设置File Encodings的编码"></a></p>
+<ul>
+<li>在IDEA的Help–&gt;Edit Custom VM Options中末尾添加<code>-Dfile.encoding=UTF-8</code></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108013-1796322103.jpg"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108013-1796322103.jpg" alt="设置虚拟机的参数"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108195-2049264938.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108195-2049264938.png" alt="设置虚拟机的编码参数"></a></p>
+<ul>
+<li>在IDEA的安装目录的bin目录下将idea.exe.vmoptions和idea64.exe.vmoptions两个文件末尾添加<code>-Dfile.encoding=UTF-8</code></li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108402-1472621426.png"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108402-1472621426.png" alt="安装目录添加编码参数"></a></p>
+<ul>
+<li>重启IDEA即可。</li>
+</ul>
+<h3 id="3-2-3-Activiti支持的数据库"><a href="#3-2-3-Activiti支持的数据库" class="headerlink" title="3.2.3 Activiti支持的数据库#"></a>3.2.3 Activiti支持的数据库<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#323-activiti%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93">#</a></h3><ul>
+<li>Activiti的运行需要数据库的支撑，支持如下版本：<ul>
+<li>h2。</li>
+<li>MySQL。</li>
+<li>Oracle。</li>
+<li>Db2。</li>
+<li>postgres。</li>
+<li>mssql。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-4-创建activiti数据库"><a href="#3-2-4-创建activiti数据库" class="headerlink" title="3.2.4 创建activiti数据库#"></a>3.2.4 创建activiti数据库<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#324-%E5%88%9B%E5%BB%BAactiviti%E6%95%B0%E6%8D%AE%E5%BA%93">#</a></h3><ul>
+<li>使用的DBMS是MySQL。</li>
+<li>sql脚本：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE activiti <span class="keyword">DEFAULT</span> <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-5-创建表"><a href="#3-2-5-创建表" class="headerlink" title="3.2.5 创建表#"></a>3.2.5 创建表<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#325-%E5%88%9B%E5%BB%BA%E8%A1%A8">#</a></h3><ul>
+<li>通过Java程序创建表。</li>
+</ul>
+<h4 id="3-2-5-1-创建Java工程"><a href="#3-2-5-1-创建Java工程" class="headerlink" title="3.2.5.1 创建Java工程#"></a>3.2.5.1 创建Java工程<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#3251-%E5%88%9B%E5%BB%BAjava%E5%B7%A5%E7%A8%8B">#</a></h4><ul>
+<li>通过IDEA创建Maven的Java工程。</li>
+</ul>
+<h4 id="3-2-5-2-加入相关jar包的Maven坐标"><a href="#3-2-5-2-加入相关jar包的Maven坐标" class="headerlink" title="3.2.5.2 加入相关jar包的Maven坐标#"></a>3.2.5.2 加入相关jar包的Maven坐标<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#3252-%E5%8A%A0%E5%85%A5%E7%9B%B8%E5%85%B3jar%E5%8C%85%E7%9A%84maven%E5%9D%90%E6%A0%87">#</a></h4><ul>
+<li>在Java工程中加入ProcessEngine所需要的jar包，包括：<ul>
+<li>activiti-engine-7.0.0.GA.jar</li>
+<li>activiti依赖的jar包：mybatis、slf4j、log4j等</li>
+<li>activiti依赖的spring的jar包</li>
+<li>数据库驱动</li>
+<li>第三方数据库连接池dbcp</li>
+<li>单元测试junit</li>
+</ul>
+</li>
+<li>pom.xml</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activiti.version</span>&gt;</span>7.0.0.GA<span class="tag">&lt;/<span class="name">activiti.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activiti.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activiti.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-bpmn-model<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activiti.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-bpmn-converter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activiti.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-json-converter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activiti.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-bpmn-layout<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;activiti.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-cloud-services-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>7-201802-EA<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.19<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- log start --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.13.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.13.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.30<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.logging.log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j-slf4j-impl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.13.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- log end --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-dbcp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-dbcp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti.cloud.dependencies<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>7.0.0.GA<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-5-3-日志文件log4j2-xml"><a href="#3-2-5-3-日志文件log4j2-xml" class="headerlink" title="3.2.5.3 日志文件log4j2.xml#"></a>3.2.5.3 日志文件log4j2.xml<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#3253-%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6log4j2xml">#</a></h4><ul>
+<li>log4j2.xml</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--日志级别以及优先级排序: OFF &gt; FATAL &gt; ERROR &gt; WARN &gt; INFO &gt; DEBUG &gt; TRACE &gt; ALL --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--Configuration后面的status用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，可以看到log4j2内部各种详细输出--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">status</span>=<span class="string">&quot;INFO&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--先定义所有的appender--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appenders</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--输出日志信息到控制台--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">console</span> <span class="attr">name</span>=<span class="string">&quot;Console&quot;</span> <span class="attr">target</span>=<span class="string">&quot;SYSTEM_OUT&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--控制日志输出的格式--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PatternLayout</span> <span class="attr">pattern</span>=<span class="string">&quot;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; [%t] %-5level %logger&#123;36&#125; - %msg%n&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">console</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appenders</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--然后定义logger，只有定义了logger并引入的appender，appender才会生效--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--root：用于指定项目的根日志，如果没有单独指定Logger，则会使用root作为默认的日志输出--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">loggers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;Console&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">loggers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-5-4-Activit核心配置文件activiti-cfg-xml"><a href="#3-2-5-4-Activit核心配置文件activiti-cfg-xml" class="headerlink" title="3.2.5.4 Activit核心配置文件activiti-cfg.xml#"></a>3.2.5.4 Activit核心配置文件activiti-cfg.xml<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#3254-activit%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6activiti-cfgxml">#</a></h4><ul>
+<li>activiti-cfg.xml</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">        http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="string"><span class="tag">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="string"><span class="tag">        http://www.springframework.org/schema/context/spring-context.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--  配置数据源 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driverClassName&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://192.168.134.100:3306/activiti?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=UTF-8<span class="symbol">&amp;amp;</span>autoReconnect=true<span class="symbol">&amp;amp;</span>useSSL=false<span class="symbol">&amp;amp;</span>serverTimezone=GMT%2B8<span class="symbol">&amp;amp;</span>allowPublicKeyRetrieval=true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;123456&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxActive&quot;</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;maxIdle&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Activiti单独运行的ProcessEngine配置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;processEngineConfiguration&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 数据源 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;dataSource&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">            activiti数据库表处理策略 </span></span><br><span class="line"><span class="comment">                false(默认值)：检查数据库的版本和依赖库的版本，如果不匹配就抛出异常</span></span><br><span class="line"><span class="comment">                true：构建流程引擎时，执行检查，如果需要就执行更新。如果表不存在，就创建。</span></span><br><span class="line"><span class="comment">                create-drop：构建流程引擎时创建数据库报表，关闭流程引擎时就删除这些表。</span></span><br><span class="line"><span class="comment">                drop-create：先删除表再创建表。</span></span><br><span class="line"><span class="comment">                create：构建流程引擎时创建数据库表，关闭流程引擎时不删除这些表</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;databaseSchemaUpdate&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-5-5-测试"><a href="#3-2-5-5-测试" class="headerlink" title="3.2.5.5 测试#"></a>3.2.5.5 测试<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#3255-%E6%B5%8B%E8%AF%95">#</a></h4><ul>
+<li>创建ProcessEngineConfiguration，通过ProcessEngineConfiguration创建ProcessEngine，在创建ProcessEngine的同时会自动创建数据库。</li>
+<li>示例：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sunxiaping;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngine;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngineConfiguration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:1900919313@qq.com&quot;&gt;weiwei.xu&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * 2020-07-31 6:41</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivitiTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//创建ProcessEngineConfiguration对象</span></span><br><span class="line">        <span class="type">ProcessEngineConfiguration</span> <span class="variable">configuration</span> <span class="operator">=</span> ProcessEngineConfiguration.createProcessEngineConfigurationFromResource(<span class="string">&quot;activiti-cfg.xml&quot;</span>);</span><br><span class="line">        <span class="comment">//创建ProcessEngine对象</span></span><br><span class="line">        <span class="type">ProcessEngine</span> <span class="variable">processEngine</span> <span class="operator">=</span> configuration.buildProcessEngine();</span><br><span class="line">        System.out.println(<span class="string">&quot;processEngine = &quot;</span> + processEngine);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>1️⃣：运行以上程序即可完成Activiti数据库表的创建，通过改变activiti-cfg.xml中的databaseSchemaUpdate参数的值执行不同的数据表处理策略。</p>
+<p>2️⃣：上面的方法createProcessEngineConfigurationFromResource在执行activiti-cfg.xml中找固定的名称processEngineConfiguration，也可以使用重载方法调用，这时就可以不用限定processEngineConfiguration名称。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ProcessEngineConfiguration <span class="title function_">createProcessEngineConfigurationFromResource</span><span class="params">(String resource, String beanName)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> BeansConfigurationHelper.parseProcessEngineConfigurationFromResource(resource, beanName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li>此时我们查看数据库，发现25张表，结果如下所示：</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108610-1140194181.jpg"><img src="https://img2020.cnblogs.com/blog/1128804/202009/1128804-20200913095108610-1140194181.jpg" alt="代码生成Activiti的数据库表"></a></p>
+<h3 id="3-2-6-数据库表的命名规则"><a href="#3-2-6-数据库表的命名规则" class="headerlink" title="3.2.6 数据库表的命名规则#"></a>3.2.6 数据库表的命名规则<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiweiwoaini/p/13660394.html#326-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99">#</a></h3><ul>
+<li>Activiti的表都是以<code>ACT_</code>开头。第二部分是表示表的用途的两个字母标识。用途也和服务的API对应。</li>
+<li><code>ACT_RE_*</code>：’RE’表示Repository。这个前缀的表包含了流程定义和流程静态资源（图片、规则等等）。</li>
+<li><code>ACT_RU_*</code>：’RU’表示Runtime。这些运行时的表，包含流程实例，任务、变量，异步任务等运行中的数据。Activiti只在流程实例执行过程中保存这些数据，在流程结束时就会删除这些记录。这些运行时表可以一直很小并且速度很快。</li>
+<li><code>ACT_HI_*</code>：’HI’表示History。这些表包含历史数据，比如历史流程实例，变量，任务等等。</li>
+<li><code>ACT_GE_*</code>：’GE’表示General。通用数据，用于不同场景下。</li>
+</ul>
+
+    </div>
+
+    
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart-o"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/xmp-blog/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81-java/" rel="tag"># 工作流,java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2023/03/09/%E5%A6%82%E4%BD%95%E7%BB%99docker%E5%AE%B9%E5%99%A8%E6%8C%87%E5%AE%9A%E5%9B%BA%E5%AE%9Aip/" rel="prev" title="如何给docker容器指定固定ip">
+      <i class="fa fa-chevron-left"></i> 如何给docker容器指定固定ip
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2023/03/30/%E8%A7%A3%E5%86%B3qnap%E9%87%8D%E5%90%AF%E5%90%8E%E8%87%AA%E5%8A%A8%E6%B8%85%E7%90%86%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="解决qnap重启后自动清理系统文件的问题">
+      解决qnap重启后自动清理系统文件的问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activiti7%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Activiti7的基本原理和使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B7%A5%E4%BD%9C%E6%B5%81%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">1 什么是工作流？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E5%B7%A5%E4%BD%9C%E6%B5%81%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 工作流介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 工作流系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.2.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E4%BD%BF%E7%94%A8%E8%A1%8C%E4%B8%9A"><span class="nav-number">2.2.2.</span> <span class="nav-text">1.2.2 使用行业</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">1.2.3 具体应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 工作流实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 工作流实现原理分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AFActiviti7%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">2 什么是Activiti7？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Activiti7%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Activiti7介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E6%A6%82%E8%BF%B0"><span class="nav-number">3.1.1.</span> <span class="nav-text">2.1.1 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-Activiti7%E5%86%85%E9%83%A8%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.1.2 Activiti7内部核心机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-BPM"><span class="nav-number">3.1.3.</span> <span class="nav-text">2.1.3 BPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-BPM%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.1.4.</span> <span class="nav-text">2.1.4 BPM软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-5-BPMN"><span class="nav-number">3.1.5.</span> <span class="nav-text">2.1.5 BPMN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Activiti%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Activiti如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E6%95%B4%E5%90%88Activiti"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 整合Activiti</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E5%AE%9E%E7%8E%B0%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%BB%BA%E6%A8%A1%EF%BC%8C%E4%BD%BF%E7%94%A8BPMN%E5%AE%9E%E7%8E%B0%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 实现业务流程建模，使用BPMN实现业务流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E9%83%A8%E7%BD%B2%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B%E5%88%B0Activiti"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.2.3 部署业务流程到Activiti</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B-ProcessInstance"><span class="nav-number">3.2.4.</span> <span class="nav-text">2.2.4 启动流程实例(ProcessInstance)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-5-%E6%9F%A5%E8%AF%A2%E5%BE%85%E5%8A%9E%E4%BB%BB%E5%8A%A1-Task"><span class="nav-number">3.2.5.</span> <span class="nav-text">2.2.5 查询待办任务(Task)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-6-%E5%A4%84%E7%90%86%E5%BE%85%E5%8A%9E%E4%BB%BB%E5%8A%A1"><span class="nav-number">3.2.6.</span> <span class="nav-text">2.2.6 处理待办任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-7-%E7%BB%93%E6%9D%9F%E6%B5%81%E7%A8%8B"><span class="nav-number">3.2.7.</span> <span class="nav-text">2.2.7 结束流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text">3 环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-Java%E7%8E%AF%E5%A2%83"><span class="nav-number">4.1.1.</span> <span class="nav-text">3.1.1 Java环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.1.2.</span> <span class="nav-text">3.1.2 数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-Web%E5%AE%B9%E5%99%A8"><span class="nav-number">4.1.3.</span> <span class="nav-text">3.1.3 Web容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-4-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="nav-number">4.1.4.</span> <span class="nav-text">3.1.4 开发工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Activiti%E7%8E%AF%E5%A2%83"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 Activiti环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-IDEA%E4%B8%AD%E5%AE%89%E8%A3%85ActivitiDesigner%EF%BC%88Activiti%E6%B5%81%E7%A8%8B%E8%AE%BE%E8%AE%A1%E5%99%A8%EF%BC%89"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.2.1 IDEA中安装ActivitiDesigner（Activiti流程设计器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E5%9C%A8IDEA%E4%B8%AD%E8%A7%A3%E5%86%B3actiBPM%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98"><span class="nav-number">4.2.2.</span> <span class="nav-text">3.2.2 在IDEA中解决actiBPM中文乱码问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-Activiti%E6%94%AF%E6%8C%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.2.3.</span> <span class="nav-text">3.2.3 Activiti支持的数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-4-%E5%88%9B%E5%BB%BAactiviti%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.2.4.</span> <span class="nav-text">3.2.4 创建activiti数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-5-%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="nav-number">4.2.5.</span> <span class="nav-text">3.2.5 创建表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-1-%E5%88%9B%E5%BB%BAJava%E5%B7%A5%E7%A8%8B"><span class="nav-number">4.2.5.1.</span> <span class="nav-text">3.2.5.1 创建Java工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-2-%E5%8A%A0%E5%85%A5%E7%9B%B8%E5%85%B3jar%E5%8C%85%E7%9A%84Maven%E5%9D%90%E6%A0%87"><span class="nav-number">4.2.5.2.</span> <span class="nav-text">3.2.5.2 加入相关jar包的Maven坐标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-3-%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6log4j2-xml"><span class="nav-number">4.2.5.3.</span> <span class="nav-text">3.2.5.3 日志文件log4j2.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-4-Activit%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6activiti-cfg-xml"><span class="nav-number">4.2.5.4.</span> <span class="nav-text">3.2.5.4 Activit核心配置文件activiti-cfg.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-5-%E6%B5%8B%E8%AF%95"><span class="nav-number">4.2.5.5.</span> <span class="nav-text">3.2.5.5 测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-6-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">4.2.6.</span> <span class="nav-text">3.2.6 数据库表的命名规则</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xmp2008</p>
+  <div class="site-description" itemprop="description">后端程序猿一枚,记录日常。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/xmp-blog/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/xmp-blog/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/xmp-blog/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xmp2008</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">233k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xmp-blog/lib/anime.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/xmp-blog/js/utils.js"></script>
+
+<script src="/xmp-blog/js/motion.js"></script>
+
+
+<script src="/xmp-blog/js/schemes/muse.js"></script>
+
+
+<script src="/xmp-blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/xmp-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/xmp-blog/css/main.css">
+
+
+<link rel="stylesheet" href="/xmp-blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xmp2008.github.io","root":"/xmp-blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="#1为什么要用WordPress建站WordPress是一种使用PHP语言和MySQL数据库开发的个人博客系统，其稳定可靠，易于使用，且是免费开源的。而最让我看重的，是它支持一大波优秀的插件和模板，比如SEO优化、静态缓存和数据备份等。 具体可参看百度文库相关介绍：http:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;WordPress">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何用vps建wp个人网站">
+<meta property="og:url" content="https://xmp2008.github.io/xmp-blog/2019/03/15/%E5%A6%82%E4%BD%95%E7%94%A8vps%E5%BB%BAwp%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/index.html">
+<meta property="og:site_name" content="xmp2008的博客">
+<meta property="og:description" content="#1为什么要用WordPress建站WordPress是一种使用PHP语言和MySQL数据库开发的个人博客系统，其稳定可靠，易于使用，且是免费开源的。而最让我看重的，是它支持一大波优秀的插件和模板，比如SEO优化、静态缓存和数据备份等。 具体可参看百度文库相关介绍：http:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;WordPress">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-15T11:03:51.000Z">
+<meta property="article:modified_time" content="2023-05-24T02:35:07.564Z">
+<meta property="article:author" content="xmp2008">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="WordPress">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2019/03/15/%E5%A6%82%E4%BD%95%E7%94%A8vps%E5%BB%BAwp%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {
+	  background: #1E92FB; /*进度条颜色*/
+	  height: 3px;
+  }
+  .pace .pace-progress-inner {
+	   box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+  }
+  .pace .pace-activity {
+	  border-top-color: #1E92FB;    /*上边框颜色*/
+	  border-left-color: #1E92FB;    /*左边框颜色*/
+  }
+</style>
+
+  <title>如何用vps建wp个人网站 | xmp2008的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/xmp-blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">xmp2008的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">三十而立，自强不息</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/xmp-blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/xmp-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/2019/03/15/%E5%A6%82%E4%BD%95%E7%94%A8vps%E5%BB%BAwp%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/xmp-blog/images/avatar.gif">
+      <meta itemprop="name" content="xmp2008">
+      <meta itemprop="description" content="后端程序猿一枚,记录日常。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xmp2008的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何用vps建wp个人网站
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-15 19:03:51" itemprop="dateCreated datePublished" datetime="2019-03-15T19:03:51+08:00">2019-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 10:35:07" itemprop="dateModified" datetime="2023-05-24T10:35:07+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xmp-blog/categories/vps/" itemprop="url" rel="index"><span itemprop="name">vps</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>26k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>24 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>#1为什么要用WordPress建站<br>WordPress是一种使用PHP语言和MySQL数据库开发的个人博客系统，其稳定可靠，易于使用，且是免费开源的。而最让我看重的，是它支持一大波优秀的插件和模板，比如SEO优化、静态缓存和数据备份等。</p>
+<p>具体可参看百度文库相关介绍：<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/WordPress">http://baike.baidu.com/item/WordPress</a></p>
+<span id="more"></span>
+<p>#2选择虚拟主机还是VPS<br>在回答这个问题之前，让我们先来弄清楚虚拟主机和VPS的区别。</p>
+<p>#2.1虚拟主机</p>
+<p>虚拟主机（Virtual Hosting）又叫共享主机（Shared Hosting），是使用特殊的软硬件技术，把一台真实的主机分割成多个的逻辑存储单元，每个单元都没有物理实体，但是每一个物理单元都能像真实的物理主机一样在网络上工作，具有共享IP地址(或独立IP地址)以及必要的互联网功能。</p>
+<p>通俗一点讲，就是一个出租屋里分了好多床位，租客们共用水、电、卫生间等生活设施。</p>
+<p>优点：便宜、便捷，自带被褥，拎包即住<br>缺点：居住性能差<br>#2.2什么是VPS<br>VPS（Virtual Private Server）即虚拟专用服务器，就是利用虚拟化技术（如KVM、Xen、OpenVZ等）把一台真实的服务器分割成若干虚拟的服务器，具有独立的操作系统及开关机等功能，能自行搭建和配置特定的服务。</p>
+<p>通俗的说，就如同买了小区里的一套房子，空间及设施都是自己的，想怎么装就怎么装。</p>
+<p>优点：爱咋用咋用，居住性能好<br>缺点：价格价高，需要懂点技术<br>由上可以看出，究竟是选用虚拟主机还是VPS建站主要看你的使用目的和性能要求。</p>
+<p>一般来说，如果你对服务器配置和维护并不太懂，且个人博客的访问量不大（比如日均1000PV以下），虚拟主机（带独立IP最好）是首选，价格通常年付二三百RMB的样子。</p>
+<p>但是，如果你和博主一样喜欢折腾，喜欢追求更高性能，同时也想学习一点Linux相关知识，那么可以考虑使用VPS。</p>
+<p>实际上有些性能很不错的国外VPS也很便宜，一般月付5美元甚至更少即可。这样算下来，其实并不比虚拟主机贵到哪去。</p>
+<p>博主选用的是美国Vultr公司的最便宜的一款VPS，日本东京的机房，感觉速度要比美国西海岸洛杉矶机房好一些。</p>
+<p>博客现已搬迁至搬瓦工年付$19.99这款小内存VPS，具体购买及安装过程详见下文。</p>
+<p>#3注册域名<br>考虑到性价比（免费隐私保护）和支付便利（支持支付宝），博主目前在用以下两个域名注册商，在这也推荐给大家。</p>
+<p>NameSilo：<a target="_blank" rel="noopener" href="https://www.namesilo.com/">https://www.namesilo.com/</a><br>阿里云（万网）：<a target="_blank" rel="noopener" href="https://wanwang.aliyun.com/domain/">https://wanwang.aliyun.com/domain/</a><br>2018年2月1日起，阿里云域名涨价了，.COM 续费 ￥69 每年！（感觉是时候转出去了）</p>
+<p>反观NameSilo，价格一直比较稳定，甚至不定期赠送优惠，注册和转移时还能再省点。</p>
+<p>【优惠活动】2018年12月31日前，使用NameSilo优惠码 the1usd 可减免一美元，首年只需 $7.99！</p>
+<p>#4如何选购便宜的VPS<br>坦白说，虽然网上有不少推荐和介绍，比如知乎回答和一些评测博客，但如何选择一款便宜好用且性能不错的VPS还着实让我头疼了一阵。</p>
+<p>为什么呢？</p>
+<p>网上有些推荐的文章仅仅只是为了推荐而推荐，拿来主义，人云亦云，缺乏实际的使用体验。这就可能导致推荐者对VPS整体的稳定性缺乏深入的评测，而稳定可靠恰恰是一个网站长期发展的重要保障。</p>
+<p>尽管128MB甚至更低内存的VPS也可以搭建WordPress建站，但博主并不推荐这样做。因为我们的目的是要做一个省时省力又能长期稳定运行的网站，而不是炫耀VPS优化技术。</p>
+<p>于是，在兼顾价格（5美元以下）、速度（ping值200左右）以及稳定性（在线率99.95以上）三个前提下，最终筛选出三个便宜的国外VPS：Vultr、BandwagonHost（搬瓦工）和DigitalOcean（DO）。</p>
+<p>但是这三个到底哪个最适合自己呢？感觉还是一头雾水。</p>
+<p>纸上得来终觉浅，绝知此事要躬行。于是，就三个VPS全部试用了一遍，并通过我能用得到的各种测试，最终选定了Vultr-VPS（日本机房）。</p>
+<p>#4.1搬瓦工VPS和Vultr哪个好</p>
+<p>首先，Vultr和DigitalOcean（DO）几乎一样，最便宜的一款VPS月付都是5美元。但是Vultr给的内存是768MB，DO的则只有512MB。</p>
+<p>尽管DO在SSD空间上比较大方，给了20GB，而Vultr的则是15GB。但是，博主可以很负责任的告诉你，一般的网站存储+备份+环境一共5-10GB的空间就足够了。显然，内存比空间更实用！</p>
+<p>【温馨提示】Vultr现已更改套餐，价格、流量及空间大小均有所调整，可直达官网查看详情。</p>
+<p>其次，Vultr快照（Snapshot）是免费的，且不同VPS甚至不同机房之间可以无缝迁移。</p>
+<p>比如，刚开始我把网站放在美国西海岸的洛杉矶机房，后来发现日本东京机房的速度更快。于是，我只需要把洛杉矶的VPS快照备份，然后在新开的东京VPS上一键恢复就把数据搬过去了，不用再重装系统和优化配置了。</p>
+<p>第三，Vultr是KVM虚化技术，私以为比BandwagonHost（搬瓦工）的OpenVZ好一些。</p>
+<p>但是，搬瓦工年付19.99刀的VPS也的确不错，无论CPU性能还是硬盘I&#x2F;O读写速度（可达900MB&#x2F;s，见下图）目前都比Vultr（平均450MB&#x2F;s）要好一些。若优化得当，搭建三两个流量不大的WordPress博客应该不是问题。</p>
+<p>再来看下经过优化加速之后，本页面（多图长文）的全国打开速度：（可点击放大）</p>
+<p>那么，搬瓦工VPS和Vultr到底哪个好呢？</p>
+<p>搬瓦工采用的是OpenVZ虚拟化技术，博主担心日后可能会严重超售，影响VPS性能。再加上目前Vultr搞活动，新注册就送20美元（需信用卡或PayPal验证并建议充值10美元），足够免费折腾四个月，等于花$10使用6个月，算算比虚拟主机都便宜！所以，博主最终还是选择了Vultr。</p>
+<p>利好消息：Vultr最近下调了价格，最低套餐（512MB&#x2F;500GB）只需2.5美元&#x2F;月！</p>
+<p>遗憾的是月付2.5美元这款平时只有纽约和迈阿密机房有货，但这俩机房靠近美国东海岸，离国内实在有点太远了，略坑。建站的话博主还是推荐Vultr的洛杉矶、西雅图和硅谷这三个美西机房，距离国内比较近，带宽也足。</p>
+<p>但是，如果抢不到2.5刀那款的话，这几个美西机房要月付5刀了。当然，5刀的配置会更好一些，看个人需要了。</p>
+<p>另外，降价之后赠送20美元的优惠活动也随之取消了。</p>
+<p>如果你对网站的访问速度不像博主这么挑剔的话，月付$2.5的美东机房还是可以接受的。</p>
+<p>VULTR-VPS的优点（博主喜欢的）<br>稳定：真的很稳，官方承诺VPS在线率100%<br>便宜：最低$2.5&#x2F;月（支持按小时计费）<br>IP随便换：可多机房间相互转移，主机IP随时更换（简直逆天）<br>备份方便：后台一键 SnapShot 备份整机，省心放心（无需关机，比搬瓦工更贴心）<br>速度较好：东京和洛杉矶机房速度相对不错，但需要月付5美元<br>VULTR-VPS的不足（博主不满的）<br>月付2.5美元仅限纽约和迈阿密机房，距大陆较远<br>主机I&#x2F;O读写稍低，300MB-500MB&#x2F;s（搬瓦工500-1000MB&#x2F;s）<br>实在想不出还有啥不满意的<br>Vultr赠送20美元活动直达链接：<a target="_blank" rel="noopener" href="https://www.vultr.com/20-dollars/">https://www.vultr.com/20-dollars/</a><br>（由于众所周知的原因，目前东京、洛杉矶和纽约等机房IP被Q严重，可能需要多刷几次才能开出一个可用的IP。怕麻烦的话，建议首选硅谷或伦敦机房。）</p>
+<p>实际上，便宜的VPS不超售是不可能的。因为VPS商家是做生意赚钱的，而不是来搞慈善。</p>
+<p>但是，从过去几个月的使用情况来看，搬瓦工这款年付19.99美元（256MB&#x2F;500GB）（512MB&#x2F;500GB）小内存VPS速度和稳定性确实很不错。</p>
+<p>在过去的几个月里，除了博主备份系统和更换机房时 reboot 几下，还从未宕过机。经过适当的优化（见下文）后，博客页面也基本可以达到秒开。</p>
+<p>再加上Vultr赠送的小钱钱也早已经用完，所以本博客（即SEOIMO.COM）目前已从Vultr迁移至搬瓦工的洛杉矶机房。</p>
+<p>搬瓦工VPS和Vultr到底哪个更适合，博主的建议是：</p>
+<p>如果你只有三两个流量不大的网站，比如每天5000PV以内，搬瓦工256MB&#x2F;500GB这款小鸡还是完全能够胜任的。</p>
+<p>因为，博主经过测试（LoadImpact），模拟5分钟内100个访客持续访问本页也没有搞垮这个小鸡。非但没搞垮，这款小内存VPS表现还很不错。</p>
+<p>不相信博主？有图有真相，直接上图（看不清可点击放大）：</p>
+<p>从上图可以看出，在5分钟内，模拟100个访客持续访问本页，打开时间基本维持在0.8-1.2秒之间。倘若从早10点至晚22点算起（百度上网时间分布统计），按12个小时持续访问的话，每天有大约15000PV的访问量！</p>
+<p>是否可以这样理解：即使像本页面这样有这么多的图片和文字，每天大约15000PV的流量，经过适当的优化，在搬瓦工这款256MB的小内存VPS上也基本是秒开的。</p>
+<p>是不是有点吓到了？</p>
+<p>再来看一下100访客在线时VPS的系统平均负载：</p>
+<p>内存耗尽是意料之中的事情，毕竟只有256MB。但出乎博主意料的是：系统平均负载并不高，甚至还不到0.2！这么高的流量，博主原以为起码也要超过1的，即CPU刚好跑满。现在非但没有跑满，竟还有足够多的剩余。不得不说，搬瓦工的技术还真是可以！</p>
+<p>由此可见，小内存VPS不一定就不能搭建大流量WordPress博客，关键要优化得当。</p>
+<p>当然了，如果网站真有每天超过10000PV的流量，博主还是建议提升下VPS配置，比如升级到搬瓦工1024MB&#x2F;1024GB这个套餐。因为每天10000PV的流量即便挂Adsense广告每天也该有10美元的收入了，就不要再扣VPS月租这点小钱了。</p>
+<p>搬瓦工VPS的优点（博主喜欢的）<br>便宜：最低$19.99&#x2F;年（使用优惠码更省）<br>稳定：承诺99.5%在线率保证，经博主过去一年多对本站的检测来看，除了博主认为重启之外，在线率实际几乎100%<br>够快：洛杉矶机房，CN2线路，ping值低，速度快（本站所用）；香港机房更快，但是价格就无爱了<br>IP可换：可多机房间相互转移，实现随意更换IP地址（博主大爱）<br>备份方便：后台一键 SnapShot 备份整机，省心放心<br>搬瓦工VPS的不足（博主不满的）<br>进行 SnapShot 时强制关闭VPS，持续5分钟左右（不如Vultr周到）<br>系统过于精简，建站时某些必备软件可能需要自己手动安装<br>香港机房VPS太贵，真心贵<br>建议首选KVM架构，最低$19.99&#x2F;年，可安装BBR加速，看视频方便。</p>
+<p>KVM-512MB&#x2F;500GB直达链接：<a target="_blank" rel="noopener" href="https://bandwagonhost.com/kvm-512mb/">https://bandwagonhost.com/kvm-512mb/</a><br>限时供货，使用优惠码 BWH1ZBPVK 可省6%（目前最高）；</p>
+<p>推荐洛杉矶CN2直连线路（后台切换）；请务必确保注册信息真实有效，且与登录IP地址相符。否则，大概率会被视为欺诈（Fraud）而上黑名单。</p>
+<p>一般来说，512MB内存足够个人建站使用了。但若是年付 $19.99 这款紧俏套餐已经脱销，或者你需要更高配置的，年付 $49.99 这款也足够好：20GB空间，1024MB内存，多机房可自由切换。</p>
+<p>至于其余的高价套餐，博主以为仅对搭建wordpress博客来说，性价比并不高。因此，也就没必要去花冤枉钱（土豪请随意）。</p>
+<p>KVM-1024MB&#x2F;1024GB直达链接：<a target="_blank" rel="noopener" href="https://bandwagonhost.com/kvm-1024mb/">https://bandwagonhost.com/kvm-1024mb/</a><br>价格：	</p>
+<p>稳定：	</p>
+<p>速度：	</p>
+<p>操作：	</p>
+<p>优惠：	</p>
+<p>【温馨提示】DigitalOcean只支持信用卡和PayPal付款，而搬瓦工和Vultr则可使用支付宝（Alipay）。</p>
+<p>#4.2如何购买搬瓦工VPS<br>默认折叠，请单击展开 &#x2F; 折叠 ..</p>
+<p>#4.3如何购买Vultr-VPS<br>默认折叠，请单击展开 &#x2F; 折叠 ..</p>
+<p>接下来，正式进入本文的最重要环节：通过SSH连接VPS搭建LAMP环境，进而安装WordPress博客。</p>
+<p>#5SSH连接VPS<br>SSH（Secure Shell）即安全外壳协议，是目前较可靠、专为远程登录会话和其他网络服务提供安全性的协议。我们需要一种SSH工具来连接VPS，个人推荐PuTTY，最好使用英文原版。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html</a></p>
+<p>下载后免安装，直接打开。填入刚才开通的VPS地址，默认端口22。然后点击Open打开，弹出的新窗口点击左边 “Yes” 。</p>
+<p>回到我们刚才打开的Vultr-VPS管理页面，左边有登陆名root和密码，复制密码。</p>
+<p>在PuTTY界面输入root后回车，单击右键即可输入密码。</p>
+<p>【温馨提示】PuTTY中输入密码是不显示的，单击右键即为粘贴。</p>
+<p>登陆成功后，首先需要修改root密码，因为初始密码太复杂不好记，也不一定安全。</p>
+<h1 id="passwd"><a href="#passwd" class="headerlink" title="passwd"></a>passwd</h1><p>回车后设置新密码，再回车重新输入。然后界面显示如下，说明密码修改成功。</p>
+<p>（密码长度建议20字符以上，字母大小写 + 数字 + 特殊字符）</p>
+<p>之后，最好再升级一下系统，以保证获得最新的软件和内核。</p>
+<h1 id="yum-y-update"><a href="#yum-y-update" class="headerlink" title="yum -y update"></a>yum -y update</h1><p>回车，等待升级完成。</p>
+<p>此外，为防止SSH登录一段时间后自动断开，可更改如下设置以保持SSH长时间在线。</p>
+<h1 id="vi-x2F-etc-x2F-ssh-x2F-sshd-config"><a href="#vi-x2F-etc-x2F-ssh-x2F-sshd-config" class="headerlink" title="vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config"></a>vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config</h1><p>将如下两行代码前的 # 去掉，然后做相应修改：（若无此两行代码请在末尾自行添加）</p>
+<p>#PermitUserEnvironment no<br>#Compression delayed<br>ClientAliveInterval 60<br>ClientAliveCountMax 3<br>#ShowPatchLevel no<br>#UseDNS yes<br>保存，重启SSH即可生效：</p>
+<h1 id="service-sshd-restart"><a href="#service-sshd-restart" class="headerlink" title="service sshd restart"></a>service sshd restart</h1><p>开启BBR加速</p>
+<p>BBR是Google提出的一个开源的TCP拥塞控制算法，应用于Linux4.9+内核上，对提升网速效果显著。</p>
+<p>因此，对于KVM架构的VPS，博主倾向于在正式部署生产环境之前，首先开启BBR。</p>
+<p>但这并不意味着你一定要这么做。倘若你的VPS线路已经很不错，完全可以跳过这一步。</p>
+<p>切换到 root 目录：</p>
+<h1 id="cd"><a href="#cd" class="headerlink" title="cd ~"></a>cd ~</h1><p>下载安装脚本：</p>
+<h1 id="wget-–no-check-certificate-https-github-com-teddysun-across-raw-master-bbr-sh"><a href="#wget-–no-check-certificate-https-github-com-teddysun-across-raw-master-bbr-sh" class="headerlink" title="wget –no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh"></a>wget –no-check-certificate <a target="_blank" rel="noopener" href="https://github.com/teddysun/across/raw/master/bbr.sh">https://github.com/teddysun/across/raw/master/bbr.sh</a></h1><p>如提示 wget: command not found ，可执行命令 # yum install wget 进行安装。</p>
+<p>安装BBR：</p>
+<h1 id="chmod-x-bbr-sh-amp-amp-x2F-bbr-sh"><a href="#chmod-x-bbr-sh-amp-amp-x2F-bbr-sh" class="headerlink" title="chmod +x bbr.sh &amp;&amp; .&#x2F;bbr.sh"></a>chmod +x bbr.sh &amp;&amp; .&#x2F;bbr.sh</h1><p>按要求输入 y 后，自动重启VPS。</p>
+<p>重新登入后，查看结果：</p>
+<h1 id="sysctl-net-ipv4-tcp-available-congestion-control"><a href="#sysctl-net-ipv4-tcp-available-congestion-control" class="headerlink" title="sysctl net.ipv4.tcp_available_congestion_control"></a>sysctl net.ipv4.tcp_available_congestion_control</h1><p>出现形如以下字样时，说明BBR开启成功。</p>
+<p>net.ipv4.tcp_available_congestion_control &#x3D; bbr cubic reno<br>#6搭建LAMP环境</p>
+<p>LAMP指的是Linux（操作系统）、Apache（HTTP服务器），MySQL（数据库软件） 和PHP（有时也是指Perl或Python）的第一个字母，主要用来建立web应用平台。</p>
+<p>博主使用的是LNMP一键安装包，具体可参看这里：<a target="_blank" rel="noopener" href="https://lnmp.org/install.html">https://lnmp.org/install.html</a></p>
+<p>【温馨提示】为提高效率，可直接复制代码，然后在PuTTY窗口单击右键进行粘贴。</p>
+<p>首先，创建screen会话：</p>
+<h1 id="screen-S-lamp"><a href="#screen-S-lamp" class="headerlink" title="screen -S lamp"></a>screen -S lamp</h1><p>如提示 screen: command not found ，可执行命令 # yum install screen 进行安装。</p>
+<p>如果安装过程中出现异常中断，重新登入VPS后，输入 # screen -r lamp 恢复安装界面。</p>
+<p>由于LNMP1.4版本可一键设置SSL，所以推荐优先安装1.4版本：</p>
+<p>LNMP1.4-FULLLNMP1.3-FULL</p>
+<h1 id="wget-c-http-soft-vpser-net-lnmp-lnmp1-4-full-tar-gz-amp-amp-tar-zxf-lnmp1-4-full-tar-gz-amp-amp-cd-lnmp1-4-full-amp-amp-x2F-install-sh-lamp"><a href="#wget-c-http-soft-vpser-net-lnmp-lnmp1-4-full-tar-gz-amp-amp-tar-zxf-lnmp1-4-full-tar-gz-amp-amp-cd-lnmp1-4-full-amp-amp-x2F-install-sh-lamp" class="headerlink" title="wget -c http://soft.vpser.net/lnmp/lnmp1.4-full.tar.gz &amp;&amp; tar -zxf lnmp1.4-full.tar.gz &amp;&amp; cd lnmp1.4-full &amp;&amp; .&#x2F;install.sh lamp"></a>wget -c <a target="_blank" rel="noopener" href="http://soft.vpser.net/lnmp/lnmp1.4-full.tar.gz">http://soft.vpser.net/lnmp/lnmp1.4-full.tar.gz</a> &amp;&amp; tar -zxf lnmp1.4-full.tar.gz &amp;&amp; cd lnmp1.4-full &amp;&amp; .&#x2F;install.sh lamp</h1><p>当然，如果你之前已经安装的是LNMP1.3，也可以一键升级到1.4版本。</p>
+<p>以下安装过程不再赘述，选项一般默认即可，主要设置详见下图（LNMP1.3示意）。</p>
+<p>这里设置的数据库ROOT密码务必记牢，下面添加域名时会用到！！</p>
+<p>LNMP安装成功之后，如果数据库密码忘记了，可参看这里进行重置。</p>
+<p>（建议安装PHP5.6版本；安装SSL证书时如出现问题，可以参考博主安装Let’s-Encrypt免费的SSL证书时遇到的几个大坑）</p>
+<p>当出现上图中的绿字 “Press any key to install…or Press Ctrl+c to cancel” 后，按回车键确认开始安装。</p>
+<p>安装大约持续半个小时左右。安装成功后的界面如下图所示：</p>
+<p>至此，LAMP环境已经在VPS上搭建完成。输入VPS的IP访问，会出现以下界面：</p>
+<p>重要提示：★★★★★<br>①为了安全，建议将 phpmyadmin 目录重命名为不容易猜到的目录（比如 hereispma , ..）：</p>
+<h1 id="cd-x2F-home-x2F-wwwroot-x2F-default"><a href="#cd-x2F-home-x2F-wwwroot-x2F-default" class="headerlink" title="cd &#x2F;home&#x2F;wwwroot&#x2F;default"></a>cd &#x2F;home&#x2F;wwwroot&#x2F;default</h1><h1 id="mv-phpmyadmin-hereispma"><a href="#mv-phpmyadmin-hereispma" class="headerlink" title="mv phpmyadmin hereispma"></a>mv phpmyadmin hereispma</h1><p>②此安装成功页面是IP访问时的默认页面（非域名），建议删除或改名：</p>
+<h1 id="rm-rf-index-html-或者"><a href="#rm-rf-index-html-或者" class="headerlink" title="rm -rf index.html 或者"></a>rm -rf index.html 或者</h1><h1 id="mv-index-html-random-name-html"><a href="#mv-index-html-random-name-html" class="headerlink" title="mv index.html random-name.html"></a>mv index.html random-name.html</h1><p>③如需要开启IP访问网站域名，请更改IP访问默认路径（此步骤可选，不推荐）：</p>
+<h1 id="vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-vhosts-conf"><a href="#vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-vhosts-conf" class="headerlink" title="vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-vhosts.conf"></a>vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-vhosts.conf</h1><p>将 DocumentRoot “&#x2F;home&#x2F;wwwroot&#x2F;default” 及 Directory “&#x2F;home&#x2F;wwwroot&#x2F;default” 两处中的 “&#x2F;home&#x2F;wwwroot&#x2F;default” 修改为需要IP访问的域名，如 “&#x2F;home&#x2F;wwwroot&#x2F;seoimo.com”。</p>
+<p>在安装WordPress之前，建议安装PHP缓存加速类扩展，对降低VPS压力和提高WordPress速度大有裨益。</p>
+<p>推荐安装两个：OPcache和Memcached。</p>
+<p>首先，需要进入LNMP解压目录 lnmp1.4-full （lnmp1.3则改为lnmp1.3-full）：</p>
+<h1 id="cd-x2F-root-x2F-lnmp1-4-full"><a href="#cd-x2F-root-x2F-lnmp1-4-full" class="headerlink" title="cd &#x2F;root&#x2F;lnmp1.4-full"></a>cd &#x2F;root&#x2F;lnmp1.4-full</h1><p>回车，接下来安装Opcache：</p>
+<h1 id="x2F-addons-sh-install-opcache"><a href="#x2F-addons-sh-install-opcache" class="headerlink" title=".&#x2F;addons.sh install opcache"></a>.&#x2F;addons.sh install opcache</h1><p>回车，再回车。</p>
+<p>当出现 “Opcache installed successfully, enjoy it!” 字样时，即表示安装成功。</p>
+<p>接着安装Memcached：</p>
+<h1 id="x2F-addons-sh-install-memcached"><a href="#x2F-addons-sh-install-memcached" class="headerlink" title=".&#x2F;addons.sh install memcached"></a>.&#x2F;addons.sh install memcached</h1><p>回车，选择2，回车，再回车。</p>
+<p>当出现 “Memcached installed successfully, enjoy it!” 字样时，即表示安装成功。</p>
+<p>此时，可以删除之前下载的lnmp1.4安装包，以节省空间。</p>
+<h1 id="rm-rf-x2F-root-x2F-lnmp1-4-full-tar-gz"><a href="#rm-rf-x2F-root-x2F-lnmp1-4-full-tar-gz" class="headerlink" title="rm -rf &#x2F;root&#x2F;lnmp1.4-full.tar.gz"></a>rm -rf &#x2F;root&#x2F;lnmp1.4-full.tar.gz</h1><p>回车即可。</p>
+<p>接下来就可以添加域名安装WordPress了。</p>
+<p>#7添加域名 &#x2F; 虚拟主机<br>请提前做好域名解析，例如：</p>
+<p>添加域名：</p>
+<h1 id="lnmp-vhost-add"><a href="#lnmp-vhost-add" class="headerlink" title="lnmp vhost add"></a>lnmp vhost add</h1><p>回车，提示输入域名：</p>
+<h1 id="seoimo-com"><a href="#seoimo-com" class="headerlink" title="seoimo.com"></a>seoimo.com</h1><p>回车，提示是否添加多个域名：</p>
+<h1 id="y"><a href="#y" class="headerlink" title="y"></a>y</h1><p>回车，博主习惯绑定带 www 的域名：</p>
+<h1 id="www-seoimo-com"><a href="#www-seoimo-com" class="headerlink" title="www.seoimo.com"></a><a target="_blank" rel="noopener" href="http://www.seoimo.com/">www.seoimo.com</a></h1><p>回车，显示网站目录。默认 &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com 即可。</p>
+<p>若是绑定二级域名，必须输入完整的目录路径。例如：</p>
+<p>将 tools.seoimo.com 绑定到网站根目录下的 tools 文件夹，则应输入：</p>
+<p>&#x2F;home&#x2F;wwwroot&#x2F;seoimo.com&#x2F;tools</p>
+<p>回车。博主习惯不需要日志记录，但建议你开启（y）：</p>
+<h1 id="n"><a href="#n" class="headerlink" title="n"></a>n</h1><p>会车后，输入站长邮箱。</p>
+<p>继续回车，提示数据库名和数据库用户名是否保持一致。</p>
+<h1 id="y-1"><a href="#y-1" class="headerlink" title="y"></a>y</h1><p>回车，输入 root 用户的数据库密码（不会显示，在#6搭建LAMP环境中设置好的）。</p>
+<p>回车，输入数据库名，自行设置。例如：</p>
+<h1 id="sjk-seoimo"><a href="#sjk-seoimo" class="headerlink" title="sjk_seoimo"></a>sjk_seoimo</h1><p>回车，设置数据库密码。例如：</p>
+<h1 id="sjkmmseoimo"><a href="#sjkmmseoimo" class="headerlink" title="sjkmmseoimo"></a>sjkmmseoimo</h1><p>回车，再回车。</p>
+<p>当出现下图所示画面时候，说明添加域名已经成功。</p>
+<p>关于FTP功能</p>
+<p>LNMP1.3默认是不安装FTP服务的。</p>
+<p>需要上下传文件时，设置FTP软件（如FlashFXP）连接类型为 “SFTP over SSH”即可。</p>
+<p>但是，特定情况下仍需要开启FTP服务的话，可进行如下操作：</p>
+<h1 id="cd-x2F-root-x2F-lnmp1-3-full"><a href="#cd-x2F-root-x2F-lnmp1-3-full" class="headerlink" title="cd &#x2F;root&#x2F;lnmp1.3-full"></a>cd &#x2F;root&#x2F;lnmp1.3-full</h1><h1 id="x2F-pureftpd-sh"><a href="#x2F-pureftpd-sh" class="headerlink" title=".&#x2F;pureftpd.sh"></a>.&#x2F;pureftpd.sh</h1><p>安装成功后，添加FTP用户：</p>
+<h1 id="lnmp-ftp-add"><a href="#lnmp-ftp-add" class="headerlink" title="lnmp ftp add"></a>lnmp ftp add</h1><p>设置好FTP用户名、密码以及访问目录的绝对路径（以 “&#x2F;” 开头）！！</p>
+<p>特别提示：</p>
+<p>使用FTP软件连接VPS后，若无法进行上传和下载，并提示 “553 Can’t open that file: Permission denied” 时，可能需要更改下权限：</p>
+<h1 id="chown-www-www-R-x2F-目录路径-x2F"><a href="#chown-www-www-R-x2F-目录路径-x2F" class="headerlink" title="chown www:www -R &#x2F;目录路径&#x2F;"></a>chown www:www -R &#x2F;目录路径&#x2F;</h1><p>#8安装WordPress程序<br>以下的步骤想必应该很熟悉，和带Cpanel或DirectAdmin面板安装WordPress过程比较类似。只不过，在面板上操作是可视化的，比较直观。而在这里是通过命令执行的，非可视。只要输入命令时细心点，一般是不会出问题的。</p>
+<p>首先，进入添加的域名目录：</p>
+<h1 id="cd-x2F-home-x2F-wwwroot-x2F-seoimo-com"><a href="#cd-x2F-home-x2F-wwwroot-x2F-seoimo-com" class="headerlink" title="cd &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com"></a>cd &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com</h1><p>回车。然后浏览器中打开WordPress中文站点，下载最新的程序压缩包：</p>
+<h1 id="wget-https-cn-wordpress-org-wordpress-4-9-4-zh-CN-tar-gz"><a href="#wget-https-cn-wordpress-org-wordpress-4-9-4-zh-CN-tar-gz" class="headerlink" title="wget https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz"></a>wget <a target="_blank" rel="noopener" href="https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz">https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz</a></h1><p>回车。等待下载完之后，解压压缩包：</p>
+<h1 id="tar-zxvf-wordpress-4-9-4-zh-CN-tar-gz"><a href="#tar-zxvf-wordpress-4-9-4-zh-CN-tar-gz" class="headerlink" title="tar -zxvf wordpress-4.9.4-zh_CN.tar.gz"></a>tar -zxvf wordpress-4.9.4-zh_CN.tar.gz</h1><p>回车。</p>
+<p>接下来，将解压出来的wordpress文件夹内全部文件移动到当前的域名目录下（别忘了后面的.）。</p>
+<h1 id="mv-wordpress-x2F"><a href="#mv-wordpress-x2F" class="headerlink" title="mv wordpress&#x2F;* ."></a>mv wordpress&#x2F;* .</h1><p>回车。然后，可以选择删掉空文件夹wordpress及源程序（可选）。</p>
+<h1 id="rm-rf-wordpress"><a href="#rm-rf-wordpress" class="headerlink" title="rm -rf wordpress"></a>rm -rf wordpress</h1><h1 id="rm-rf-wordpress-4-9-4-zh-CN-tar-gz"><a href="#rm-rf-wordpress-4-9-4-zh-CN-tar-gz" class="headerlink" title="rm -rf wordpress-4.9.4-zh_CN.tar.gz"></a>rm -rf wordpress-4.9.4-zh_CN.tar.gz</h1><p>回车，搞定。</p>
+<p>为避免因权限的问题导致安装出错，比如wp-config.php无法创建、需要提供FTP用户密码以及主题和插件不能更新等，建议赋予网站根目录文件的可写权限。</p>
+<h1 id="chmod-R-755-x2F-home-x2F-wwwroot"><a href="#chmod-R-755-x2F-home-x2F-wwwroot" class="headerlink" title="chmod -R 755 &#x2F;home&#x2F;wwwroot"></a>chmod -R 755 &#x2F;home&#x2F;wwwroot</h1><h1 id="chown-R-www-x2F-home-x2F-wwwroot"><a href="#chown-R-www-x2F-home-x2F-wwwroot" class="headerlink" title="chown -R www &#x2F;home&#x2F;wwwroot"></a>chown -R www &#x2F;home&#x2F;wwwroot</h1><p>【温馨提示】以后每添加一个域名，都要对应地执行一次以上两步操作。</p>
+<p>另外，LNMP安装包默认禁用了 scandir 函数，这会导致WordPress后台看不到安装的主题，以及当前主题总显示 “有新的翻译可用” 的提醒。所以，需要开启此函数。</p>
+<h1 id="vi-x2F-usr-x2F-local-x2F-php-x2F-etc-x2F-php-ini"><a href="#vi-x2F-usr-x2F-local-x2F-php-x2F-etc-x2F-php-ini" class="headerlink" title="vi &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini"></a>vi &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini</h1><p>回车，然后查找 scandir 函数。</p>
+<p>?scandir 或者 &#x2F;scandir</p>
+<p>回车，然后按delete键删除，接下来需要保存并退出vi命令。</p>
+<h1 id="wq"><a href="#wq" class="headerlink" title=":wq"></a>:wq</h1><p>回车。然后重启一下LNMP：</p>
+<h1 id="lnmp-restart"><a href="#lnmp-restart" class="headerlink" title="lnmp restart"></a>lnmp restart</h1><p>好了，打开博客网址进行最后的安装吧！（注意要提前设置好域名解析）</p>
+<p>至此，在VPS上通过搭建LAMP环境安装WordPress博客已经大功告成了。</p>
+<p>接下来，我们来对VPS进行必要的配置优化，以便进一步提高主机性能。</p>
+<p>#9VPS配置优化<br>关于VPS服务器方面的配置优化绝对是个技术活，如果深入研究的话会比较复杂。博主非技术大牛，在这里仅介绍一下常用的三点：优化php.ini配置、添加swap交换分区和开启Keep-Alive功能 + 优化Httpd配置。</p>
+<p>#9.1优化php.ini配置<br>用vi命令修改 php.ini 文件。</p>
+<h1 id="vi-x2F-usr-x2F-local-x2F-php-x2F-etc-x2F-php-ini-1"><a href="#vi-x2F-usr-x2F-local-x2F-php-x2F-etc-x2F-php-ini-1" class="headerlink" title="vi &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini"></a>vi &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini</h1><p>单击 i 键进入 insert 模式，按 “上下左右” 四个方向键找到并修改以下两项：</p>
+<p>max_execution_time &#x3D; 300<br>memory_limit &#x3D; 64M<br>前者表示允许脚本最大执行时间300秒，后者表示允许单个脚本允许使用的最大内存64M（通常1G内存以下设置64M或128M即可）。</p>
+<p>单击 Esc 键退出 insert 模式，输入以下命令保存退出。注意英文状态下输入！</p>
+<h1 id="wq-1"><a href="#wq-1" class="headerlink" title=":wq"></a>:wq</h1><p>回车。然后重启一下LNMP：</p>
+<h1 id="lnmp-restart-1"><a href="#lnmp-restart-1" class="headerlink" title="lnmp restart"></a>lnmp restart</h1><p>回车。</p>
+<p>#9.2添加Swap交换分区<br>①此方法只适用于虚拟化技术为KVM和Xen的VPS，OpenVZ不支持添加Swap交换分区，也就说说搬瓦工VPS（KVM-512MB套餐除外）不能用此方法增加Swap空间；</p>
+<p>②若搬瓦工VPS管理后台Swap状态长期显示红色，则表明VPS内存已满，该考虑升级VPS了。</p>
+<p>关于Swap分区的具体含义在此不再赘述，详细可以参考百度百科：Swap分区</p>
+<p>简单来说，当VPS的物理内存不够用时，系统会占用一部分Swap分区作为临时内存，目的是防止因物理内存耗尽而可能出现的错误。</p>
+<p>因此，对小内存VPS来说，设置一定大小的Swap交换分区显然很有意义。</p>
+<p>但是，由于硬盘的 I&#x2F;O 读写速度远不能和内存的读写速度相提并论（可能相差几十倍），使用Swap交换分区时，系统可能会变得特别缓慢、卡顿，甚至程序会出现错误。</p>
+<p>因此，要尽量避免使用Swap分区，不得不使用时也不宜设置过大（大了也没用还占用空间），也就是说：我们不能指望用Swap来代替物理内存使用。甚至于，当你的VPS物理内存很充足时，完全可以禁用Swap以提高VPS的响应速度。</p>
+<p>当物理内存（实际使用内存）长期处于耗尽状态时，正确的做法就是该升级套餐了。</p>
+<p>添加Swap交换分区</p>
+<p>使用root用户登陆PuTTY，先看看是否已经添加了Swap:</p>
+<h1 id="free-m"><a href="#free-m" class="headerlink" title="free -m"></a>free -m</h1><p>若显示为 Swap &#x3D; 0 的话，表明没有添加。否则，说明系统已自带Swap交换分区。</p>
+<p>进入var文件目录：</p>
+<h1 id="cd-x2F-var-x2F"><a href="#cd-x2F-var-x2F" class="headerlink" title="cd &#x2F;var&#x2F;"></a>cd &#x2F;var&#x2F;</h1><p>获取256MB的文件块（一般设置为内存的0.5倍即可）：</p>
+<h1 id="dd-if-x3D-x2F-dev-x2F-zero-of-x3D-swapfile-bs-x3D-1M-count-x3D-256"><a href="#dd-if-x3D-x2F-dev-x2F-zero-of-x3D-swapfile-bs-x3D-1M-count-x3D-256" class="headerlink" title="dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;swapfile bs&#x3D;1M count&#x3D;256"></a>dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;swapfile bs&#x3D;1M count&#x3D;256</h1><p>创建Swap文件：</p>
+<h1 id="x2F-sbin-x2F-mkswap-swapfile"><a href="#x2F-sbin-x2F-mkswap-swapfile" class="headerlink" title="&#x2F;sbin&#x2F;mkswap swapfile"></a>&#x2F;sbin&#x2F;mkswap swapfile</h1><p>激活Swap文件：</p>
+<h1 id="x2F-sbin-x2F-swapon-swapfile"><a href="#x2F-sbin-x2F-swapon-swapfile" class="headerlink" title="&#x2F;sbin&#x2F;swapon swapfile"></a>&#x2F;sbin&#x2F;swapon swapfile</h1><p>为了安全，建议修改一下权限：</p>
+<h1 id="chmod-0600-x2F-var-x2F-swapfile"><a href="#chmod-0600-x2F-var-x2F-swapfile" class="headerlink" title="chmod 0600 &#x2F;var&#x2F;swapfile"></a>chmod 0600 &#x2F;var&#x2F;swapfile</h1><p>将swapfile添加到fstab文件中，开机自动启动：</p>
+<h1 id="echo-“-x2F-var-x2F-swapfile-swap-swap-defaults-0-0”-gt-gt-x2F-etc-x2F-fstab"><a href="#echo-“-x2F-var-x2F-swapfile-swap-swap-defaults-0-0”-gt-gt-x2F-etc-x2F-fstab" class="headerlink" title="echo “&#x2F;var&#x2F;swapfile swap swap defaults 0 0” &gt;&gt; &#x2F;etc&#x2F;fstab"></a>echo “&#x2F;var&#x2F;swapfile swap swap defaults 0 0” &gt;&gt; &#x2F;etc&#x2F;fstab</h1><p>搞定了。此时查看内存信息:</p>
+<h1 id="free-m-1"><a href="#free-m-1" class="headerlink" title="free -m"></a>free -m</h1><p>出现 “Swap: 256” 字样表示设置成功。</p>
+<p>修改 swappiness 默认值</p>
+<p>上面说了，我们要尽量避免使用Swap分区。所以，这里我们需要额外做些修改，使系统尽可能的优先使用物理内存。</p>
+<p>首先查看下 swappiness 的默认值：</p>
+<h1 id="cat-x2F-proc-x2F-sys-x2F-vm-x2F-swappiness"><a href="#cat-x2F-proc-x2F-sys-x2F-vm-x2F-swappiness" class="headerlink" title="cat &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness"></a>cat &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness</h1><p>通常，返回值是60（默认值）。</p>
+<p>实际上，swappiness &#x3D; 0 表示最大限度使用物理内存，然后才使用swap分区；swappiness ＝ 100 表示系统积极的使用swap分区，然后才使用物理内存。</p>
+<p>显然，这里我们需要降低 swappiness 的默认值。</p>
+<h1 id="vi-x2F-etc-x2F-sysctl-conf"><a href="#vi-x2F-etc-x2F-sysctl-conf" class="headerlink" title="vi &#x2F;etc&#x2F;sysctl.conf"></a>vi &#x2F;etc&#x2F;sysctl.conf</h1><p>在里面添加 vm.swappiness &#x3D; 10 字段，然后退出保存。</p>
+<p>或者：</p>
+<h1 id="echo-“vm-swappiness-x3D-10”-gt-gt-x2F-etc-x2F-sysctl-conf"><a href="#echo-“vm-swappiness-x3D-10”-gt-gt-x2F-etc-x2F-sysctl-conf" class="headerlink" title="echo “vm.swappiness &#x3D; 10” &gt;&gt; &#x2F;etc&#x2F;sysctl.conf"></a>echo “vm.swappiness &#x3D; 10” &gt;&gt; &#x2F;etc&#x2F;sysctl.conf</h1><p>然后 # reboot 一下VPS即可。</p>
+<p>重置Swap交换分区</p>
+<p>若系统已设置Swap，但是需要对其做出更改的话，可以将其删除。</p>
+<p>首先查看Swap位置：</p>
+<h1 id="swapon-s"><a href="#swapon-s" class="headerlink" title="swapon -s"></a>swapon -s</h1><p>比如显示为 &#x2F;var&#x2F;swap，则停止并删除swap：</p>
+<h1 id="x2F-sbin-x2F-swapoff-x2F-var-x2F-swap"><a href="#x2F-sbin-x2F-swapoff-x2F-var-x2F-swap" class="headerlink" title="&#x2F;sbin&#x2F;swapoff &#x2F;var&#x2F;swap"></a>&#x2F;sbin&#x2F;swapoff &#x2F;var&#x2F;swap</h1><h1 id="rm-rf-x2F-var-x2F-swap"><a href="#rm-rf-x2F-var-x2F-swap" class="headerlink" title="rm -rf &#x2F;var&#x2F;swap"></a>rm -rf &#x2F;var&#x2F;swap</h1><p>然后，将其删除开机启动：</p>
+<h1 id="vi-x2F-etc-x2F-fstab"><a href="#vi-x2F-etc-x2F-fstab" class="headerlink" title="vi &#x2F;etc&#x2F;fstab"></a>vi &#x2F;etc&#x2F;fstab</h1><p>将 &#x2F;var&#x2F;swap swap swap defaults 0 0 该行删除，然后保存退出。</p>
+<p>#9.3开启Keep-Alive功能 + 优化Httpd配置<br>开启Keep-Alive功能可使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。可见，对访问静态网页时，开启Keep-Alive是很有用的。</p>
+<p>因为在进行WordPress管理方面上的优化时，需要安装静态缓存插件，所以，开启Keep-Alive功能十分必要。</p>
+<h1 id="vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-default-conf"><a href="#vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-default-conf" class="headerlink" title="vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-default.conf"></a>vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-default.conf</h1><p>依次修改以下四条：</p>
+<p>Timeout 30<br>KeepAlive On<br>MaxKeepAliveRequests 100<br>KeepAliveTimeout 5<br>退出，保存：</p>
+<h1 id="wq-2"><a href="#wq-2" class="headerlink" title=":wq"></a>:wq</h1><p>接下来优化 Httpd 配置（ prefork 模式下），以降低Apache内存占用。此步骤对小内存VPS（如搬瓦工256MB方案）尤为重要。</p>
+<h1 id="vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-mpm-conf"><a href="#vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-mpm-conf" class="headerlink" title="vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-mpm.conf"></a>vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-mpm.conf</h1><p>依次修改如下：</p>
+<p>退出，保存：</p>
+<h1 id="wq-3"><a href="#wq-3" class="headerlink" title=":wq"></a>:wq</h1><p>然后，重启httpd服务：</p>
+<h1 id="service-httpd-restart"><a href="#service-httpd-restart" class="headerlink" title="service httpd restart"></a>service httpd restart</h1><p>#10删除mysql-bin.0000<em>日志文件<br>博主所用的LNMP一键安装包默认开启了日志记录，这样就会在 &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var&#x2F;目录下面生成大量 mysql-bin.0000</em> 类似的文件，大小甚至达到几个G！</p>
+<p>所以，我们需要做下调整，禁止保留日志记录以防止占用太多空间。</p>
+<p>于是，编辑 &#x2F;etc&#x2F;my.cnf 文件：</p>
+<h1 id="vi-x2F-etc-x2F-my-cnf"><a href="#vi-x2F-etc-x2F-my-cnf" class="headerlink" title="vi &#x2F;etc&#x2F;my.cnf"></a>vi &#x2F;etc&#x2F;my.cnf</h1><p>找到以下两行代码，在前面添加 #，彻底禁用MySQL日志：</p>
+<p>max_connect_errors &#x3D; 100<br>open_files_limit &#x3D; 65535<br>#log-bin&#x3D;mysql-bin<br>#binlog_format&#x3D;mixed<br>server-id &#x3D; 1<br>expire_logs_days &#x3D; 10<br>保存退出，重启一下MySQL：</p>
+<h1 id="x2F-etc-x2F-init-d-x2F-mysql-restart"><a href="#x2F-etc-x2F-init-d-x2F-mysql-restart" class="headerlink" title="&#x2F;etc&#x2F;init.d&#x2F;mysql restart"></a>&#x2F;etc&#x2F;init.d&#x2F;mysql restart</h1><p>#11Linux-VPS安全配置 &#x2F; 防护措施<br>博主以为，VPS的安全防护绝对是运行网站的重中之重。防护措施做不好，轻者给后期运行带来无穷无尽的烦恼，重者造成网站瘫痪甚至数据清空，那就真的欲哭无泪了。</p>
+<p>好在Linux本身已经足够安全稳定，只要你不泄露关键的登录信息（比如SSH端口和ROOT密码等），通常不会产生重大事故。但即便如此，我们还是应该未雨绸缪，提前做好VPS的安全防护措施。</p>
+<p>那么，VPS安全配置究竟该如何做呢？</p>
+<p>在这里，博主结合自己建站经验，介绍一下Linux-VPS安防措施里最有效的三个方面：修改SSH端口、阻止SSH暴力破解和防御DDOS攻击。</p>
+<p>#11.1修改SSH端口（强烈推荐）<br>首先，编辑配置文件：</p>
+<h1 id="vi-x2F-etc-x2F-ssh-x2F-sshd-config-1"><a href="#vi-x2F-etc-x2F-ssh-x2F-sshd-config-1" class="headerlink" title="vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config"></a>vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config</h1><p>找到 #Port 22 这行（默认端口22），把前面的 # 去掉，然后再添加一个新的端口（不超过65535），比如 Port 56789：</p>
+<p>保存，重启SSH即可：</p>
+<h1 id="service-sshd-restart-1"><a href="#service-sshd-restart-1" class="headerlink" title="service sshd restart"></a>service sshd restart</h1><p>接下来，在防火墙 &#x2F;etc&#x2F;sysconfig&#x2F;iptables 里开启此端口：</p>
+<h1 id="iptables-A-INPUT-p-tcp-m-tcp-–dport-56789-j-ACCEPT"><a href="#iptables-A-INPUT-p-tcp-m-tcp-–dport-56789-j-ACCEPT" class="headerlink" title="iptables -A INPUT -p tcp -m tcp –dport 56789 -j ACCEPT"></a>iptables -A INPUT -p tcp -m tcp –dport 56789 -j ACCEPT</h1><p>保存并重启防火墙：</p>
+<h1 id="service-iptables-save"><a href="#service-iptables-save" class="headerlink" title="service iptables save"></a>service iptables save</h1><h1 id="service-iptables-restart"><a href="#service-iptables-restart" class="headerlink" title="service iptables restart"></a>service iptables restart</h1><p>或者，也可以编辑 &#x2F;etc&#x2F;sysconfig&#x2F;iptables 文件，复制端口 22 的规则，粘贴在其下另起一行。</p>
+<p>按 :wq 保存退出后，重启防火墙。</p>
+<p>查看防火墙状态，看看端口是否开启成功：</p>
+<h1 id="service-iptables-status"><a href="#service-iptables-status" class="headerlink" title="service iptables status"></a>service iptables status</h1><p>现在，使用新的端口连接SSH。</p>
+<p>若成功登录，则再次编辑 &#x2F;etc&#x2F;ssh&#x2F;sshd_config，将里面的 Port 22 前加 # 保存后，重启SSH即可。</p>
+<p>温馨提示：</p>
+<p>CentOS7.X中默认的防火墙 firewalld 而非CentOS6.X中的 iptables 。如果你也像博主一样感觉用着很不爽，需要换回 iptables 的，可以参考如下设置。</p>
+<p>1、关闭firewall并禁止开启启动：</p>
+<h1 id="service-firewalld-stop"><a href="#service-firewalld-stop" class="headerlink" title="service firewalld stop"></a>service firewalld stop</h1><h1 id="systemctl-disable-firewalld-service"><a href="#systemctl-disable-firewalld-service" class="headerlink" title="systemctl disable firewalld.service"></a>systemctl disable firewalld.service</h1><p>2、安装iptables：</p>
+<h1 id="yum-install-iptables-services"><a href="#yum-install-iptables-services" class="headerlink" title="yum install iptables-services"></a>yum install iptables-services</h1><p>3、修改iptables配置：</p>
+<h1 id="vi-x2F-etc-x2F-sysconfig-x2F-iptables"><a href="#vi-x2F-etc-x2F-sysconfig-x2F-iptables" class="headerlink" title="vi &#x2F;etc&#x2F;sysconfig&#x2F;iptables"></a>vi &#x2F;etc&#x2F;sysconfig&#x2F;iptables</h1><p>粘贴如下内容（可按需要自行增删）：</p>
+<p>*filter<br>:INPUT ACCEPT [0:0]<br>:FORWARD ACCEPT [0:0]<br>:OUTPUT ACCEPT [0:0]<br>-A INPUT -p icmp -j ACCEPT<br>-A INPUT -i lo -j ACCEPT<br>-A INPUT -m state –state RELATED,ESTABLISHED -j ACCEPT<br>-A INPUT -p tcp -m tcp –dport 22 -j ACCEPT<br>-A INPUT -p tcp -m tcp –dport 80 -j ACCEPT<br>-A INPUT -p tcp -m tcp –dport 3306 -j DROP<br>-A INPUT -p tcp -m tcp –dport 443 -j ACCEPT<br>-A INPUT -p tcp -m tcp –dport 11211 -j DROP<br>-A INPUT -p udp -m udp –dport 11211 -j DROP<br>-A INPUT -j REJECT –reject-with icmp-host-prohibited<br>-A FORWARD -j REJECT –reject-with icmp-host-prohibited<br>COMMIT<br>按 :wq 保存退出后，重启iptables，并设置为开机启动：</p>
+<h1 id="service-iptables-restart-1"><a href="#service-iptables-restart-1" class="headerlink" title="service iptables restart"></a>service iptables restart</h1><h1 id="systemctl-enable-iptables-service"><a href="#systemctl-enable-iptables-service" class="headerlink" title="systemctl enable iptables.service"></a>systemctl enable iptables.service</h1><p>【温馨提示】搬瓦工VPS生成的SSH端口是随机的（非默认端口22），因此，可无需再次修改。</p>
+<p>#11.2阻止SSH暴力破解（可选）<br>更改默认的22端口后，已经可以阻止绝大多数的SSH非法请求了。</p>
+<p>但是，如果遇到程序自动扫描SSH端口并进行暴力破解，那么仅仅修改端口的话，可能还是不够的。因此，我们需要安装DenyHosts进行自动拦截。</p>
+<p>（温馨提示：设置高强度密码+更改默认SSH端口后，视实际需要，本步骤可以省略。）</p>
+<p>首先，下载 DenyHosts 并解压到 root 目录：</p>
+<h1 id="cd-1"><a href="#cd-1" class="headerlink" title="cd ~"></a>cd ~</h1><h1 id="wget-http-soft-vpser-net-security-denyhosts-DenyHosts-2-6-tar-gz"><a href="#wget-http-soft-vpser-net-security-denyhosts-DenyHosts-2-6-tar-gz" class="headerlink" title="wget http://soft.vpser.net/security/denyhosts/DenyHosts-2.6.tar.gz"></a>wget <a target="_blank" rel="noopener" href="http://soft.vpser.net/security/denyhosts/DenyHosts-2.6.tar.gz">http://soft.vpser.net/security/denyhosts/DenyHosts-2.6.tar.gz</a></h1><h1 id="tar-zxvf-DenyHosts-2-6-tar-gz"><a href="#tar-zxvf-DenyHosts-2-6-tar-gz" class="headerlink" title="tar -zxvf DenyHosts-2.6.tar.gz"></a>tar -zxvf DenyHosts-2.6.tar.gz</h1><h1 id="cd-DenyHosts-2-6"><a href="#cd-DenyHosts-2-6" class="headerlink" title="cd DenyHosts-2.6"></a>cd DenyHosts-2.6</h1><p>接下来，进行安装和配置：</p>
+<h1 id="python-setup-py-install"><a href="#python-setup-py-install" class="headerlink" title="python setup.py install"></a>python setup.py install</h1><h1 id="cd-x2F-usr-x2F-share-x2F-denyhosts-x2F"><a href="#cd-x2F-usr-x2F-share-x2F-denyhosts-x2F" class="headerlink" title="cd &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;"></a>cd &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;</h1><h1 id="cp-denyhosts-cfg-dist-denyhosts-cfg"><a href="#cp-denyhosts-cfg-dist-denyhosts-cfg" class="headerlink" title="cp denyhosts.cfg-dist denyhosts.cfg"></a>cp denyhosts.cfg-dist denyhosts.cfg</h1><h1 id="cp-daemon-control-dist-daemon-control"><a href="#cp-daemon-control-dist-daemon-control" class="headerlink" title="cp daemon-control-dist daemon-control"></a>cp daemon-control-dist daemon-control</h1><p>然后，设置开机启动：</p>
+<h1 id="chown-root-daemon-control"><a href="#chown-root-daemon-control" class="headerlink" title="chown root daemon-control"></a>chown root daemon-control</h1><h1 id="chmod-700-daemon-control"><a href="#chmod-700-daemon-control" class="headerlink" title="chmod 700 daemon-control"></a>chmod 700 daemon-control</h1><h1 id="x2F-daemon-control-start"><a href="#x2F-daemon-control-start" class="headerlink" title=".&#x2F;daemon-control start"></a>.&#x2F;daemon-control start</h1><h1 id="echo-“-x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-start”-gt-gt-x2F-etc-x2F-rc-local"><a href="#echo-“-x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-start”-gt-gt-x2F-etc-x2F-rc-local" class="headerlink" title="echo “&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control start” &gt;&gt; &#x2F;etc&#x2F;rc.local"></a>echo “&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control start” &gt;&gt; &#x2F;etc&#x2F;rc.local</h1><p>至此，DenyHosts就算安装完成了。通常，DenyHosts默认的阻拦配置就可以。当然，你也可以自行设置：</p>
+<h1 id="vi-x2F-usr-x2F-share-x2F-denyhosts-x2F-denyhosts-cfg"><a href="#vi-x2F-usr-x2F-share-x2F-denyhosts-x2F-denyhosts-cfg" class="headerlink" title="vi &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;denyhosts.cfg"></a>vi &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;denyhosts.cfg</h1><p>自行设置如下几个主要的参数：</p>
+<p>PURGE_DENY &#x3D; 5d<br>DENY_THRESHOLD_INVALID &#x3D; 5<br>DENY_THRESHOLD_VALID &#x3D; 5<br>DENY_THRESHOLD_ROOT &#x3D; 5<br>HOSTNAME_LOOKUP &#x3D; NO<br>最后，重启一下DenyHosts即可：</p>
+<h1 id="x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-restart"><a href="#x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-restart" class="headerlink" title="&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control restart"></a>&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control restart</h1><p>倘若自己的IP（如何查看）被误封，可在 &#x2F;etc&#x2F;hosts.deny 中删除对应的IP后重启DenyHosts即可。</p>
+<p>卸载DenyHosts</p>
+<p>卸载DenyHosts比较麻烦，官方貌似没有提供具体卸载方法。</p>
+<p>不过，我们可以通过 停用 + 禁止开机启动 来将其关闭。</p>
+<p>停用DenyHosts：</p>
+<h1 id="x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-stop"><a href="#x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-stop" class="headerlink" title="&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control stop"></a>&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control stop</h1><p>禁止开机启动，编辑 &#x2F;etc&#x2F;rc.local ：</p>
+<h1 id="vi-x2F-etc-x2F-rc-local"><a href="#vi-x2F-etc-x2F-rc-local" class="headerlink" title="vi &#x2F;etc&#x2F;rc.local"></a>vi &#x2F;etc&#x2F;rc.local</h1><p>将 &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control start 这行删除，保存退出。</p>
+<p>如此，就实现了停用DenyHosts的目的。</p>
+<p>#11.3防御DDOS攻击<br>这里主要用到一款优秀的免费软件DDoS Deflate：<a target="_blank" rel="noopener" href="http://deflate.medialayer.com/">http://deflate.medialayer.com/</a></p>
+<p>首先，下载DDoS Deflate并安装：</p>
+<h1 id="cd-2"><a href="#cd-2" class="headerlink" title="cd ~"></a>cd ~</h1><h1 id="wget-http-www-inetbase-com-scripts-ddos-install-sh"><a href="#wget-http-www-inetbase-com-scripts-ddos-install-sh" class="headerlink" title="wget http://www.inetbase.com/scripts/ddos/install.sh"></a>wget <a target="_blank" rel="noopener" href="http://www.inetbase.com/scripts/ddos/install.sh">http://www.inetbase.com/scripts/ddos/install.sh</a></h1><h1 id="chmod-0700-install-sh"><a href="#chmod-0700-install-sh" class="headerlink" title="chmod 0700 install.sh"></a>chmod 0700 install.sh</h1><h1 id="x2F-install-sh"><a href="#x2F-install-sh" class="headerlink" title=".&#x2F;install.sh"></a>.&#x2F;install.sh</h1><p>按 Q 键退出，然后编辑配置文件：</p>
+<h1 id="vi-x2F-usr-x2F-local-x2F-ddos-x2F-ddos-conf"><a href="#vi-x2F-usr-x2F-local-x2F-ddos-x2F-ddos-conf" class="headerlink" title="vi &#x2F;usr&#x2F;local&#x2F;ddos&#x2F;ddos.conf"></a>vi &#x2F;usr&#x2F;local&#x2F;ddos&#x2F;ddos.conf</h1><p>推荐做如下更改，其余默认即可：</p>
+<p>NO_OF_CONNECTIONS &#x3D; 100<br>APF_BAN &#x3D; 0<br>BAN_PERIOD &#x3D; 36000<br>保存后退出。</p>
+<p>#12MySQL数据库优化<br>众所周知，LAMP是比较依赖数据库的。尤其是搭建的WordPress博客没进行HTML静态缓存的情况下，对数据库的依赖更加严重。</p>
+<p>在我看来，对MySQL数据库的优化是特别重要也是特别困难的一项工作。不仅仅是因为MySQL设置里参数众多，让人看着头疼迷糊，更是因为这些参数没有一个固定的最优组合。参数设置的激进，浪费VPS资源，设置的保守，又可能限制程序的正常运行。</p>
+<p>那么，究竟该怎么设置才合理呢？</p>
+<p>根据博主的经验，对MySQL众多参数中最重要的以下几点进行合理的优化后，基本可以保证中小流量（比如＜5000IP&#x2F;天）博客的正常访问。</p>
+<p>为确保安全，首先备份一下 &#x2F;etc&#x2F;my.cnf ：</p>
+<h1 id="cp-x2F-etc-x2F-my-cnf-x2F-etc-x2F-my-cnf-old"><a href="#cp-x2F-etc-x2F-my-cnf-x2F-etc-x2F-my-cnf-old" class="headerlink" title="cp &#x2F;etc&#x2F;my.cnf &#x2F;etc&#x2F;my.cnf.old"></a>cp &#x2F;etc&#x2F;my.cnf &#x2F;etc&#x2F;my.cnf.old</h1><p>接下来，修改 &#x2F;etc&#x2F;my.cnf 中的以下参数：</p>
+<h1 id="vi-x2F-etc-x2F-my-cnf-1"><a href="#vi-x2F-etc-x2F-my-cnf-1" class="headerlink" title="vi &#x2F;etc&#x2F;my.cnf"></a>vi &#x2F;etc&#x2F;my.cnf</h1><p>key_buffer_size &#x3D; 15M<br>query_cache_size &#x3D; 15M<br>max_connections &#x3D; 100<br>修改后，保存退出。重启一下MySQL数据库即可：</p>
+<h1 id="x2F-etc-x2F-init-d-x2F-mysql-restart-1"><a href="#x2F-etc-x2F-init-d-x2F-mysql-restart-1" class="headerlink" title="&#x2F;etc&#x2F;init.d&#x2F;mysql restart"></a>&#x2F;etc&#x2F;init.d&#x2F;mysql restart</h1><p>特别提示：★★★★★</p>
+<p>随着博客流量的日益增长，这些设置可能不再适合，需要不断调整，以达到最合理的方案。</p>
+<p>那么，如何调整呢？</p>
+<p>在这里，博主根据自己的实际经验，提供以下方法。同时，也建议你定期监测调整。</p>
+<p>一、连接MySQL数据库：</p>
+<h1 id="mysql-uroot-p"><a href="#mysql-uroot-p" class="headerlink" title="mysql -uroot -p"></a>mysql -uroot -p</h1><p>回车，输入数据库密码（root用户）。</p>
+<p>出现提示符 mysql&gt; 后，即表示成功进入MySQL数据库中。</p>
+<p>二、查看服务器响应的最大连接数（Max_used_connections）：</p>
+<p>mysql&gt; show global status like ‘Max_used_connections’;</p>
+<p>返回值中，Max_used_connections 表示服务器过去发生的最大连接数。</p>
+<p>博主建议：</p>
+<p>max_connections &#x2F; Max_used_connections &#x3D; 1.5</p>
+<p>比值可以大一些，但太小的话可能出现 1040 错误：“MySQL: ERROR 1040: Too many connections”</p>
+<p>三、查看key_buffer_size使用情况：</p>
+<p>mysql&gt; show global status like ‘key_read%’;</p>
+<p>得到返回值（单位：Byte），索引未命中缓存的概率：</p>
+<p>key_cache_miss_rate ＝ Key_reads &#x2F; Key_read_requests * 100%</p>
+<p>博主建议：</p>
+<p>key_cache_miss_rate ＜ 0.1% 即可，表示1000个索引读取请求才有一个直接读硬盘；</p>
+<p>如果比值过小（比如＜ 0.01%），则表示 key_buffer_size 分配的过多，可适当减少。</p>
+<p>四、查询缓存（query cache）利用率：</p>
+<p>mysql&gt; show global status like ‘qcache%’;</p>
+<p>返回值中，Qcache_free_memory 表示缓存中的空闲内存（单位：Byte）</p>
+<p>则查询缓存利用率：</p>
+<p>x &#x3D; (query_cache_size - Qcache_free_memory) &#x2F; query_cache_size * 100%</p>
+<p>博主建议：</p>
+<p>查询缓存利用率 ＞80% 时，可适当提高 query_cache_size 数值；</p>
+<p>查询缓存利用率 ＜20% 时，可适当降低 query_cache_size 数值。</p>
+<p>五、退出MySQL数据库：</p>
+<p>mysql&gt; exit</p>
+<p>#13创建VPS快照<br>为了数据安全，一定要养成定期备份的好习惯。否则一旦有个闪失，可真的要一夜回到解放前了。</p>
+<p>所幸，Vultr提供免费的VPS快照备份，可以通过一键恢复（restoring），无缝迁移系统到别的机子或者机房。实在是太方便了。</p>
+<p>操作也很简单：打开VPS管理页面，点击 “Snapshots” ，方框内填入标签即可。</p>
+<p>值得一提的是，Vultr的 Snapshots 恢复的时候有个小坑：备份恢复只能向等于或大于备份空间的机子进行操作。</p>
+<p>也就是说，你在月付$5机子上可以一键恢复月付$2.5的机子上的备份。反之则不行，因为小空间没法恢复大空间。</p>
+<p>所以，博主备份时的标签一般都注明套餐类型和日期，以便于管理。</p>
+<p>如上图中：512MB-SEOIMO-2017-10-01</p>
+<p>【温馨提示】搬瓦工VPS快照备份请参看：#4.2 + 如何购买搬瓦工VPS</p>
+<p>#14WordPress博客的备份和迁移<br>网站备份的重要性就不需要博主多说了。在Linux系统下，对WordPress进行备份其实并不难。主要涉及两部分：文件备份和数据库备份</p>
+<p>#14.1 文件备份<br>温馨提示：以下命令中涉及的数据库和域名，请根据你VPS上具体设置，自行修改。</p>
+<p>为了方便管理，我们先建立一个文件夹专门存放备份数据，比如 &#x2F;home&#x2F;backup&#x2F; ：</p>
+<h1 id="mkdir-x2F-home-x2F-backup"><a href="#mkdir-x2F-home-x2F-backup" class="headerlink" title="mkdir &#x2F;home&#x2F;backup"></a>mkdir &#x2F;home&#x2F;backup</h1><p>以本站所在文件夹 seoimo.com 为例，压缩整站并移动到 &#x2F;home&#x2F;backup&#x2F; 文件夹下（为方便管理，博主添加了备份日期）：</p>
+<h1 id="cd-x2F-home-x2F-wwwroot"><a href="#cd-x2F-home-x2F-wwwroot" class="headerlink" title="cd &#x2F;home&#x2F;wwwroot"></a>cd &#x2F;home&#x2F;wwwroot</h1><h1 id="tar-zcf-seoimo-com-20171001-tar-gz-seoimo-com"><a href="#tar-zcf-seoimo-com-20171001-tar-gz-seoimo-com" class="headerlink" title="tar -zcf seoimo.com-20171001.tar.gz seoimo.com"></a>tar -zcf seoimo.com-20171001.tar.gz seoimo.com</h1><h1 id="mv-seoimo-com-20171001-tar-gz-x2F-home-x2F-backup-x2F"><a href="#mv-seoimo-com-20171001-tar-gz-x2F-home-x2F-backup-x2F" class="headerlink" title="mv seoimo.com-20171001.tar.gz &#x2F;home&#x2F;backup&#x2F;"></a>mv seoimo.com-20171001.tar.gz &#x2F;home&#x2F;backup&#x2F;</h1><p>好了，整站已经打包备份完成。接下来，开始备份数据库。</p>
+<p>#14.2 数据库备份<br>首先，打开 &#x2F;home&#x2F;backup&#x2F; 文件夹，我们需要将数据库备份在这里：</p>
+<h1 id="cd-x2F-home-x2F-backup"><a href="#cd-x2F-home-x2F-backup" class="headerlink" title="cd &#x2F;home&#x2F;backup"></a>cd &#x2F;home&#x2F;backup</h1><h1 id="lnmp-database-list"><a href="#lnmp-database-list" class="headerlink" title="lnmp database list"></a>lnmp database list</h1><p>输入 root 数据库密码（在#6 + 搭建LAMP环境设置的），即可查看当前数据库列表。</p>
+<p>选择需要备份网站的对应数据库，以选定 sjk_seoimo 为例：</p>
+<p>mysqldump -uroot -p sjk_seoimo &gt; sjk_seoimo-20171001.sql</p>
+<p>再次输入数据库密码，即可完成数据库备份。</p>
+<p>可键入命令 # ls 查看当前目录下已经存在了备份好的文件。</p>
+<p>此时，可以用通过 FTP 下载到本地保存，也可上传到别的 VPS 上备份保存。</p>
+<p>#14.3 WordPress迁移 &#x2F; 搬家<br>某些情况下，我们可能需要进行网站迁移，从一个VPS搬家到另一个VPS上。如果是没有开通 SSH 功能的虚拟主机，搬家起来可能会比较麻烦，来来回回的下载和上传。但是，在VPS上操作则相对简单的多。</p>
+<p>假设新VPS的IP为 8.8.8.8，SSH端口为 22，则打开备份目录，选择需要的文件备份和数据库备份上传：</p>
+<h1 id="cd-x2F-home-x2F-backup-1"><a href="#cd-x2F-home-x2F-backup-1" class="headerlink" title="cd &#x2F;home&#x2F;backup"></a>cd &#x2F;home&#x2F;backup</h1><h1 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h1><h1 id="scp-P-22-seoimo-com-20171001-tar-gz-114-111-x6f-x74-x40-56-46-x38-46-x38-46-56-x2F-home-x2F-backup"><a href="#scp-P-22-seoimo-com-20171001-tar-gz-114-111-x6f-x74-x40-56-46-x38-46-x38-46-56-x2F-home-x2F-backup" class="headerlink" title="scp -P 22 seoimo.com-20171001.tar.gz &#114;&#111;&#x6f;&#x74;&#x40;&#56;&#46;&#x38;&#46;&#x38;&#46;&#56;:&#x2F;home&#x2F;backup"></a>scp -P 22 seoimo.com-20171001.tar.gz <a href="mailto:&#114;&#111;&#x6f;&#x74;&#x40;&#56;&#46;&#x38;&#46;&#x38;&#46;&#56;">&#114;&#111;&#x6f;&#x74;&#x40;&#56;&#46;&#x38;&#46;&#x38;&#46;&#56;</a>:&#x2F;home&#x2F;backup</h1><h1 id="scp-P-22-sjk-seoimo-20171001-sql-114-111-111-116-x40-x38-46-56-x2e-x38-x2e-56-x2F-home-x2F-backup"><a href="#scp-P-22-sjk-seoimo-20171001-sql-114-111-111-116-x40-x38-46-56-x2e-x38-x2e-56-x2F-home-x2F-backup" class="headerlink" title="scp -P 22 sjk_seoimo-20171001.sql &#114;&#111;&#111;&#116;&#x40;&#x38;&#46;&#56;&#x2e;&#x38;&#x2e;&#56;:&#x2F;home&#x2F;backup"></a>scp -P 22 sjk_seoimo-20171001.sql <a href="mailto:&#114;&#111;&#111;&#116;&#x40;&#x38;&#46;&#56;&#x2e;&#x38;&#x2e;&#56;">&#114;&#111;&#111;&#116;&#x40;&#x38;&#46;&#56;&#x2e;&#x38;&#x2e;&#56;</a>:&#x2F;home&#x2F;backup</h1><p>回车后，按要求输入新的VPS登陆密码。</p>
+<p>接下来，SSH登入新的VPS。然后解压或替换网站域名目录：</p>
+<h1 id="cp-x2F-home-x2F-backup-x2F-seoimo-com-20171001-tar-gz-x2F-home-x2F-wwwroot"><a href="#cp-x2F-home-x2F-backup-x2F-seoimo-com-20171001-tar-gz-x2F-home-x2F-wwwroot" class="headerlink" title="cp &#x2F;home&#x2F;backup&#x2F;seoimo.com-20171001.tar.gz &#x2F;home&#x2F;wwwroot"></a>cp &#x2F;home&#x2F;backup&#x2F;seoimo.com-20171001.tar.gz &#x2F;home&#x2F;wwwroot</h1><h1 id="cd-x2F-home-x2F-wwwroot-1"><a href="#cd-x2F-home-x2F-wwwroot-1" class="headerlink" title="cd &#x2F;home&#x2F;wwwroot"></a>cd &#x2F;home&#x2F;wwwroot</h1><h1 id="tar-zxf-seoimo-com-20171001-tar-gz"><a href="#tar-zxf-seoimo-com-20171001-tar-gz" class="headerlink" title="tar -zxf seoimo.com-20171001.tar.gz"></a>tar -zxf seoimo.com-20171001.tar.gz</h1><h1 id="rm-rf-seoimo-com-20171001-tar-gz"><a href="#rm-rf-seoimo-com-20171001-tar-gz" class="headerlink" title="rm -rf seoimo.com-20171001.tar.gz"></a>rm -rf seoimo.com-20171001.tar.gz</h1><p>搬家后解压的文件可能存在权限的问题，建议赋予网站根目录文件的可写权限。</p>
+<h1 id="chmod-R-755-x2F-home-x2F-wwwroot-x2F-seoimo-com"><a href="#chmod-R-755-x2F-home-x2F-wwwroot-x2F-seoimo-com" class="headerlink" title="chmod -R 755 &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com"></a>chmod -R 755 &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com</h1><h1 id="chown-R-www-x2F-home-x2F-wwwroot-x2F-seoimo-com"><a href="#chown-R-www-x2F-home-x2F-wwwroot-x2F-seoimo-com" class="headerlink" title="chown -R www &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com"></a>chown -R www &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com</h1><p>之后，导入数据库，仍以 sjk_seoimo 为例：</p>
+<h1 id="cd-x2F-home-x2F-backup-2"><a href="#cd-x2F-home-x2F-backup-2" class="headerlink" title="cd &#x2F;home&#x2F;backup"></a>cd &#x2F;home&#x2F;backup</h1><h1 id="ls-1"><a href="#ls-1" class="headerlink" title="ls"></a>ls</h1><h1 id="mysql-uroot-p-sjk-seoimo-lt-sjk-seoimo-20171001-sql"><a href="#mysql-uroot-p-sjk-seoimo-lt-sjk-seoimo-20171001-sql" class="headerlink" title="mysql -uroot -p sjk_seoimo &lt; sjk_seoimo-20171001.sql"></a>mysql -uroot -p sjk_seoimo &lt; sjk_seoimo-20171001.sql</h1><p>倘若虚拟主机转虚拟主机，或者虚拟主机转VPS，数据库密码和某些插件文件路径可能不同，这就需要额外去查找更改了。</p>
+<p>但如果都是在VPS上通过LNMP搭建WordPress，通常则无需再做额外操作。</p>
+<p>注意：如果网站开启了 HTTPS 访问，且是安装的 Let’s Encrypt 提供的免费SSL证书，那么除了上面的操作之外，还需要使用命令 # lnmp ssl add 再重新添加SSL证书。</p>
+<p>【温馨提示】数据库的导出用的符号是 “&gt;”，导入用的是 “&lt;”；注意方向，千万别搞错了。</p>
+<p>#14.4 WordPress搬家脚本<br>使用此脚本前请务必提前做好备份（SnapShot），万一搬家出错，还有得恢复！！</p>
+<p>如果你像博主一样，厌倦了每次搬家都要一遍一遍的执行压缩、传输、解压以及添加网站等操作，尤其是当VPS上有多个域名时。那么，这里有个高（偷）效（懒）的方法。</p>
+<p>博主写了一个自动迁移WordPress的Shell脚本（WP-Migration），在你新的VPS执行就可以。但前提是你的新旧两个VPS系统最好一致，比如同为CentOS6.x或者CentOS7.x。否则，可能出现未知的问题（博主猜测）。</p>
+<p>优点：不需要用lnmp命令提前添加好域名和数据库，全部从旧的VPS上直接复制。</p>
+<p>博主水平有限，Linux勉强算是入门。故而把源码贴在下面，也希望有路过的大神能提点意见和建议。</p>
+<p>脚本源码：</p>
+<p>#!&#x2F;bin&#x2F;bash# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<h1 id="Name-WP-Migration-by-SEOIMO"><a href="#Name-WP-Migration-by-SEOIMO" class="headerlink" title="Name: WP-Migration by SEOIMO"></a>Name: WP-Migration by SEOIMO</h1><h1 id="Link-https-www-seoimo-com-wordpress-vps"><a href="#Link-https-www-seoimo-com-wordpress-vps" class="headerlink" title="Link: https://www.seoimo.com/wordpress-vps/"></a>Link: <a target="_blank" rel="noopener" href="https://www.seoimo.com/wordpress-vps/">https://www.seoimo.com/wordpress-vps/</a></h1><h1 id="Date-2018-03-01"><a href="#Date-2018-03-01" class="headerlink" title="Date: 2018-03-01"></a>Date: 2018-03-01</h1><h1 id="x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-记录程序起始时间"><a href="#x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-记录程序起始时间" class="headerlink" title="&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# 记录程序起始时间"></a>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# 记录程序起始时间</h1><p>echo “[Starting time: <code>date +&#39;%Y-%m-%d %H:%M:%S&#39;</code>]”<br>time_start&#x3D;$(date +%s)</p>
+<h1 id="停止lnmp"><a href="#停止lnmp" class="headerlink" title="停止lnmp"></a>停止lnmp</h1><p>lnmp stop</p>
+<h1 id="输入旧的VPS地址和端口"><a href="#输入旧的VPS地址和端口" class="headerlink" title="输入旧的VPS地址和端口"></a>输入旧的VPS地址和端口</h1><p>read -p “Please enter your Old VPS IP (e.g. 58.58.58.58): “ old_vps_ip<br>read -p “Please enter your Old VPS SSH Port (e.g. 58585): “ old_ssh_port</p>
+<h1 id="迁移旧的VPS上添加的-所有-网站-x2F-域名（形如：xxx-com）"><a href="#迁移旧的VPS上添加的-所有-网站-x2F-域名（形如：xxx-com）" class="headerlink" title="迁移旧的VPS上添加的[所有]网站&#x2F;域名（形如：xxx.com）"></a>迁移旧的VPS上添加的[所有]网站&#x2F;域名（形如：xxx.com）</h1><p>echo -e “\033[32;49;1m[#1 Copy the WWWROOT files from your Old VPS now.]\033[39;49;0m”<br>scp -P $old_ssh_port -rC root@$old_vps_ip:&#x2F;home&#x2F;wwwroot&#x2F;*.com &#x2F;home&#x2F;wwwroot&#x2F;</p>
+<h1 id="更改网站权限"><a href="#更改网站权限" class="headerlink" title="更改网站权限"></a>更改网站权限</h1><p>chmod -R 755 &#x2F;home&#x2F;wwwroot<br>chown -R www &#x2F;home&#x2F;wwwroot</p>
+<h1 id="迁移旧的VPS上添加的-所有-网站的数据库（先备份本机数据库）"><a href="#迁移旧的VPS上添加的-所有-网站的数据库（先备份本机数据库）" class="headerlink" title="迁移旧的VPS上添加的[所有]网站的数据库（先备份本机数据库）"></a>迁移旧的VPS上添加的[所有]网站的数据库（先备份本机数据库）</h1><p>echo -e “\033[32;49;1m[#2 Copy the DATABASE files from your Old VPS now.]\033[39;49;0m”<br>cp -r &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var.old<br>scp -P $old_ssh_port -rC root@$old_vps_ip:&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var&#x2F; &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;</p>
+<h1 id="更改数据库权限"><a href="#更改数据库权限" class="headerlink" title="更改数据库权限"></a>更改数据库权限</h1><p>chown -R mysql:mysql &#x2F;usr&#x2F;local&#x2F;mysql&#x2F;var</p>
+<h1 id="迁移旧的VPS上Apache中绑定的-所有-域名设置（先备份本机域名设置）"><a href="#迁移旧的VPS上Apache中绑定的-所有-域名设置（先备份本机域名设置）" class="headerlink" title="迁移旧的VPS上Apache中绑定的[所有]域名设置（先备份本机域名设置）"></a>迁移旧的VPS上Apache中绑定的[所有]域名设置（先备份本机域名设置）</h1><p>echo -e “\033[32;49;1m[#3 Copy the HTTPD files from your Old VPS now.]\033[39;49;0m”<br>cp -r &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf.old<br>scp -P $old_ssh_port -rC root@$old_vps_ip:&#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F; &#x2F;usr&#x2F;local&#x2F;apache&#x2F;</p>
+<h1 id="旧的VPS上网站是否启用了Let’s-Encrypt免费的SSL证书"><a href="#旧的VPS上网站是否启用了Let’s-Encrypt免费的SSL证书" class="headerlink" title="旧的VPS上网站是否启用了Let’s Encrypt免费的SSL证书"></a>旧的VPS上网站是否启用了Let’s Encrypt免费的SSL证书</h1><p>echo -e “\033[32;49;1m[#4 Copy the Let’s Encrypt files from your Old VPS now.]\033[39;49;0m”<br>read -p “Did you set up the Let’s Encrypt SSL in your Old VPS before? (yes or no): “ letsencrypt<br>if [ “$letsencrypt” &#x3D; “yes” ] || [ “$letsencrypt” &#x3D; “y” ]; then<br>scp -P $old_ssh_port -rC root@$old_vps_ip:&#x2F;etc&#x2F;letsencrypt &#x2F;etc&#x2F;<br>else<br>echo “[Skipping.]”<br>fi</p>
+<h1 id="重启lnmp"><a href="#重启lnmp" class="headerlink" title="重启lnmp"></a>重启lnmp</h1><p>lnmp start</p>
+<h1 id="计算程序耗时并输出"><a href="#计算程序耗时并输出" class="headerlink" title="计算程序耗时并输出"></a>计算程序耗时并输出</h1><p>echo “[End time: <code>date +&#39;%Y-%m-%d %H:%M:%S&#39;</code>]”<br>time_end&#x3D;$(date +%s)<br>echo -e “\033[32;49;1m[Successfully done! Command takes $((time_end-time_start)) seconds.]\033[39;49;0m”</p>
+<h1 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h1><p>exit 0</p>
+<p>使用方法：</p>
+<p>在你新的VPS上依次执行以下命令：</p>
+<h1 id="cd-amp-amp-wget-https-www-seoimo-com-wp-content-shells-wp-migration-sh"><a href="#cd-amp-amp-wget-https-www-seoimo-com-wp-content-shells-wp-migration-sh" class="headerlink" title="cd ~ &amp;&amp; wget https://www.seoimo.com/wp-content/shells/wp-migration.sh"></a>cd ~ &amp;&amp; wget <a target="_blank" rel="noopener" href="https://www.seoimo.com/wp-content/shells/wp-migration.sh">https://www.seoimo.com/wp-content/shells/wp-migration.sh</a></h1><h1 id="chmod-x-wp-migration-sh-amp-amp-x2F-wp-migration-sh"><a href="#chmod-x-wp-migration-sh-amp-amp-x2F-wp-migration-sh" class="headerlink" title="chmod +x wp-migration.sh &amp;&amp; .&#x2F;wp-migration.sh"></a>chmod +x wp-migration.sh &amp;&amp; .&#x2F;wp-migration.sh</h1><p>脚本执行期间需要输入3-4次旧VPS的SSH访问密码，建议提前写好。用时直接复制粘贴，免得出错。</p>
+<p>脚本执行完成，显示如下字样，说明WordPress迁移成功。否则，本脚本可能在你的系统上无法正常使用，建议按前面的常规方法搬家。</p>
+<p>Starting LAMP…<br>start apache… done<br>Starting MySQL SUCCESS!<br>[Successfully done! Command takes 105 seconds.]<br>关于SSL证书的说明如果在旧的VPS上已经安装了免费的 Let’s Encrypt 证书，但新的VPS上从未安装过（包括为其他域名），那么搬家之后，建议在新的VPS上按照如下命令添加证书，以便安装相关依赖。</p>
+<h1 id="lnmp-ssl-add"><a href="#lnmp-ssl-add" class="headerlink" title="lnmp ssl add"></a>lnmp ssl add</h1><p>但是，倘若旧的VPS上已经为网站添加了证书，且新的VPS上也成功安装过 Let’s Encrypt 证书（包括为其他域名），即系统上已经安装了相关依赖。</p>
+<p>那么，搬家之后，证书通常不会出现问题，但自动续期时可能会显示如下错误：</p>
+<p>expected &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;seoimo.com&#x2F;cert.pem to be a symlink<br>Renewal configuration file &#x2F;etc&#x2F;letsencrypt&#x2F;renewal&#x2F;seoimo.com.conf is broken. Skipping.<br>这是因为在复制过程中，相关软链接（类似于快捷方式）会出现问题。因此，需要重建一下 cert 相关软链接：</p>
+<h1 id="cd-amp-amp-wget-https-www-seoimo-com-wp-content-shells-cert-symlink-sh"><a href="#cd-amp-amp-wget-https-www-seoimo-com-wp-content-shells-cert-symlink-sh" class="headerlink" title="cd ~ &amp;&amp; wget https://www.seoimo.com/wp-content/shells/cert-symlink.sh"></a>cd ~ &amp;&amp; wget <a target="_blank" rel="noopener" href="https://www.seoimo.com/wp-content/shells/cert-symlink.sh">https://www.seoimo.com/wp-content/shells/cert-symlink.sh</a></h1><h1 id="chmod-x-cert-symlink-sh-amp-amp-x2F-cert-symlink-sh"><a href="#chmod-x-cert-symlink-sh-amp-amp-x2F-cert-symlink-sh" class="headerlink" title="chmod +x cert-symlink.sh &amp;&amp; .&#x2F;cert-symlink.sh"></a>chmod +x cert-symlink.sh &amp;&amp; .&#x2F;cert-symlink.sh</h1><p>显示提示后，输入已安装 Let’s Encrypt 证书的域名即可。</p>
+<p>脚本执行完成后，再试着手动更新下证书，看看是否可以正常续期：</p>
+<h1 id="x2F-bin-x2F-certbot-renew-–renew-by-default-–disable-hook-validation-–renew-hook-“-x2F-etc-x2F-init-d-x2F-httpd-restart”"><a href="#x2F-bin-x2F-certbot-renew-–renew-by-default-–disable-hook-validation-–renew-hook-“-x2F-etc-x2F-init-d-x2F-httpd-restart”" class="headerlink" title="&#x2F;bin&#x2F;certbot renew –renew-by-default –disable-hook-validation –renew-hook “&#x2F;etc&#x2F;init.d&#x2F;httpd restart”"></a>&#x2F;bin&#x2F;certbot renew –renew-by-default –disable-hook-validation –renew-hook “&#x2F;etc&#x2F;init.d&#x2F;httpd restart”</h1><p>如仍提示续期失败，你可能需要手动重新安装证书：# lnmp ssl add</p>
+<p>附上 cert-symlink.sh 脚本源码如下：</p>
+<p>#!&#x2F;bin&#x2F;bash# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<h1 id="Name-Cert-Symlink-by-SEOIMO"><a href="#Name-Cert-Symlink-by-SEOIMO" class="headerlink" title="Name: Cert-Symlink by SEOIMO"></a>Name: Cert-Symlink by SEOIMO</h1><h1 id="Link-https-www-seoimo-com-wordpress-vps-1"><a href="#Link-https-www-seoimo-com-wordpress-vps-1" class="headerlink" title="Link: https://www.seoimo.com/wordpress-vps/"></a>Link: <a target="_blank" rel="noopener" href="https://www.seoimo.com/wordpress-vps/">https://www.seoimo.com/wordpress-vps/</a></h1><h1 id="Date-2018-03-01-1"><a href="#Date-2018-03-01-1" class="headerlink" title="Date: 2018-03-01"></a>Date: 2018-03-01</h1><h1 id="x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-记录程序起始时间-1"><a href="#x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-记录程序起始时间-1" class="headerlink" title="&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# 记录程序起始时间"></a>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# 记录程序起始时间</h1><p>echo “[Starting time: <code>date +&#39;%Y-%m-%d %H:%M:%S&#39;</code>]”<br>time_start&#x3D;$(date +%s)</p>
+<h1 id="输入重建Symlink链接的网站-x2F-域名（形如：xxx-com）"><a href="#输入重建Symlink链接的网站-x2F-域名（形如：xxx-com）" class="headerlink" title="输入重建Symlink链接的网站&#x2F;域名（形如：xxx.com）"></a>输入重建Symlink链接的网站&#x2F;域名（形如：xxx.com）</h1><p>read -p “Please enter your SSL domain (e.g. xxx.com): “ cert_domain</p>
+<h1 id="重建Symlink链接"><a href="#重建Symlink链接" class="headerlink" title="重建Symlink链接"></a>重建Symlink链接</h1><p>rm -rf &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;$cert_domain&#x2F;*.pem<br>ln -s &#x2F;etc&#x2F;letsencrypt&#x2F;archive&#x2F;$cert_domain&#x2F;fullchain1.pem &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;$cert_domain&#x2F;fullchain.pem<br>ln -s &#x2F;etc&#x2F;letsencrypt&#x2F;archive&#x2F;$cert_domain&#x2F;cert1.pem &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;$cert_domain&#x2F;cert.pem<br>ln -s &#x2F;etc&#x2F;letsencrypt&#x2F;archive&#x2F;$cert_domain&#x2F;chain1.pem &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;$cert_domain&#x2F;chain.pem<br>ln -s &#x2F;etc&#x2F;letsencrypt&#x2F;archive&#x2F;$cert_domain&#x2F;privkey1.pem &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;$cert_domain&#x2F;privkey.pem</p>
+<h1 id="计算程序耗时并输出-1"><a href="#计算程序耗时并输出-1" class="headerlink" title="计算程序耗时并输出"></a>计算程序耗时并输出</h1><p>echo “[End time: <code>date +&#39;%Y-%m-%d %H:%M:%S&#39;</code>]”<br>time_end&#x3D;$(date +%s)<br>echo -e “\033[32;49;1m[Successfully done! Command takes $((time_end-time_start)) seconds.]\033[39;49;0m”</p>
+<h1 id="退出-1"><a href="#退出-1" class="headerlink" title="退出"></a>退出</h1><p>exit 0</p>
+<p>#14.5 备份小技巧<br>上文提到过，备份后的文件可以通过 FTP 软件下载到本地保存，也可以通过 SCP 命令上传到其他VPS上备份。</p>
+<p>那么，哪个方法更好呢？</p>
+<p>看个人喜好了。不过博主倾向于后者，即 scp 到其他VPS上备份保存。因为一旦你的网站出现问题，重新开VPS和从本地上传的话，一般只有几十到几百KB&#x2F;s的上传速度，比较慢。而VPS之间的 scp 传速则快得多，通常几十MB&#x2F;s的速度，简直天壤之别。</p>
+<p>那是不是意味着需要额外单独买个VPS作为备份？</p>
+<p>条件允许当然更好。但是，也不一定需要。因为Vultr自带免费的 “Snapshots” 功能。</p>
+<p>虽然搬瓦工（和Vultr）很不错，但鸡蛋都放在一个篮子里总是不够安全的。博主的做法是：</p>
+<p>在Vultr上另开一个机子（比如最便宜的月付$2.5），然后按本文教程搭建好本站一毛一样的站点。然后 “Snapshots”，之后把新开的VPS销毁。这样一来，即使不再新开VPS，后台依然保留备份的 “Snapshots” 。</p>
+<p>博主需要做的就是定期花几毛钱重开VPS（每月1-2次），恢复（Restoring），然后把备份上传过来，再重新 “Snapshots” 后销毁。</p>
+<p>这样，一旦由于某些原因本站甚至搬瓦工出了问题，博客也可以在Vultr上很快恢复访问。</p>
+<p>Snapshots-Restoring的具体步骤：</p>
+<p>登录Vultr → 左侧Servers → 选中VPS → 上面Snapshot → 右下Restore-Snapshot</p>
+<p>#15写在最后<br>到这里，关于在月付2.5美元（甚至更少）的便宜VPS上搭建LAMP环境，进而安装WordPress建站并进行主要的优化配置已全部完成。是不是突然觉得豁然开朗？</p>
+<p>当然，在搭建完博客后，你也可以开启 HTTPS 访问。这不仅仅是为了跟风装13，其对关键词排名也确有一定的帮助。</p>
+<p>博客安装免费SSL证书：<a target="_blank" rel="noopener" href="https://www.seoimo.com/lamp-ssl/">https://www.seoimo.com/lamp-ssl/</a><br>其实，把网站安装成功只是万里长征开始的第一步，后面还要涉及WordPress内部的优化和加速、博客的内容建设、运营管理、安全防护等等，这在以后的文章中会继续和大家分享。</p>
+<p>博主以为，一个优秀的博客，就像小树苗一样，需要博主长期精心的培育和维护，才能最终长成参天大树。</p>
+<p>不过，千万要记得：一定要养成定期备份的好习惯！</p>
+<p>非原创，原文链接<a target="_blank" rel="noopener" href="https://www.seoimo.com/wordpress-vps/">https://www.seoimo.com/wordpress-vps/</a></p>
+
+    </div>
+
+    
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart-o"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/xmp-blog/tags/vps/" rel="tag"># vps</a>
+              <a href="/xmp-blog/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/xmp-blog/tags/WordPress/" rel="tag"># WordPress</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2019/03/15/hexo%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96/" rel="prev" title="hexo博客优化">
+      <i class="fa fa-chevron-left"></i> hexo博客优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2019/03/15/SSR-%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC%EF%BC%88%E5%9B%9B%E5%90%88%E4%B8%80%EF%BC%89/" rel="next" title="SSR 一键安装脚本（四合一）">
+      SSR 一键安装脚本（四合一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#passwd"><span class="nav-number">1.</span> <span class="nav-text">passwd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-y-update"><span class="nav-number">2.</span> <span class="nav-text">yum -y update</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-ssh-x2F-sshd-config"><span class="nav-number">3.</span> <span class="nav-text">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-sshd-restart"><span class="nav-number">4.</span> <span class="nav-text">service sshd restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd"><span class="nav-number">5.</span> <span class="nav-text">cd ~</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-%E2%80%93no-check-certificate-https-github-com-teddysun-across-raw-master-bbr-sh"><span class="nav-number">6.</span> <span class="nav-text">wget –no-check-certificate https:&#x2F;&#x2F;github.com&#x2F;teddysun&#x2F;across&#x2F;raw&#x2F;master&#x2F;bbr.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-x-bbr-sh-amp-amp-x2F-bbr-sh"><span class="nav-number">7.</span> <span class="nav-text">chmod +x bbr.sh &amp;&amp; .&#x2F;bbr.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sysctl-net-ipv4-tcp-available-congestion-control"><span class="nav-number">8.</span> <span class="nav-text">sysctl net.ipv4.tcp_available_congestion_control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#screen-S-lamp"><span class="nav-number">9.</span> <span class="nav-text">screen -S lamp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-c-http-soft-vpser-net-lnmp-lnmp1-4-full-tar-gz-amp-amp-tar-zxf-lnmp1-4-full-tar-gz-amp-amp-cd-lnmp1-4-full-amp-amp-x2F-install-sh-lamp"><span class="nav-number">10.</span> <span class="nav-text">wget -c http:&#x2F;&#x2F;soft.vpser.net&#x2F;lnmp&#x2F;lnmp1.4-full.tar.gz &amp;&amp; tar -zxf lnmp1.4-full.tar.gz &amp;&amp; cd lnmp1.4-full &amp;&amp; .&#x2F;install.sh lamp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-wwwroot-x2F-default"><span class="nav-number">11.</span> <span class="nav-text">cd &#x2F;home&#x2F;wwwroot&#x2F;default</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv-phpmyadmin-hereispma"><span class="nav-number">12.</span> <span class="nav-text">mv phpmyadmin hereispma</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm-rf-index-html-%E6%88%96%E8%80%85"><span class="nav-number">13.</span> <span class="nav-text">rm -rf index.html 或者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv-index-html-random-name-html"><span class="nav-number">14.</span> <span class="nav-text">mv index.html random-name.html</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-vhosts-conf"><span class="nav-number">15.</span> <span class="nav-text">vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-vhosts.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-root-x2F-lnmp1-4-full"><span class="nav-number">16.</span> <span class="nav-text">cd &#x2F;root&#x2F;lnmp1.4-full</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-addons-sh-install-opcache"><span class="nav-number">17.</span> <span class="nav-text">.&#x2F;addons.sh install opcache</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-addons-sh-install-memcached"><span class="nav-number">18.</span> <span class="nav-text">.&#x2F;addons.sh install memcached</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm-rf-x2F-root-x2F-lnmp1-4-full-tar-gz"><span class="nav-number">19.</span> <span class="nav-text">rm -rf &#x2F;root&#x2F;lnmp1.4-full.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lnmp-vhost-add"><span class="nav-number">20.</span> <span class="nav-text">lnmp vhost add</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#seoimo-com"><span class="nav-number">21.</span> <span class="nav-text">seoimo.com</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#y"><span class="nav-number">22.</span> <span class="nav-text">y</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#www-seoimo-com"><span class="nav-number">23.</span> <span class="nav-text">www.seoimo.com</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#n"><span class="nav-number">24.</span> <span class="nav-text">n</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#y-1"><span class="nav-number">25.</span> <span class="nav-text">y</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sjk-seoimo"><span class="nav-number">26.</span> <span class="nav-text">sjk_seoimo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sjkmmseoimo"><span class="nav-number">27.</span> <span class="nav-text">sjkmmseoimo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-root-x2F-lnmp1-3-full"><span class="nav-number">28.</span> <span class="nav-text">cd &#x2F;root&#x2F;lnmp1.3-full</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-pureftpd-sh"><span class="nav-number">29.</span> <span class="nav-text">.&#x2F;pureftpd.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lnmp-ftp-add"><span class="nav-number">30.</span> <span class="nav-text">lnmp ftp add</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-www-www-R-x2F-%E7%9B%AE%E5%BD%95%E8%B7%AF%E5%BE%84-x2F"><span class="nav-number">31.</span> <span class="nav-text">chown www:www -R &#x2F;目录路径&#x2F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-wwwroot-x2F-seoimo-com"><span class="nav-number">32.</span> <span class="nav-text">cd &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-https-cn-wordpress-org-wordpress-4-9-4-zh-CN-tar-gz"><span class="nav-number">33.</span> <span class="nav-text">wget https:&#x2F;&#x2F;cn.wordpress.org&#x2F;wordpress-4.9.4-zh_CN.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-zxvf-wordpress-4-9-4-zh-CN-tar-gz"><span class="nav-number">34.</span> <span class="nav-text">tar -zxvf wordpress-4.9.4-zh_CN.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv-wordpress-x2F"><span class="nav-number">35.</span> <span class="nav-text">mv wordpress&#x2F;* .</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm-rf-wordpress"><span class="nav-number">36.</span> <span class="nav-text">rm -rf wordpress</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm-rf-wordpress-4-9-4-zh-CN-tar-gz"><span class="nav-number">37.</span> <span class="nav-text">rm -rf wordpress-4.9.4-zh_CN.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-R-755-x2F-home-x2F-wwwroot"><span class="nav-number">38.</span> <span class="nav-text">chmod -R 755 &#x2F;home&#x2F;wwwroot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-R-www-x2F-home-x2F-wwwroot"><span class="nav-number">39.</span> <span class="nav-text">chown -R www &#x2F;home&#x2F;wwwroot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-local-x2F-php-x2F-etc-x2F-php-ini"><span class="nav-number">40.</span> <span class="nav-text">vi &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wq"><span class="nav-number">41.</span> <span class="nav-text">:wq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lnmp-restart"><span class="nav-number">42.</span> <span class="nav-text">lnmp restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-local-x2F-php-x2F-etc-x2F-php-ini-1"><span class="nav-number">43.</span> <span class="nav-text">vi &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php.ini</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wq-1"><span class="nav-number">44.</span> <span class="nav-text">:wq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lnmp-restart-1"><span class="nav-number">45.</span> <span class="nav-text">lnmp restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#free-m"><span class="nav-number">46.</span> <span class="nav-text">free -m</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-var-x2F"><span class="nav-number">47.</span> <span class="nav-text">cd &#x2F;var&#x2F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dd-if-x3D-x2F-dev-x2F-zero-of-x3D-swapfile-bs-x3D-1M-count-x3D-256"><span class="nav-number">48.</span> <span class="nav-text">dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;swapfile bs&#x3D;1M count&#x3D;256</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-sbin-x2F-mkswap-swapfile"><span class="nav-number">49.</span> <span class="nav-text">&#x2F;sbin&#x2F;mkswap swapfile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-sbin-x2F-swapon-swapfile"><span class="nav-number">50.</span> <span class="nav-text">&#x2F;sbin&#x2F;swapon swapfile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-0600-x2F-var-x2F-swapfile"><span class="nav-number">51.</span> <span class="nav-text">chmod 0600 &#x2F;var&#x2F;swapfile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo-%E2%80%9C-x2F-var-x2F-swapfile-swap-swap-defaults-0-0%E2%80%9D-gt-gt-x2F-etc-x2F-fstab"><span class="nav-number">52.</span> <span class="nav-text">echo “&#x2F;var&#x2F;swapfile swap swap defaults 0 0” &gt;&gt; &#x2F;etc&#x2F;fstab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#free-m-1"><span class="nav-number">53.</span> <span class="nav-text">free -m</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat-x2F-proc-x2F-sys-x2F-vm-x2F-swappiness"><span class="nav-number">54.</span> <span class="nav-text">cat &#x2F;proc&#x2F;sys&#x2F;vm&#x2F;swappiness</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-sysctl-conf"><span class="nav-number">55.</span> <span class="nav-text">vi &#x2F;etc&#x2F;sysctl.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo-%E2%80%9Cvm-swappiness-x3D-10%E2%80%9D-gt-gt-x2F-etc-x2F-sysctl-conf"><span class="nav-number">56.</span> <span class="nav-text">echo “vm.swappiness &#x3D; 10” &gt;&gt; &#x2F;etc&#x2F;sysctl.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#swapon-s"><span class="nav-number">57.</span> <span class="nav-text">swapon -s</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-sbin-x2F-swapoff-x2F-var-x2F-swap"><span class="nav-number">58.</span> <span class="nav-text">&#x2F;sbin&#x2F;swapoff &#x2F;var&#x2F;swap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm-rf-x2F-var-x2F-swap"><span class="nav-number">59.</span> <span class="nav-text">rm -rf &#x2F;var&#x2F;swap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-fstab"><span class="nav-number">60.</span> <span class="nav-text">vi &#x2F;etc&#x2F;fstab</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-default-conf"><span class="nav-number">61.</span> <span class="nav-text">vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-default.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wq-2"><span class="nav-number">62.</span> <span class="nav-text">:wq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-local-x2F-apache-x2F-conf-x2F-extra-x2F-httpd-mpm-conf"><span class="nav-number">63.</span> <span class="nav-text">vi &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;extra&#x2F;httpd-mpm.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wq-3"><span class="nav-number">64.</span> <span class="nav-text">:wq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-httpd-restart"><span class="nav-number">65.</span> <span class="nav-text">service httpd restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-my-cnf"><span class="nav-number">66.</span> <span class="nav-text">vi &#x2F;etc&#x2F;my.cnf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-etc-x2F-init-d-x2F-mysql-restart"><span class="nav-number">67.</span> <span class="nav-text">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-ssh-x2F-sshd-config-1"><span class="nav-number">68.</span> <span class="nav-text">vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-sshd-restart-1"><span class="nav-number">69.</span> <span class="nav-text">service sshd restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iptables-A-INPUT-p-tcp-m-tcp-%E2%80%93dport-56789-j-ACCEPT"><span class="nav-number">70.</span> <span class="nav-text">iptables -A INPUT -p tcp -m tcp –dport 56789 -j ACCEPT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-iptables-save"><span class="nav-number">71.</span> <span class="nav-text">service iptables save</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-iptables-restart"><span class="nav-number">72.</span> <span class="nav-text">service iptables restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-iptables-status"><span class="nav-number">73.</span> <span class="nav-text">service iptables status</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-firewalld-stop"><span class="nav-number">74.</span> <span class="nav-text">service firewalld stop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#systemctl-disable-firewalld-service"><span class="nav-number">75.</span> <span class="nav-text">systemctl disable firewalld.service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-install-iptables-services"><span class="nav-number">76.</span> <span class="nav-text">yum install iptables-services</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-sysconfig-x2F-iptables"><span class="nav-number">77.</span> <span class="nav-text">vi &#x2F;etc&#x2F;sysconfig&#x2F;iptables</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-iptables-restart-1"><span class="nav-number">78.</span> <span class="nav-text">service iptables restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#systemctl-enable-iptables-service"><span class="nav-number">79.</span> <span class="nav-text">systemctl enable iptables.service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-1"><span class="nav-number">80.</span> <span class="nav-text">cd ~</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-http-soft-vpser-net-security-denyhosts-DenyHosts-2-6-tar-gz"><span class="nav-number">81.</span> <span class="nav-text">wget http:&#x2F;&#x2F;soft.vpser.net&#x2F;security&#x2F;denyhosts&#x2F;DenyHosts-2.6.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-zxvf-DenyHosts-2-6-tar-gz"><span class="nav-number">82.</span> <span class="nav-text">tar -zxvf DenyHosts-2.6.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-DenyHosts-2-6"><span class="nav-number">83.</span> <span class="nav-text">cd DenyHosts-2.6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python-setup-py-install"><span class="nav-number">84.</span> <span class="nav-text">python setup.py install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-usr-x2F-share-x2F-denyhosts-x2F"><span class="nav-number">85.</span> <span class="nav-text">cd &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-denyhosts-cfg-dist-denyhosts-cfg"><span class="nav-number">86.</span> <span class="nav-text">cp denyhosts.cfg-dist denyhosts.cfg</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-daemon-control-dist-daemon-control"><span class="nav-number">87.</span> <span class="nav-text">cp daemon-control-dist daemon-control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-root-daemon-control"><span class="nav-number">88.</span> <span class="nav-text">chown root daemon-control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-700-daemon-control"><span class="nav-number">89.</span> <span class="nav-text">chmod 700 daemon-control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-daemon-control-start"><span class="nav-number">90.</span> <span class="nav-text">.&#x2F;daemon-control start</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echo-%E2%80%9C-x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-start%E2%80%9D-gt-gt-x2F-etc-x2F-rc-local"><span class="nav-number">91.</span> <span class="nav-text">echo “&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control start” &gt;&gt; &#x2F;etc&#x2F;rc.local</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-share-x2F-denyhosts-x2F-denyhosts-cfg"><span class="nav-number">92.</span> <span class="nav-text">vi &#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;denyhosts.cfg</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-restart"><span class="nav-number">93.</span> <span class="nav-text">&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-usr-x2F-share-x2F-denyhosts-x2F-daemon-control-stop"><span class="nav-number">94.</span> <span class="nav-text">&#x2F;usr&#x2F;share&#x2F;denyhosts&#x2F;daemon-control stop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-rc-local"><span class="nav-number">95.</span> <span class="nav-text">vi &#x2F;etc&#x2F;rc.local</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-2"><span class="nav-number">96.</span> <span class="nav-text">cd ~</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-http-www-inetbase-com-scripts-ddos-install-sh"><span class="nav-number">97.</span> <span class="nav-text">wget http:&#x2F;&#x2F;www.inetbase.com&#x2F;scripts&#x2F;ddos&#x2F;install.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-0700-install-sh"><span class="nav-number">98.</span> <span class="nav-text">chmod 0700 install.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-install-sh"><span class="nav-number">99.</span> <span class="nav-text">.&#x2F;install.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-usr-x2F-local-x2F-ddos-x2F-ddos-conf"><span class="nav-number">100.</span> <span class="nav-text">vi &#x2F;usr&#x2F;local&#x2F;ddos&#x2F;ddos.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-x2F-etc-x2F-my-cnf-x2F-etc-x2F-my-cnf-old"><span class="nav-number">101.</span> <span class="nav-text">cp &#x2F;etc&#x2F;my.cnf &#x2F;etc&#x2F;my.cnf.old</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi-x2F-etc-x2F-my-cnf-1"><span class="nav-number">102.</span> <span class="nav-text">vi &#x2F;etc&#x2F;my.cnf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-etc-x2F-init-d-x2F-mysql-restart-1"><span class="nav-number">103.</span> <span class="nav-text">&#x2F;etc&#x2F;init.d&#x2F;mysql restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-uroot-p"><span class="nav-number">104.</span> <span class="nav-text">mysql -uroot -p</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mkdir-x2F-home-x2F-backup"><span class="nav-number">105.</span> <span class="nav-text">mkdir &#x2F;home&#x2F;backup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-wwwroot"><span class="nav-number">106.</span> <span class="nav-text">cd &#x2F;home&#x2F;wwwroot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-zcf-seoimo-com-20171001-tar-gz-seoimo-com"><span class="nav-number">107.</span> <span class="nav-text">tar -zcf seoimo.com-20171001.tar.gz seoimo.com</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv-seoimo-com-20171001-tar-gz-x2F-home-x2F-backup-x2F"><span class="nav-number">108.</span> <span class="nav-text">mv seoimo.com-20171001.tar.gz &#x2F;home&#x2F;backup&#x2F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-backup"><span class="nav-number">109.</span> <span class="nav-text">cd &#x2F;home&#x2F;backup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lnmp-database-list"><span class="nav-number">110.</span> <span class="nav-text">lnmp database list</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-backup-1"><span class="nav-number">111.</span> <span class="nav-text">cd &#x2F;home&#x2F;backup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ls"><span class="nav-number">112.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scp-P-22-seoimo-com-20171001-tar-gz-114-111-x6f-x74-x40-56-46-x38-46-x38-46-56-x2F-home-x2F-backup"><span class="nav-number">113.</span> <span class="nav-text">scp -P 22 seoimo.com-20171001.tar.gz root@8.8.8.8:&#x2F;home&#x2F;backup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#scp-P-22-sjk-seoimo-20171001-sql-114-111-111-116-x40-x38-46-56-x2e-x38-x2e-56-x2F-home-x2F-backup"><span class="nav-number">114.</span> <span class="nav-text">scp -P 22 sjk_seoimo-20171001.sql root@8.8.8.8:&#x2F;home&#x2F;backup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp-x2F-home-x2F-backup-x2F-seoimo-com-20171001-tar-gz-x2F-home-x2F-wwwroot"><span class="nav-number">115.</span> <span class="nav-text">cp &#x2F;home&#x2F;backup&#x2F;seoimo.com-20171001.tar.gz &#x2F;home&#x2F;wwwroot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-wwwroot-1"><span class="nav-number">116.</span> <span class="nav-text">cd &#x2F;home&#x2F;wwwroot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar-zxf-seoimo-com-20171001-tar-gz"><span class="nav-number">117.</span> <span class="nav-text">tar -zxf seoimo.com-20171001.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm-rf-seoimo-com-20171001-tar-gz"><span class="nav-number">118.</span> <span class="nav-text">rm -rf seoimo.com-20171001.tar.gz</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-R-755-x2F-home-x2F-wwwroot-x2F-seoimo-com"><span class="nav-number">119.</span> <span class="nav-text">chmod -R 755 &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown-R-www-x2F-home-x2F-wwwroot-x2F-seoimo-com"><span class="nav-number">120.</span> <span class="nav-text">chown -R www &#x2F;home&#x2F;wwwroot&#x2F;seoimo.com</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-x2F-home-x2F-backup-2"><span class="nav-number">121.</span> <span class="nav-text">cd &#x2F;home&#x2F;backup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ls-1"><span class="nav-number">122.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-uroot-p-sjk-seoimo-lt-sjk-seoimo-20171001-sql"><span class="nav-number">123.</span> <span class="nav-text">mysql -uroot -p sjk_seoimo &lt; sjk_seoimo-20171001.sql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Name-WP-Migration-by-SEOIMO"><span class="nav-number">124.</span> <span class="nav-text">Name: WP-Migration by SEOIMO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-https-www-seoimo-com-wordpress-vps"><span class="nav-number">125.</span> <span class="nav-text">Link: https:&#x2F;&#x2F;www.seoimo.com&#x2F;wordpress-vps&#x2F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Date-2018-03-01"><span class="nav-number">126.</span> <span class="nav-text">Date: 2018-03-01</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-%E8%AE%B0%E5%BD%95%E7%A8%8B%E5%BA%8F%E8%B5%B7%E5%A7%8B%E6%97%B6%E9%97%B4"><span class="nav-number">127.</span> <span class="nav-text">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# 记录程序起始时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2lnmp"><span class="nav-number">128.</span> <span class="nav-text">停止lnmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%97%A7%E7%9A%84VPS%E5%9C%B0%E5%9D%80%E5%92%8C%E7%AB%AF%E5%8F%A3"><span class="nav-number">129.</span> <span class="nav-text">输入旧的VPS地址和端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E6%97%A7%E7%9A%84VPS%E4%B8%8A%E6%B7%BB%E5%8A%A0%E7%9A%84-%E6%89%80%E6%9C%89-%E7%BD%91%E7%AB%99-x2F-%E5%9F%9F%E5%90%8D%EF%BC%88%E5%BD%A2%E5%A6%82%EF%BC%9Axxx-com%EF%BC%89"><span class="nav-number">130.</span> <span class="nav-text">迁移旧的VPS上添加的[所有]网站&#x2F;域名（形如：xxx.com）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E7%BD%91%E7%AB%99%E6%9D%83%E9%99%90"><span class="nav-number">131.</span> <span class="nav-text">更改网站权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E6%97%A7%E7%9A%84VPS%E4%B8%8A%E6%B7%BB%E5%8A%A0%E7%9A%84-%E6%89%80%E6%9C%89-%E7%BD%91%E7%AB%99%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E5%85%88%E5%A4%87%E4%BB%BD%E6%9C%AC%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89"><span class="nav-number">132.</span> <span class="nav-text">迁移旧的VPS上添加的[所有]网站的数据库（先备份本机数据库）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9D%83%E9%99%90"><span class="nav-number">133.</span> <span class="nav-text">更改数据库权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E6%97%A7%E7%9A%84VPS%E4%B8%8AApache%E4%B8%AD%E7%BB%91%E5%AE%9A%E7%9A%84-%E6%89%80%E6%9C%89-%E5%9F%9F%E5%90%8D%E8%AE%BE%E7%BD%AE%EF%BC%88%E5%85%88%E5%A4%87%E4%BB%BD%E6%9C%AC%E6%9C%BA%E5%9F%9F%E5%90%8D%E8%AE%BE%E7%BD%AE%EF%BC%89"><span class="nav-number">134.</span> <span class="nav-text">迁移旧的VPS上Apache中绑定的[所有]域名设置（先备份本机域名设置）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A7%E7%9A%84VPS%E4%B8%8A%E7%BD%91%E7%AB%99%E6%98%AF%E5%90%A6%E5%90%AF%E7%94%A8%E4%BA%86Let%E2%80%99s-Encrypt%E5%85%8D%E8%B4%B9%E7%9A%84SSL%E8%AF%81%E4%B9%A6"><span class="nav-number">135.</span> <span class="nav-text">旧的VPS上网站是否启用了Let’s Encrypt免费的SSL证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%90%AFlnmp"><span class="nav-number">136.</span> <span class="nav-text">重启lnmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%A8%8B%E5%BA%8F%E8%80%97%E6%97%B6%E5%B9%B6%E8%BE%93%E5%87%BA"><span class="nav-number">137.</span> <span class="nav-text">计算程序耗时并输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%80%E5%87%BA"><span class="nav-number">138.</span> <span class="nav-text">退出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-amp-amp-wget-https-www-seoimo-com-wp-content-shells-wp-migration-sh"><span class="nav-number">139.</span> <span class="nav-text">cd ~ &amp;&amp; wget https:&#x2F;&#x2F;www.seoimo.com&#x2F;wp-content&#x2F;shells&#x2F;wp-migration.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-x-wp-migration-sh-amp-amp-x2F-wp-migration-sh"><span class="nav-number">140.</span> <span class="nav-text">chmod +x wp-migration.sh &amp;&amp; .&#x2F;wp-migration.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lnmp-ssl-add"><span class="nav-number">141.</span> <span class="nav-text">lnmp ssl add</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-amp-amp-wget-https-www-seoimo-com-wp-content-shells-cert-symlink-sh"><span class="nav-number">142.</span> <span class="nav-text">cd ~ &amp;&amp; wget https:&#x2F;&#x2F;www.seoimo.com&#x2F;wp-content&#x2F;shells&#x2F;cert-symlink.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod-x-cert-symlink-sh-amp-amp-x2F-cert-symlink-sh"><span class="nav-number">143.</span> <span class="nav-text">chmod +x cert-symlink.sh &amp;&amp; .&#x2F;cert-symlink.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x2F-bin-x2F-certbot-renew-%E2%80%93renew-by-default-%E2%80%93disable-hook-validation-%E2%80%93renew-hook-%E2%80%9C-x2F-etc-x2F-init-d-x2F-httpd-restart%E2%80%9D"><span class="nav-number">144.</span> <span class="nav-text">&#x2F;bin&#x2F;certbot renew –renew-by-default –disable-hook-validation –renew-hook “&#x2F;etc&#x2F;init.d&#x2F;httpd restart”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Name-Cert-Symlink-by-SEOIMO"><span class="nav-number">145.</span> <span class="nav-text">Name: Cert-Symlink by SEOIMO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Link-https-www-seoimo-com-wordpress-vps-1"><span class="nav-number">146.</span> <span class="nav-text">Link: https:&#x2F;&#x2F;www.seoimo.com&#x2F;wordpress-vps&#x2F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Date-2018-03-01-1"><span class="nav-number">147.</span> <span class="nav-text">Date: 2018-03-01</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-x3D-%E8%AE%B0%E5%BD%95%E7%A8%8B%E5%BA%8F%E8%B5%B7%E5%A7%8B%E6%97%B6%E9%97%B4-1"><span class="nav-number">148.</span> <span class="nav-text">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# 记录程序起始时间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E9%87%8D%E5%BB%BASymlink%E9%93%BE%E6%8E%A5%E7%9A%84%E7%BD%91%E7%AB%99-x2F-%E5%9F%9F%E5%90%8D%EF%BC%88%E5%BD%A2%E5%A6%82%EF%BC%9Axxx-com%EF%BC%89"><span class="nav-number">149.</span> <span class="nav-text">输入重建Symlink链接的网站&#x2F;域名（形如：xxx.com）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%BB%BASymlink%E9%93%BE%E6%8E%A5"><span class="nav-number">150.</span> <span class="nav-text">重建Symlink链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%A8%8B%E5%BA%8F%E8%80%97%E6%97%B6%E5%B9%B6%E8%BE%93%E5%87%BA-1"><span class="nav-number">151.</span> <span class="nav-text">计算程序耗时并输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%80%E5%87%BA-1"><span class="nav-number">152.</span> <span class="nav-text">退出</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xmp2008</p>
+  <div class="site-description" itemprop="description">后端程序猿一枚,记录日常。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/xmp-blog/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/xmp-blog/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/xmp-blog/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xmp2008</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">233k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xmp-blog/lib/anime.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/xmp-blog/js/utils.js"></script>
+
+<script src="/xmp-blog/js/motion.js"></script>
+
+
+<script src="/xmp-blog/js/schemes/muse.js"></script>
+
+
+<script src="/xmp-blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

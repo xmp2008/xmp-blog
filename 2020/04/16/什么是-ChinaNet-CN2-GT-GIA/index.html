@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/xmp-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/xmp-blog/css/main.css">
+
+
+<link rel="stylesheet" href="/xmp-blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xmp2008.github.io","root":"/xmp-blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="什么是 ChinaNet,CN2,GT,GIA?前言本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，ChinaNet，CN2，CN2 GT，CN2 GIA 等线路。  **转载自老鬼的博客** 原文链接: &lt;https:&#x2F;&#x2F;www.oldkin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是 ChinaNet,CN2,GT,GIA">
+<meta property="og:url" content="https://xmp2008.github.io/xmp-blog/2020/04/16/%E4%BB%80%E4%B9%88%E6%98%AF-ChinaNet-CN2-GT-GIA/index.html">
+<meta property="og:site_name" content="xmp2008的博客">
+<meta property="og:description" content="什么是 ChinaNet,CN2,GT,GIA?前言本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，ChinaNet，CN2，CN2 GT，CN2 GIA 等线路。  **转载自老鬼的博客** 原文链接: &lt;https:&#x2F;&#x2F;www.oldkin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.14.34.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/pidetail12.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.27.30.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.24.17.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.32.55.png?w=680">
+<meta property="og:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.20.23.png?w=680">
+<meta property="article:published_time" content="2020-04-16T10:07:19.000Z">
+<meta property="article:modified_time" content="2023-05-24T02:35:07.546Z">
+<meta property="article:author" content="xmp2008">
+<meta property="article:tag" content="vps">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.14.34.png?w=680">
+
+<link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2020/04/16/%E4%BB%80%E4%B9%88%E6%98%AF-ChinaNet-CN2-GT-GIA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {
+	  background: #1E92FB; /*进度条颜色*/
+	  height: 3px;
+  }
+  .pace .pace-progress-inner {
+	   box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+  }
+  .pace .pace-activity {
+	  border-top-color: #1E92FB;    /*上边框颜色*/
+	  border-left-color: #1E92FB;    /*左边框颜色*/
+  }
+</style>
+
+  <title>什么是 ChinaNet,CN2,GT,GIA | xmp2008的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/xmp-blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">xmp2008的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">三十而立，自强不息</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/xmp-blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/xmp-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/2020/04/16/%E4%BB%80%E4%B9%88%E6%98%AF-ChinaNet-CN2-GT-GIA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/xmp-blog/images/avatar.gif">
+      <meta itemprop="name" content="xmp2008">
+      <meta itemprop="description" content="后端程序猿一枚,记录日常。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xmp2008的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什么是 ChinaNet,CN2,GT,GIA
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-16 18:07:19" itemprop="dateCreated datePublished" datetime="2020-04-16T18:07:19+08:00">2020-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 10:35:07" itemprop="dateModified" datetime="2023-05-24T10:35:07+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xmp-blog/categories/vps/" itemprop="url" rel="index"><span itemprop="name">vps</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="什么是-ChinaNet-CN2-GT-GIA"><a href="#什么是-ChinaNet-CN2-GT-GIA" class="headerlink" title="什么是 ChinaNet,CN2,GT,GIA?"></a>什么是 ChinaNet,CN2,GT,GIA?</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文讲从几个方面去讲述中国电信出口网络的情况，阅读本文后让读者对使用中国电信连接海外网络中常用的术语与基本知识有一个大致的了解，以及当读者在购买国外高质量主机的时候，有个基本的链路判断，怎么去分辨，<a target="_blank" rel="noopener" href="https://www.oldking.net/tag/chinanet/">ChinaNet</a>，<a target="_blank" rel="noopener" href="https://www.oldking.net/tag/cn2/">CN2</a>，<a target="_blank" rel="noopener" href="https://www.oldking.net/tag/cn2-gt/">CN2 GT</a>，<a target="_blank" rel="noopener" href="https://www.oldking.net/tag/cn2-gia/">CN2 GIA</a> 等线路。</p>
+<blockquote>
+<pre><code>**转载自老鬼的博客** 原文链接: &lt;https://www.oldking.net/751.html#%E5%88%86%E7%B1%BB&gt;
+</code></pre>
+</blockquote>
+<span id="more"></span>
+<h2 id="1、基本"><a href="#1、基本" class="headerlink" title="1、基本"></a>1、基本</h2><p>中国电信(China Telecom)，是中国最大的互联服务提供商，截止2018年1月，中国电信的总出口带宽数为 3.6 Tbps，为互联网用户提供高速稳定的全中国资源访问服务。目前，中国电信骨干网的三大国际出口分别是，北京，上海，广州，全国的出口网络最后都会汇集到这三个出口点。</p>
+<h2 id="2、分类"><a href="#2、分类" class="headerlink" title="2、分类"></a>2、分类</h2><h3 id="ChinaNet"><a href="#ChinaNet" class="headerlink" title="ChinaNet"></a>ChinaNet</h3><p>全球最大的中文资源互联网络 ChinaNet，也叫 163 骨干网，AS4134，要纠正的一点是，很多人缪传一个”CN1”的叫法，这是毫无根据的，Chinatelecom Next Carrier Network，简称 CNCN，再简化为 CN2，CN1 这种叫法可能是看着 CN2 类比出来的，但是官方没有过这种叫法。但如果看到这种说法，你可能知道说的是 ChinaNet 也叫 163 网络。ChinaNet 为超过 8000 万宽带用户服务，同时向全球用户提供超过70%的中文网站的中文互联网资讯。绝大部分的出口带宽都是这种网络，ChinaNet 主要定位于承载普通质量的互联网业务，因为他基建早，带宽大，且足够便宜。<br>我们来用 Traceroute 路由表来看一下走 163 网络的出口路由情况。</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.14.34.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">ChinaNet</p>
+<p>可以看到无论是从出发地点到省级接口，省级接口到上海海外出口，然后到美国，走的都是 AS4134，ChinaNet 网络。</p>
+<h3 id="Chinatelecom-Next-Carrier-Network-CN2"><a href="#Chinatelecom-Next-Carrier-Network-CN2" class="headerlink" title="Chinatelecom Next Carrier Network(CN2)"></a>Chinatelecom Next Carrier Network(CN2)</h3><p>CN2，即是 ChinaNet 之后由中国电信发展的下一代承载网，AS4809，主要是为了提供更高质量要求的中国电信骨干承载网络而建立的工程。运营全球互联网转接服务，能够实现欧洲、北美和亚洲之间高速、大容量、安全、稳定转接服务。CN2 相比较 163 网络，带宽小得多，小是相对的因为相对受众少，但稳定高速，定位于承载企业级别的 VPN 业务，常用于政府，企业，金融类、游戏类等对延时敏感的业务。它提供更高质量的网络服务，接入 CN2 网络价格普遍要比 ChinaNet 贵上许多。</p>
+<p>下图为 2016 年由中国电信国际有限公司官网提供的全球 CN2 接入点</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/pidetail12.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_Nodes</p>
+<p>下图为截止 2018 年 8 月中国电信国际有限公司官网提供的全球 GIS 接入点</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-18.27.30.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">GIS_Nodes</p>
+<p>可以看到中国大陆有四个出口点，北上广三个，另外还有一个乌鲁木齐，比较少见的哈塞克斯坦 CN2 网络，走的就是乌鲁木齐出口，即使这个也会先走北上广三个点，再跳到乌鲁木齐出口。<br>CN2 上又有很多的产品，主要包括 CN2 GT，CN2 GIA 两类。这里是否叫 CN2 GT 和 CN2 GIA 待考证，因为之前还流行叫半程 CN2，和全程 CN2 的叫法，可以肯定的是有两种运行在 CN2 的服务，一种价格便宜省级骨干走163，出口才走 CN2，一种价格昂贵全程走 CN2，目前主机圈主流叫法 CN2 GT 和 CN2 GIA。另外还有单程双程是另外一种分类，后面讲。</p>
+<h4 id="CN2-GT"><a href="#CN2-GT" class="headerlink" title="CN2 GT"></a>CN2 GT</h4><p>GT 英文是 Global Transit，为全球客户提供访问全球互联网资源的转接服务。提供给全球的通讯运营商，截止目前，中国电信已经与国际Tier1&#x2F;2 运营商以及主流OTT建立超过5000G的互联带宽，本身接入网络是 ChinaNet(AS4134)，但是直连中国电信 CN2(AS4809) 的一个服务。CN2 GT 中国国际出口拥有自己的单独线路，但是在国内的链路还是使用的 163 骨干网络。</p>
+<h4 id="CN2-GIA"><a href="#CN2-GIA" class="headerlink" title="CN2 GIA"></a>CN2 GIA</h4><p>GIA 英文是 Global Internet Access，为企业客户提供优质的中国方向互联网专线接入服务，注意 GIA 专指与中国的专线服务。主要是提供给企业的优质网络，本身接入网络 CN2(AS4809)，出口全程 CN2(AS4809) 路由，国际网路高速稳定链接中国内地网络。这种带宽的质量应当是电信网络最好的，但是缺点也比较明显，整个 GIA 的出口带宽较小，在较大流量攻击的时候更容易导致整个 GIA 下的网络波动。GIA 的主要优势是回国有单独的线路，高优先级，高质量，但接入价格较贵。</p>
+<h4 id="单程（单向）-CN2"><a href="#单程（单向）-CN2" class="headerlink" title="单程（单向） CN2"></a>单程（单向） CN2</h4><p>我们知道，路由是双向的，去和回，单程 CN2 就是指，只有一边的走 CN2，另一边走的其他的网络。可能有两种情况</p>
+<ul>
+<li>去程 CN2，回程 ChinaNet。这种情况常见，主要是很多主机商拿来打 CN2 广告的噱头，CN2 去程能够很容易被评测出来。但其实，去程 CN2 并没有什么太大作用只是减小去了去的时延，因为我们知道在普通用户的网络访问情况中，回来的流量要比去的要大得多，单程 CN2 要便宜一些，因为流量使用的少，比纯 ChinaNet 算下来还是要贵一点，有点鸡肋的感觉，弃之可惜，食之无味。</li>
+<li>去程 ChinaNet，回程 CN2。这也是一种组合的单程 CN2，这种情况，主要是为了兼顾抗 DDoS，速度和价格三方面，纯 CN2 网络相对脆弱，遭遇量大的 DDoS 后，很快就会把链路占满，造成出口拥塞（CN2 链路遭遇大量 DDoS 攻击时也会自动切到 163 网络）。163 网络带宽容量大，从中国内地出去的出去的攻击能够被很好的承载，而回程又走 CN2 线路，加快速度。普遍上，单程回 CN2，比单程去 CN2 花费高，因为回程的量在互联网服务中占多数。这种情况下，是综合抗DDoS（如果有），速度，价格的折中的最优解，适合容易遭受攻击，且需要速度的需求，当然最好的当然还是双程的。</li>
+</ul>
+<h4 id="双程（双向）-CN2"><a href="#双程（双向）-CN2" class="headerlink" title="双程（双向） CN2"></a>双程（双向） CN2</h4><p>去程回程都走 CN2 网络。其中包含 CN2 GT 和 CN2 GIA。</p>
+<p>单程同理，包含 CN2 GT 和 CN2 GIA 两种。</p>
+<h4 id="CN2-延迟排序"><a href="#CN2-延迟排序" class="headerlink" title="CN2 延迟排序"></a>CN2 延迟排序</h4><p>根据中国电信国际有限公司官网数据提供的 2018 年 5，6，7 月三个月的 CN2 质量平均情况（未知端点城市，看着像上海，也可能是几个城市平均下来的数据），理论上可看作为最佳情况下，常见 CN2 节点城市与中国连接延迟排序（ms）</p>
+<table>
+<thead>
+<tr>
+<th>香港</th>
+<th>首尔</th>
+<th>东京</th>
+<th>新加坡</th>
+<th>莫斯科</th>
+<th>圣何塞</th>
+<th>洛杉矶</th>
+<th>法兰克福</th>
+<th>西雅图</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>28.27</td>
+<td>60.37</td>
+<td>67.32</td>
+<td>67.65</td>
+<td>134.78</td>
+<td>166.44</td>
+<td>175.62</td>
+<td>180.65</td>
+<td>185.47</td>
+</tr>
+</tbody></table>
+<h4 id="怎么判断-CN2-GT-和-CN2-GIA"><a href="#怎么判断-CN2-GT-和-CN2-GIA" class="headerlink" title="怎么判断 CN2 GT 和 CN2 GIA"></a>怎么判断 CN2 GT 和 CN2 GIA</h4><p>无论接入的是 GT CN2 还是 GIA CN2，都保证国家与国家之间的传输在 CN2 骨干网内进行，路由中有 ip 开头为 59.43.*，AS4809，首先即判断有一段为 CN2 网络。CN2 上承载了两个较为常见的套餐，那怎么判断是哪一种呢，我们来分析几种特殊情况。</p>
+<ul>
+<li>CN2 GT 的省级出口为 202.97 节点（163骨干网节点），在跨境时才进入 CN2 骨干网，国际跨境节点为 59.43 开头。即使处在 CN2 节点城市，如上海，也会先走 202.97 节点。以此类推其他城市，不再列出。可见目前所有的 CN2 GT 路由都会有 202.97 开头的 ip</li>
+</ul>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.24.17.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_GT_Shanghai</p>
+<ul>
+<li><p>CN2 GIA 在部署开通有 CN2 节点的省份城市接入该省的省级 CN2 节点，在暂未部署 CN2 节点的省份城市则就近接入北上广节点。(此点不够严谨，特例情况除外，详情看评论区，感谢</p>
+<p>Test IP</p>
+<p> 指出)</p>
+<ul>
+<li>本省有 CN2，但非节点城市，如江苏镇江，经南京 202.97 节点进入江苏南京 CN2 节点，最后进入广州 CN2 出口节点。</li>
+<li>本省无 CN2，如重庆，经过重庆 163 节点，进入广州 202.97 节点，然后接入广州 CN2 节点</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.32.55.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_GIA_Zhenjiang</p>
+<p><img src="https://static.oldking.net/wp-content/uploads/2018/12/Screen-Shot-2018-08-14-at-04.20.23.png?w=680" alt="浅谈中国电信出口网络的链路情况（什么是 ChinaNet,CN2,GT,GIA）">CN2_GIA_Chongqing</p>
+<ul>
+<li>所以这两种情况虽然是 CN2 GIA 但也会先走 202.97，而如果是在上海和其他 CN2 节点城市，这种情况下的 GIA 才不会有 202.97 出现。所以有的说法里面讲有 202.97 就是 CN2 GT 的这个观点，是错误的。</li>
+<li>截止目前，我所知的国内走 CN2 节点城市有，成都，南京，西安，武汉，乌鲁木齐，广州，上海，北京。</li>
+<li>了解了以上知识点之后，最简单判断 GT 还是 GIA 的方法，直接用上海电信 traceroute，有 59.43 先是 CN2，再无 202.97 即为 GIA。</li>
+<li>（2019年补充，由上可知，GIA 会经过省级 CN2 节点，根据查询到的资料，59.43.80.* 这些 IP 都是省级CN2的处理节点，也就是说，如果你的路由表里面出现了这个 IP 那么就是GIA，这是一种方便的判断 CN2 GIA 的方法）</li>
+</ul>
+<h2 id="3、其他"><a href="#3、其他" class="headerlink" title="3、其他"></a>3、其他</h2><h3 id="补充一"><a href="#补充一" class="headerlink" title="补充一"></a>补充一</h3><p>这里要分清的一点是，ChinaNet 和 CN2 是骨干网的分类，而以下四个则是，中国电信提供的国际互联网服务 Global Internet Services（GIS）下的四个产品，具体不细说了，有兴趣自查。所以说 CN2 GT 和 CN2 GIA 可以理解为运行在 CN2 承载网上的 GT 或 GIA 服务。</p>
+<p>以下四段摘自中国电信国际有限公司官网，GIS 产品介绍。</p>
+<h4 id="Global-Transit（GT）"><a href="#Global-Transit（GT）" class="headerlink" title="Global Transit（GT）"></a>Global Transit（GT）</h4><p>为全球客户提供访问全球互联网资源的转接服务。</p>
+<h4 id="Global-Internet-Access-GIA"><a href="#Global-Internet-Access-GIA" class="headerlink" title="Global Internet Access(GIA)"></a>Global Internet Access(GIA)</h4><p>为企业客户提供优质的中国方向互联网专线接入服务。</p>
+<h4 id="ChinaNet-Paid-Peer"><a href="#ChinaNet-Paid-Peer" class="headerlink" title="ChinaNet Paid-Peer"></a>ChinaNet Paid-Peer</h4><p>为全世界运营商和OTT用户提供中国电信中文互联网资源的最短路由接入服务。</p>
+<h4 id="China-Access"><a href="#China-Access" class="headerlink" title="China Access"></a>China Access</h4><p>为全球客户提供一站式的中文互联网资源接入服务。</p>
+<h3 id="补充二"><a href="#补充二" class="headerlink" title="补充二"></a>补充二</h3><p>无论什么网络，路由都不是固定，路由是时刻动态的，随时会变，这个变，由你自身（比如本地精品网络CN2用户），或者你连接的网络（比如提供CN2的服务器）与通信提供商签约的合同而定，也由网络容量，稳定情况而定。</p>
+<h2 id="4、最后"><a href="#4、最后" class="headerlink" title="4、最后"></a>4、最后</h2><p>中国电信的出口网络，依然是占中国出口网络带宽的几乎一半之多，但是使用人数也是最多的，从使用情况经验上来看，呈现高峰明显拥堵，低峰充足。</p>
+
+    </div>
+
+    
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart-o"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/xmp-blog/tags/vps/" rel="tag"># vps</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2019/03/15/springboot%E7%BB%93%E5%90%88redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%E6%A0%A1%E9%AA%8C/" rel="prev" title="springboot结合redis实现登录验证码校验">
+      <i class="fa fa-chevron-left"></i> springboot结合redis实现登录验证码校验
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2021/03/05/7%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E5%92%8C23%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="7大设计原则和23种设计模式">
+      7大设计原则和23种设计模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-ChinaNet-CN2-GT-GIA"><span class="nav-number">1.</span> <span class="nav-text">什么是 ChinaNet,CN2,GT,GIA?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%9F%BA%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">1、基本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">2、分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ChinaNet"><span class="nav-number">1.3.1.</span> <span class="nav-text">ChinaNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chinatelecom-Next-Carrier-Network-CN2"><span class="nav-number">1.3.2.</span> <span class="nav-text">Chinatelecom Next Carrier Network(CN2)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CN2-GT"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">CN2 GT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CN2-GIA"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">CN2 GIA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E7%A8%8B%EF%BC%88%E5%8D%95%E5%90%91%EF%BC%89-CN2"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">单程（单向） CN2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E7%A8%8B%EF%BC%88%E5%8F%8C%E5%90%91%EF%BC%89-CN2"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">双程（双向） CN2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CN2-%E5%BB%B6%E8%BF%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">CN2 延迟排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD-CN2-GT-%E5%92%8C-CN2-GIA"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">怎么判断 CN2 GT 和 CN2 GIA</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%85%B6%E4%BB%96"><span class="nav-number">1.4.</span> <span class="nav-text">3、其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E4%B8%80"><span class="nav-number">1.4.1.</span> <span class="nav-text">补充一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Global-Transit%EF%BC%88GT%EF%BC%89"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Global Transit（GT）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Global-Internet-Access-GIA"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">Global Internet Access(GIA)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ChinaNet-Paid-Peer"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">ChinaNet Paid-Peer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#China-Access"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">China Access</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E4%BA%8C"><span class="nav-number">1.4.2.</span> <span class="nav-text">补充二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%9C%80%E5%90%8E"><span class="nav-number">1.5.</span> <span class="nav-text">4、最后</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xmp2008</p>
+  <div class="site-description" itemprop="description">后端程序猿一枚,记录日常。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/xmp-blog/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/xmp-blog/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/xmp-blog/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xmp2008</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">233k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xmp-blog/lib/anime.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/xmp-blog/js/utils.js"></script>
+
+<script src="/xmp-blog/js/motion.js"></script>
+
+
+<script src="/xmp-blog/js/schemes/muse.js"></script>
+
+
+<script src="/xmp-blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

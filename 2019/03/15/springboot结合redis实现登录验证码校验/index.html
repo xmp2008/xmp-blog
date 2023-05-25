@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/xmp-blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/xmp-blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/xmp-blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/xmp-blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/xmp-blog/css/main.css">
+
+
+<link rel="stylesheet" href="/xmp-blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xmp2008.github.io","root":"/xmp-blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1.添加redis和第三方验证码库1234567891011 &lt;dependencies&gt;    &lt;dependency&gt;         &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;         &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot结合redis实现登录验证码校验">
+<meta property="og:url" content="https://xmp2008.github.io/xmp-blog/2019/03/15/springboot%E7%BB%93%E5%90%88redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%E6%A0%A1%E9%AA%8C/index.html">
+<meta property="og:site_name" content="xmp2008的博客">
+<meta property="og:description" content="1.添加redis和第三方验证码库1234567891011 &lt;dependencies&gt;    &lt;dependency&gt;         &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;         &lt;artifactId&gt;spring-boot-starter-data-redis&lt;&#x2F;a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xmp123.top/wp-content/uploads/2019/02/1551318120812.png">
+<meta property="og:image" content="http://xmp123.top/wp-content/uploads/2019/02/1551317699823.png">
+<meta property="og:image" content="http://xmp123.top/wp-content/uploads/2019/02/1551317722565.png">
+<meta property="og:image" content="http://xmp123.top/wp-content/uploads/2019/02/1551317919233.png">
+<meta property="article:published_time" content="2019-03-15T11:12:50.000Z">
+<meta property="article:modified_time" content="2023-05-24T02:35:07.545Z">
+<meta property="article:author" content="xmp2008">
+<meta property="article:tag" content="Springboot">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xmp123.top/wp-content/uploads/2019/02/1551318120812.png">
+
+<link rel="canonical" href="https://xmp2008.github.io/xmp-blog/2019/03/15/springboot%E7%BB%93%E5%90%88redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%E6%A0%A1%E9%AA%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+  .pace .pace-progress {
+	  background: #1E92FB; /*进度条颜色*/
+	  height: 3px;
+  }
+  .pace .pace-progress-inner {
+	   box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+  }
+  .pace .pace-activity {
+	  border-top-color: #1E92FB;    /*上边框颜色*/
+	  border-left-color: #1E92FB;    /*左边框颜色*/
+  }
+</style>
+
+  <title>springboot结合redis实现登录验证码校验 | xmp2008的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/xmp-blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">xmp2008的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">三十而立，自强不息</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/xmp-blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/xmp-blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xmp2008.github.io/xmp-blog/2019/03/15/springboot%E7%BB%93%E5%90%88redis%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81%E7%A0%81%E6%A0%A1%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/xmp-blog/images/avatar.gif">
+      <meta itemprop="name" content="xmp2008">
+      <meta itemprop="description" content="后端程序猿一枚,记录日常。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xmp2008的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          springboot结合redis实现登录验证码校验
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-15 19:12:50" itemprop="dateCreated datePublished" datetime="2019-03-15T19:12:50+08:00">2019-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-05-24 10:35:07" itemprop="dateModified" datetime="2023-05-24T10:35:07+08:00">2023-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/xmp-blog/categories/Springboot/" itemprop="url" rel="index"><span itemprop="name">Springboot</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-添加redis和第三方验证码库"><a href="#1-添加redis和第三方验证码库" class="headerlink" title="1.添加redis和第三方验证码库"></a>1.添加redis和第三方验证码库</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.apiclub.tool<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>simplecaptcha<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="2-添加redis配置"><a href="#2-添加redis配置" class="headerlink" title="2.添加redis配置"></a>2.添加redis配置</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#spring</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">4</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">    <span class="attr">timeout:</span> <span class="number">2000</span></span><br><span class="line">    <span class="attr">pool:</span></span><br><span class="line">      <span class="attr">max-idle:</span> <span class="number">8</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">0</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">8</span></span><br><span class="line">      <span class="attr">max-wait:</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-添加redis配置类"><a href="#3-添加redis配置类" class="headerlink" title="3.添加redis配置类"></a>3.添加redis配置类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.RedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.jedis.JedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.StringRedisSerializer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2019/2/26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    JedisConnectionFactory <span class="title function_">jedisConnectionFactory</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">JedisConnectionFactory</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    RedisTemplate&lt;String, String&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, String&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;String, String&gt;();</span><br><span class="line">        template.setConnectionFactory(jedisConnectionFactory());</span><br><span class="line"></span><br><span class="line">        template.setKeySerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>());</span><br><span class="line">        template.setValueSerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>());</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-配置验证码过期时间，宽高"><a href="#4-配置验证码过期时间，宽高" class="headerlink" title="4.配置验证码过期时间，宽高"></a>4.配置验证码过期时间，宽高</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">redis:</span></span><br><span class="line">  <span class="attr">captchaExpires:</span> <span class="number">180</span></span><br><span class="line">  <span class="attr">captchaW:</span> <span class="number">200</span></span><br><span class="line">  <span class="attr">captchaH:</span> <span class="number">60</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.xmp.generator.demo.user.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.apiclub.captcha.Captcha;</span><br><span class="line"><span class="keyword">import</span> cn.apiclub.captcha.backgrounds.GradiatedBackgroundProducer;</span><br><span class="line"><span class="keyword">import</span> cn.apiclub.captcha.gimpy.FishEyeGimpyRenderer;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.UUID;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> xiemopeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2019/2/26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;captcha&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CaptchaModule</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate&lt;String, String&gt; redisTemplate;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;redis.captchaExpires&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> captchaExpires; <span class="comment">//超时时间3min</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;redis.captchaW&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> captchaW; <span class="comment">//验证码宽度</span></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;redis.captchaH&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> captchaH; <span class="comment">//验证码高度</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;getcaptcha&quot;, method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="type">byte</span>[] getCaptcha(HttpServletResponse response) &#123;</span><br><span class="line">        <span class="comment">//生成验证码</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">uuid</span> <span class="operator">=</span> UUID.randomUUID().toString();</span><br><span class="line">        <span class="type">Captcha</span> <span class="variable">captcha</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Captcha</span>.Builder(captchaW, captchaH)</span><br><span class="line">                .addText().addBackground(<span class="keyword">new</span> <span class="title class_">GradiatedBackgroundProducer</span>(Color.red, Color.cyan))</span><br><span class="line">                .gimp(<span class="keyword">new</span> <span class="title class_">FishEyeGimpyRenderer</span>())</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        log.info(<span class="string">&quot;验证码答案:&#123;&#125;&quot;</span>, captcha.getAnswer());</span><br><span class="line">        log.info(<span class="string">&quot;验证码配置:&#123;&#125;,&#123;&#125;,&#123;&#125;&quot;</span>, captchaExpires,captchaW,captchaH);</span><br><span class="line">        <span class="comment">//将验证码以&lt;key,value&gt;形式缓存到redis</span></span><br><span class="line">        redisTemplate.opsForValue().set(uuid, captcha.getAnswer(), captchaExpires, TimeUnit.SECONDS);</span><br><span class="line">        <span class="comment">//将验证码key，及验证码的图片返回</span></span><br><span class="line">        <span class="type">Cookie</span> <span class="variable">cookie</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cookie</span>(<span class="string">&quot;CaptchaCode&quot;</span>, uuid);</span><br><span class="line">        response.addCookie(cookie);</span><br><span class="line">        <span class="type">ByteArrayOutputStream</span> <span class="variable">bao</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ImageIO.write(captcha.getImage(), <span class="string">&quot;png&quot;</span>, bao);</span><br><span class="line">            <span class="keyword">return</span> bao.toByteArray();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            log.info(<span class="string">&quot;获取验证码异常:&#123;&#125;&quot;</span>, e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-修改前面的jwt-token校验逻辑"><a href="#5-修改前面的jwt-token校验逻辑" class="headerlink" title="5.修改前面的jwt-token校验逻辑"></a>5.修改前面的jwt-token校验逻辑</h3><p>在校验token前先校验验证码是否正确</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">package cn.xmp.generator.demo.user.web;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> * &lt;p&gt;</span><br><span class="line"> *</span><br><span class="line"> * @author xiemopeng</span><br><span class="line"> * @since 2019/2/14</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">import cn.xmp.generator.demo.user.config.Audience;</span><br><span class="line">import cn.xmp.generator.demo.user.entity.AppUser;</span><br><span class="line">import cn.xmp.generator.demo.user.enums.ReturnCodeEnum;</span><br><span class="line">import cn.xmp.generator.demo.user.jwt.model.AccessToken;</span><br><span class="line">import cn.xmp.generator.demo.user.jwt.model.LoginPara;</span><br><span class="line">import cn.xmp.generator.demo.user.jwt.utils.JwtHelper;</span><br><span class="line">import cn.xmp.generator.demo.user.model.response.BaseResponse;</span><br><span class="line">import cn.xmp.generator.demo.user.service.IAppUserService;</span><br><span class="line">import cn.xmp.generator.demo.user.utils.BackResponseUtil;</span><br><span class="line">import cn.xmp.generator.demo.user.utils.MyUtils;</span><br><span class="line">import lombok.AllArgsConstructor;</span><br><span class="line">import lombok.extern.slf4j.Slf4j;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.context.annotation.Scope;</span><br><span class="line">import org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line">import org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@Slf4j</span><br><span class="line">@Scope(&quot;prototype&quot;)</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class JsonWebToken &#123;</span><br><span class="line">    private IAppUserService appUserService;</span><br><span class="line"></span><br><span class="line">    private Audience audienceEntity;</span><br><span class="line">    @Autowired</span><br><span class="line">    private RedisTemplate&lt;String, String&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value = &quot;/oauth/token&quot;, method = RequestMethod.POST)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public Object getAccessToken(@RequestBody LoginPara loginPara) &#123;</span><br><span class="line">        BaseResponse response = new BaseResponse();</span><br><span class="line">        log.info(&quot;获取token入参&#123;&#125;&quot;, loginPara);</span><br><span class="line">        try &#123;</span><br><span class="line">            String captchaCode = loginPara.getCaptchaCode();</span><br><span class="line">            try &#123;</span><br><span class="line">                if (captchaCode == null) &#123;</span><br><span class="line">                    response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1005.getCode());</span><br><span class="line">                    response.setMessage(ReturnCodeEnum.CODE_1006.getValue());</span><br><span class="line">                    return response;</span><br><span class="line">                &#125;</span><br><span class="line">                String captchaValue = redisTemplate.opsForValue().get(captchaCode);</span><br><span class="line">                if (captchaValue == null) &#123;</span><br><span class="line">                    response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1005.getCode());</span><br><span class="line">                    response.setMessage(ReturnCodeEnum.CODE_1010.getValue());</span><br><span class="line">                    return response;</span><br><span class="line">                &#125;</span><br><span class="line">                redisTemplate.delete(captchaCode);</span><br><span class="line"></span><br><span class="line">                if (captchaValue.compareTo(loginPara.getCaptchaValue()) != 0) &#123;</span><br><span class="line">                    response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1005.getCode());</span><br><span class="line">                    response.setMessage(ReturnCodeEnum.CODE_1010.getValue());</span><br><span class="line">                    return response;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">                response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1005.getCode());</span><br><span class="line">                response.setMessage(ReturnCodeEnum.CODE_1010.getValue());</span><br><span class="line">                return response;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //验证用户名密码</span><br><span class="line">            AppUser user = new AppUser();</span><br><span class="line">            user.setName(loginPara.getUserName());</span><br><span class="line">            user.setPassword(loginPara.getPassword());</span><br><span class="line">            log.info(&quot;用户登录入参:&#123;&#125;&quot;, user.toString());</span><br><span class="line">            BaseResponse userResponse = appUserService.login(user);</span><br><span class="line">            log.info(&quot;用户登录返回:&#123;&#125;&quot;, userResponse);</span><br><span class="line">            user = (AppUser) userResponse.getDataInfo();</span><br><span class="line">            if (user == null) &#123;</span><br><span class="line">                response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1002.getCode());</span><br><span class="line">                return response;</span><br><span class="line">            &#125;</span><br><span class="line">            //拼装accessToken</span><br><span class="line">            String accessToken = JwtHelper.createJWT(loginPara.getUserName(), String.valueOf(user.getId()),</span><br><span class="line">                    audienceEntity.getClientId(), audienceEntity.getName(),</span><br><span class="line">                    audienceEntity.getExpiresSecond() * 1000, audienceEntity.getBase64Secret());</span><br><span class="line"></span><br><span class="line">            //返回accessToken</span><br><span class="line">            AccessToken accessTokenEntity = new AccessToken();</span><br><span class="line">            accessTokenEntity.setAccess_token(accessToken);</span><br><span class="line">            accessTokenEntity.setExpires_in(audienceEntity.getExpiresSecond());</span><br><span class="line">            accessTokenEntity.setToken_type(&quot;bearer&quot;);</span><br><span class="line">            response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1000.getCode());</span><br><span class="line">            response.setDataInfo(accessTokenEntity);</span><br><span class="line">            log.info(&quot;获取token返回&#123;&#125;&quot;, response);</span><br><span class="line">            return response;</span><br><span class="line"></span><br><span class="line">        &#125; catch (Exception ex) &#123;</span><br><span class="line">            log.info(&quot;获取token异常:&#123;&#125;&quot;, ex);</span><br><span class="line">            response = BackResponseUtil.getBaseResponse(ReturnCodeEnum.CODE_1004.getCode());</span><br><span class="line">        &#125;</span><br><span class="line">        return response;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-测试"><a href="#6-测试" class="headerlink" title="6.测试"></a>6.测试</h3><p>启动redis服务端，本文使用的windows版测试</p>
+<p><img src="http://xmp123.top/wp-content/uploads/2019/02/1551318120812.png" alt="1551318120812"></p>
+<p>获取验证码及cookie</p>
+<p><img src="http://xmp123.top/wp-content/uploads/2019/02/1551317699823.png" alt="1551317699823"><img src="http://xmp123.top/wp-content/uploads/2019/02/1551317722565.png" alt="1551317722565"><br>通过key(cookie)获取验证码校验验证码<br><img src="http://xmp123.top/wp-content/uploads/2019/02/1551317919233.png" alt="1551317919233"></p>
+
+    </div>
+
+    
+    
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart-o"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/xmp-blog/tags/Springboot/" rel="tag"># Springboot</a>
+              <a href="/xmp-blog/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2019/03/15/Springboot-Elasticsearch%E6%95%B4%E5%90%88%E5%AE%9E%E4%BE%8B/" rel="prev" title="Springboot+Elasticsearch整合实例">
+      <i class="fa fa-chevron-left"></i> Springboot+Elasticsearch整合实例
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/xmp-blog/2020/04/16/%E4%BB%80%E4%B9%88%E6%98%AF-ChinaNet-CN2-GT-GIA/" rel="next" title="什么是 ChinaNet,CN2,GT,GIA">
+      什么是 ChinaNet,CN2,GT,GIA <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%B7%BB%E5%8A%A0redis%E5%92%8C%E7%AC%AC%E4%B8%89%E6%96%B9%E9%AA%8C%E8%AF%81%E7%A0%81%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">1.添加redis和第三方验证码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0redis%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">2.添加redis配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B7%BB%E5%8A%A0redis%E9%85%8D%E7%BD%AE%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">3.添加redis配置类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AE%E9%AA%8C%E8%AF%81%E7%A0%81%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%EF%BC%8C%E5%AE%BD%E9%AB%98"><span class="nav-number">4.</span> <span class="nav-text">4.配置验证码过期时间，宽高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%BF%AE%E6%94%B9%E5%89%8D%E9%9D%A2%E7%9A%84jwt-token%E6%A0%A1%E9%AA%8C%E9%80%BB%E8%BE%91"><span class="nav-number">5.</span> <span class="nav-text">5.修改前面的jwt-token校验逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E6%B5%8B%E8%AF%95"><span class="nav-number">6.</span> <span class="nav-text">6.测试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">xmp2008</p>
+  <div class="site-description" itemprop="description">后端程序猿一枚,记录日常。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/xmp-blog/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/xmp-blog/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/xmp-blog/tags/">
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xmp2008</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">233k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:31</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xmp-blog/lib/anime.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.min.js"></script>
+  <script src="/xmp-blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/xmp-blog/js/utils.js"></script>
+
+<script src="/xmp-blog/js/motion.js"></script>
+
+
+<script src="/xmp-blog/js/schemes/muse.js"></script>
+
+
+<script src="/xmp-blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
